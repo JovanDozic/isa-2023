@@ -1,4 +1,4 @@
-﻿namespace MedEquipCentral
+﻿namespace MedEquipCentral.DA.Contracts.Model
 {
     public class Company
     {

@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MedEquipCentral;
+using MedEquipCentral.DA.Contracts.Model;
 
-namespace MedEquipCentral.Data
+namespace MedEquipCentral.DA.Contexts
 {
     public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
-        public DbSet<MedEquipCentral.Company>? Company { get; set; }
+        public DbSet<Company>? Company { get; set; }
     }
 }

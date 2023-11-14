@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace MedEquipCentral.Migrations
+namespace MedEquipCentral.DA.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration
