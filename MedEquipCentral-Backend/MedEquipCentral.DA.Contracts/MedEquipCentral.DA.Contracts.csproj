@@ -9,8 +9,4 @@
     <ItemGroup>
 		<ProjectReference Include="..\MedEquipCentral.BL.Contracts\MedEquipCentral.BL.Contracts.csproj" />
 	</ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="IRepository\" />
-    </ItemGroup>
 </Project>
