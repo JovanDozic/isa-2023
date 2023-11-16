@@ -2,11 +2,6 @@
 using MedEquipCentral.DA.Contracts;
 using MedEquipCentral.DA.Contracts.Model;
 using MedEquipCentral.DA.Contracts.Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MedEquipCentral.BL.Service
 {

@@ -1,10 +1,10 @@
 ﻿#nullable disable
-using MedEquipCentral.DA.Contracts.Shared;
 
-namespace MedEquipCentral.DA.Contracts.Model
+namespace MedEquipCentral.BL.Contracts.DTO
 {
-    public class User : Entity
+    public class UserDto
     {
+        public int Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }

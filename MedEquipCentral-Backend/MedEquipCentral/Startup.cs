@@ -1,9 +1,11 @@
 ﻿using MedEquipCentral.BL.Contracts.IService;
+using MedEquipCentral.BL.Mapper;
 using MedEquipCentral.BL.Service;
 using MedEquipCentral.DA;
 using MedEquipCentral.DA.Contexts;
 using MedEquipCentral.DA.Contracts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MedEquipCentral
 {
@@ -31,11 +33,15 @@ namespace MedEquipCentral
             {
                 options.AddPolicy("_mySpecificOrigins", builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200")
+                    builder.WithOrigins("=http://localhost:4200")
                            .AllowAnyMethod()
                            .AllowAnyHeader();
                 });
             });
+
+            // Mapper configuration:
+            services.AddAutoMapper(typeof(CommonProfile));
+            services.AddAutoMapper(typeof(CompanyProfile));
 
             BindServices(services);
         }
@@ -66,6 +72,7 @@ namespace MedEquipCentral
         {
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICompanyService, CompanyService>();
         }
 
     }
