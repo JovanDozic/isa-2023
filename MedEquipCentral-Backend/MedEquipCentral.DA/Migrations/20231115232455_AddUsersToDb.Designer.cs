@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedEquipCentral.DA.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231115215853_AddUsersTable")]
-    partial class AddUsersTable
+    [Migration("20231115232455_AddUsersToDb")]
+    partial class AddUsersToDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

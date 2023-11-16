@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedEquipCentral.DA.Migrations
 {
     /// <inheritdoc />
-    public partial class AddUsersTable : Migration
+    public partial class AddUsersToDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

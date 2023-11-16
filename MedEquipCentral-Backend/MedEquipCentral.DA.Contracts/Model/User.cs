@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MedEquipCentral.DA.Contracts.Shared;
 
 namespace MedEquipCentral.DA.Contracts.Model
 {

@@ -1,4 +1,4 @@
-﻿namespace MedEquipCentral.DA.Contracts
+﻿namespace MedEquipCentral.DA.Contracts.Shared
 {
     public class Entity
     {
