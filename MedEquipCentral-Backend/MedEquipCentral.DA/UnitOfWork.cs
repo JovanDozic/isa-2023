@@ -2,12 +2,6 @@
 using MedEquipCentral.DA.Contracts;
 using MedEquipCentral.DA.Contracts.IRepository;
 using MedEquipCentral.DA.Repository;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MedEquipCentral.DA
 {
@@ -21,8 +15,9 @@ namespace MedEquipCentral.DA
         }
 
         private IUserRepository UserRepository { get; set; }
+        private ICompanyRepository CompanyRepository { get; set; }
 
-        public void Dispose()
+        public async void Dispose()
         {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
@@ -44,6 +39,11 @@ namespace MedEquipCentral.DA
         public IUserRepository GetUserRepository()
         {
             return UserRepository ?? (UserRepository = new UserRepository(_context));
+        }
+
+        public ICompanyRepository GetCompanyRepository()
+        {
+            return CompanyRepository ?? (CompanyRepository = new CompanyRepository(_context));
         }
     }
 }

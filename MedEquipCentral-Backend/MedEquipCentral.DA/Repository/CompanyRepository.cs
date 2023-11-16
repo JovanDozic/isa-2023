@@ -4,7 +4,7 @@ using MedEquipCentral.DA.Contracts.Model;
 
 namespace MedEquipCentral.DA.Repository
 {
-    public class UserRepository : Repository<User>, IUserRepository
+    public class CompanyRepository : Repository<Company>, ICompanyRepository
     {
 
         public DataContext Context
@@ -12,6 +12,7 @@ namespace MedEquipCentral.DA.Repository
             get { return _dbContext as DataContext; }
         }
 
-        public UserRepository(DataContext context) : base(context) { }
+        public CompanyRepository(DataContext context) : base(context) { }
+
     }
 }
