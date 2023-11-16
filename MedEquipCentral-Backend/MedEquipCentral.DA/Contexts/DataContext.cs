@@ -8,5 +8,6 @@ namespace MedEquipCentral.DA.Contexts
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<Company>? Company { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Location> Locations { get; set; }
     }
 }

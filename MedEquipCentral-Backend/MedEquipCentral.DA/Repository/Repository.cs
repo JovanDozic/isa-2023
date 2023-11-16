@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MedEquipCentral.DA.Repository
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
         protected readonly DbContext _dbContext;
 
@@ -27,6 +27,11 @@ namespace MedEquipCentral.DA.Repository
         public async Task<EntityEntry<TEntity>> Add(TEntity entity)
         {
             return await _dbContext.Set<TEntity>().AddAsync(entity);
+        }
+
+        public async Task<TEntity> GetByIdAsync(int id)
+        {
+            return await _dbContext.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

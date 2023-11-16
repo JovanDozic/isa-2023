@@ -4,11 +4,11 @@ using MedEquipCentral.DA.Contracts.Model;
 
 namespace MedEquipCentral.BL.Mapper
 {
-    public class CommonProfile : Profile
+    public class UserProfile : Profile
     {
-        public CommonProfile()
-        {
-            CreateMap<LocationDto, Location>().ReverseMap();
+        public UserProfile() 
+        { 
+            CreateMap<UserDto, User>().ReverseMap();
         }
     }
 }

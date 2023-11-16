@@ -1,5 +1,6 @@
 ﻿#nullable disable
 
+using MedEquipCentral.DA.Contracts.Model;
 using MedEquipCentral.DA.Contracts.Shared;
 
 namespace MedEquipCentral.DA.Contracts.Model

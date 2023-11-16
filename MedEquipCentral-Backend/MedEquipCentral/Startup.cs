@@ -42,6 +42,7 @@ namespace MedEquipCentral
             // Mapper configuration:
             services.AddAutoMapper(typeof(CommonProfile));
             services.AddAutoMapper(typeof(CompanyProfile));
+            services.AddAutoMapper(typeof(UserProfile));
 
             BindServices(services);
         }
