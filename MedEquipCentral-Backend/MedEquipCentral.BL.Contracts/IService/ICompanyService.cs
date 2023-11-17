@@ -7,7 +7,8 @@ namespace MedEquipCentral.BL.Contracts.IService
     {
         public Task<CompanyDto> Add(CompanyDto company);
         public IEnumerable<CompanyDto> GetAll();
-        public Task<CompanyDto> Update(CompanyDto companyDto);
         Task<PagedResult<CompanyDto>> Search(CompanyPagedIn dataIn);
+        Task<CompanyDto> GetById(int id);
+        Task<CompanyDto> Update(CompanyDto companyDto);
     }
 }

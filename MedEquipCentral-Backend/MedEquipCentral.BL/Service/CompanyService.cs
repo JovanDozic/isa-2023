@@ -42,6 +42,12 @@ namespace MedEquipCentral.BL.Service
                 result = returnDto,
             };
         }
+        public async Task<CompanyDto> GetById(int id)
+        {
+            var company = await _unitOfWork.GetCompanyRepository().GetByIdAsync(id);
+            var companyDto = _mapper.Map<CompanyDto>(company);
+            return companyDto;
+        }
 
         public async Task<CompanyDto> Update(CompanyDto companyDto)
         {

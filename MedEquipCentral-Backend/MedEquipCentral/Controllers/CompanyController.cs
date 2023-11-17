@@ -21,10 +21,16 @@ namespace MedEquipCentral.Controllers
             return _companyService.GetAll();
         }
 
-        [HttpPut]
-        public Task<CompanyDto> Update([FromBody] CompanyDto companyDto)
+        [HttpGet("getById/{id}")]
+        public async Task<CompanyDto> GetByIdAsync(int id)
         {
-            return _companyService.Update(companyDto);
+            return await _companyService.GetById(id);
+        }
+
+        [HttpPut]
+        public async Task<CompanyDto> Update([FromBody] CompanyDto companyDto)
+        {
+            return await _companyService.Update(companyDto);
         }
 
         [HttpPost]
