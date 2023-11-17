@@ -12,7 +12,7 @@ namespace MedEquipCentral.DA.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
-        protected readonly DbContext _dbContext;
+        public readonly DbContext _dbContext;
 
         public Repository(DbContext dbContext)
         {

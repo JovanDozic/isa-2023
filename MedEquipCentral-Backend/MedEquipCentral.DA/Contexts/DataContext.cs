@@ -9,5 +9,13 @@ namespace MedEquipCentral.DA.Contexts
         public DbSet<Company>? Company { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Location> Locations { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Company>()
+                .HasOne(c => c.Location)
+                .WithMany()
+                .HasForeignKey(c => c.LocationId);
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace MedEquipCentral.DA.Contracts
         Task<int> Save();
         public IUserRepository GetUserRepository();
         public ICompanyRepository GetCompanyRepository();
+        public ILocationRepository GetLocationRepository();
     }
 }

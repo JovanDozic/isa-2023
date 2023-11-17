@@ -14,5 +14,6 @@ namespace MedEquipCentral.DA.Contracts.Model
         public string Phone { get; set; }
         public string Job { get; set; }
         public string CompanyInfo { get; set; }
+        public int? CompanyId { get; set; }
     }
 }

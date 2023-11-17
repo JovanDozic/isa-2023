@@ -3,6 +3,7 @@ using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts;
 using MedEquipCentral.DA.Contracts.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedEquipCentral.BL.Service
 {
@@ -17,14 +18,17 @@ namespace MedEquipCentral.BL.Service
             _mapper = mapper;
         }
 
-        public void Add(CompanyDto company)
+        public async Task<CompanyDto> Add(CompanyDto companyDto)
         {
-            _unitOfWork.GetCompanyRepository().Add(_mapper.Map<Company>(company));
+            await _unitOfWork.GetCompanyRepository().Add(_mapper.Map<Company>(companyDto));
+            await _unitOfWork.Save();
+            return companyDto;
         }
 
-        public async Task<IEnumerable<CompanyDto>> GetAllAsync()
+        public IEnumerable<CompanyDto> GetAll()
         {
-            var companies = await _unitOfWork.GetCompanyRepository().GetAll();
+            var companies = _unitOfWork.GetCompanyRepository().GetAll();
+            
             return _mapper.Map<IEnumerable<CompanyDto>>(companies);
         }
 

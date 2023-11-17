@@ -16,6 +16,7 @@ namespace MedEquipCentral.DA
 
         private IUserRepository UserRepository { get; set; }
         private ICompanyRepository CompanyRepository { get; set; }
+        private ILocationRepository LocationRepository { get; set; }
 
         public async void Dispose()
         {
@@ -44,6 +45,11 @@ namespace MedEquipCentral.DA
         public ICompanyRepository GetCompanyRepository()
         {
             return CompanyRepository ?? (CompanyRepository = new CompanyRepository(_context));
+        }
+
+        public ILocationRepository GetLocationRepository()
+        {
+            return LocationRepository ?? (LocationRepository = new LocationRepository(_context));
         }
     }
 }

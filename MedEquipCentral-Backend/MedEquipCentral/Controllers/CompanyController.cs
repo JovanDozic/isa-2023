@@ -15,15 +15,21 @@ namespace MedEquipCentral.Controllers
         }
 
         [HttpGet("getAll")]
-        public async Task<IEnumerable<CompanyDto>> GetAllAsync()
+        public IEnumerable<CompanyDto> GetAll()
         {
-            return await _companyService.GetAllAsync();
+            return _companyService.GetAll();
         }
 
         [HttpPut]
         public Task<CompanyDto> Update([FromBody] CompanyDto companyDto)
         {
             return _companyService.Update(companyDto);
+        }
+
+        [HttpPost]
+        public Task<CompanyDto> Add([FromBody] CompanyDto companyDto)
+        {
+            return _companyService.Add(companyDto);
         }
     }
 }

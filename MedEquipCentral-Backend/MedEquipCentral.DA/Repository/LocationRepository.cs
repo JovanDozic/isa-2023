@@ -5,19 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedEquipCentral.DA.Repository
 {
-    public class CompanyRepository : Repository<Company>, ICompanyRepository
+    public class LocationRepository : Repository<Location>, ILocationRepository
     {
         public DataContext Context
         {
             get { return _dbContext as DataContext; }
         }
 
-        public CompanyRepository(DataContext context) : base(context) { }
-
-        public new IEnumerable<Company> GetAll()
+        public LocationRepository(DbContext dbContext) : base(dbContext)
         {
-            return _dbContext.Set<Company>().Include(c => c.Location).ToList();
         }
-
     }
 }

@@ -4,8 +4,8 @@ namespace MedEquipCentral.BL.Contracts.IService
 {
     public interface ICompanyService
     {
-        public void Add(CompanyDto company);
-        public Task<IEnumerable<CompanyDto>> GetAllAsync();
+        public Task<CompanyDto> Add(CompanyDto company);
+        public IEnumerable<CompanyDto> GetAll();
         public Task<CompanyDto> Update(CompanyDto companyDto);
     }
 }
