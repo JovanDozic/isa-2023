@@ -28,5 +28,11 @@ namespace MedEquipCentral.BL.Service
             return _mapper.Map<IEnumerable<CompanyDto>>(companies);
         }
 
+        public async Task<CompanyDto> Update(CompanyDto companyDto)
+        {
+            _unitOfWork.GetCompanyRepository().Update(_mapper.Map<Company>(companyDto));
+            await _unitOfWork.Save();
+            return companyDto;
+        }
     }
 }

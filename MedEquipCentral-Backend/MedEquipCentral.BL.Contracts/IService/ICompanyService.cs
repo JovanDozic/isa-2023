@@ -6,5 +6,6 @@ namespace MedEquipCentral.BL.Contracts.IService
     {
         public void Add(CompanyDto company);
         public Task<IEnumerable<CompanyDto>> GetAllAsync();
+        public Task<CompanyDto> Update(CompanyDto companyDto);
     }
 }

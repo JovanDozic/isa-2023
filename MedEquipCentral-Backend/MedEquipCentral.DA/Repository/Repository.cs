@@ -33,5 +33,17 @@ namespace MedEquipCentral.DA.Repository
         {
             return await _dbContext.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
         }
+        public TEntity Update(TEntity entity)
+        {
+            try
+            {
+                _dbContext.Set<TEntity>().Update(entity);
+            }
+            catch (DbUpdateException e)
+            {
+                throw new KeyNotFoundException(e.Message);
+            }
+            return entity;
+        }
     }
 }
