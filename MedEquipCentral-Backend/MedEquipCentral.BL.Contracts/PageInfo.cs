@@ -1,4 +1,4 @@
-﻿namespace MedEquipCentral.DA.Contracts.Shared
+﻿namespace MedEquipCentral.BL.Contracts
 {
     public class PageInfo
     {

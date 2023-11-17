@@ -3,6 +3,7 @@ using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts;
 using MedEquipCentral.DA.Contracts.Model;
+using MedEquipCentral.DA.Contracts.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedEquipCentral.BL.Service
@@ -30,6 +31,16 @@ namespace MedEquipCentral.BL.Service
             var companies = _unitOfWork.GetCompanyRepository().GetAll();
             
             return _mapper.Map<IEnumerable<CompanyDto>>(companies);
+        }
+
+        public async Task<PagedResult<CompanyDto>> Search(CompanyPagedIn dataIn)
+        {
+            var companies = await _unitOfWork.GetCompanyRepository().GetAllBySearch(dataIn);
+            var returnDto = _mapper.Map<List<CompanyDto>>(companies);
+            return new PagedResult<CompanyDto>()
+            {
+                result = returnDto,
+            };
         }
 
         public async Task<CompanyDto> Update(CompanyDto companyDto)

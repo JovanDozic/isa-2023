@@ -6,6 +6,7 @@ using MedEquipCentral.DA.Contexts;
 using MedEquipCentral.DA.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Data.Common;
 
 namespace MedEquipCentral
 {
@@ -26,8 +27,12 @@ namespace MedEquipCentral
 
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), 
+                    x => x.MigrationsHistoryTable("__EFMigrationsHistory", "medequipcentral"));
+
             });
+
+            
 
             services.AddCors(options =>
             {

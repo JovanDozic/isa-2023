@@ -1,5 +1,6 @@
 ﻿using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
+using MedEquipCentral.DA.Contracts.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedEquipCentral.Controllers
@@ -30,6 +31,12 @@ namespace MedEquipCentral.Controllers
         public Task<CompanyDto> Add([FromBody] CompanyDto companyDto)
         {
             return _companyService.Add(companyDto);
+        }
+
+        [HttpPost("search")]
+        public Task<PagedResult<CompanyDto>> Search(CompanyPagedIn dataIn)
+        {
+            return _companyService.Search(dataIn);
         }
     }
 }
