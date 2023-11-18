@@ -5,17 +5,22 @@ import { CompanyFormComponent } from './company-form/company-form.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { CompanyComponent } from './company/company.component';
 
 
 @NgModule({
   declarations: [
-    CompanyFormComponent
+    CompanyFormComponent,
+    CompanyComponent,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
+  ],
+  exports:[
+    CompanyComponent,
+    CompanyFormComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

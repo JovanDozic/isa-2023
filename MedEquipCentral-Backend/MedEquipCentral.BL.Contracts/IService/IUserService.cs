@@ -5,5 +5,6 @@ namespace MedEquipCentral.BL.Contracts.IService
     public interface IUserService
     {
         Task<UserDto> GetById(int id);
+        Task<List<UserDto>> GetCompanyAdmins(int companyId);
     }
 }
