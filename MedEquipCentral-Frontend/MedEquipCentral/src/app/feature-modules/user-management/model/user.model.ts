@@ -12,4 +12,3 @@ export interface User{
     phone: string,
     companyId?: number
 }
-//PREMESTITI U MODUL ZA USERE!

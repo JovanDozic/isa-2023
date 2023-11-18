@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CompanyManagementService } from '../company-management.service';
 import { Company } from '../model/company.model';
 import { ActivatedRoute } from '@angular/router';
-import { User } from '../model/user.model';
+import { User } from '../../user-management/model/user.model';
 import { Equipment } from '../model/equipment.model';
 import { Appointment } from '../model/appointment.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

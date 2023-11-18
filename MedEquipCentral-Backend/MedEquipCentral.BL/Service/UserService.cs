@@ -2,6 +2,7 @@
 using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts;
+using MedEquipCentral.DA.Contracts.Model;
 using MedEquipCentral.DA.Contracts.Shared;
 
 namespace MedEquipCentral.BL.Service
@@ -37,6 +38,17 @@ namespace MedEquipCentral.BL.Service
             var users = await _unitOfWork.GetUserRepository().GetAll();
             var companyAdminsDto = users.ToList().Where(x => x.CompanyId == companyId);
             return _mapper.Map<List<UserDto>>(companyAdminsDto);
+        }
+
+        public async Task<UserDto> Update(UserDto user)
+        {
+            //var userToUpdate = _mapper.Map<User>(user);
+            var userToUpdate = new User(user.Email, user.Password, user.Name, user.Surname, user.City, user.Country, user.Phone, user.Job, user.CompanyInfo, UserRole.Registered);
+            userToUpdate.Id = user.Id;
+            var updatedUser = _unitOfWork.GetUserRepository().Update(userToUpdate);
+            await _unitOfWork.Save();
+            var retVal = _mapper.Map<UserDto>(updatedUser);
+            return retVal;
         }
 
         public async Task RemoveFromCompany(int userId)

@@ -2,10 +2,11 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyManagementService } from '../company-management.service';
 import { Company } from '../model/company.model';
-import { User } from '../model/user.model';
 import { UserService } from '../../user-management/user.service';
+
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
+import { User } from '../../user-management/model/user.model';
 
 @Component({
   selector: 'app-company-form',

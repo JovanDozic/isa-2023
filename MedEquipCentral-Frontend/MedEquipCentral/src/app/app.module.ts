@@ -9,6 +9,7 @@ import { CompanyManagementModule } from './feature-modules/company-management/co
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './core/app-routing/app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserManagementModule } from './feature-modules/user-management/user-management.module';
 import { UserModule } from './feature-modules/user-management/user.module';
 import { EquipmentManagementModule } from './feature-modules/equipment-management/equipment-management.module';
 
@@ -26,6 +27,7 @@ import { EquipmentManagementModule } from './feature-modules/equipment-managemen
     SharedModule,
     LayoutModule,
     CompanyManagementModule,
+    UserManagementModule,
     UserModule,
     EquipmentManagementModule,
   ],

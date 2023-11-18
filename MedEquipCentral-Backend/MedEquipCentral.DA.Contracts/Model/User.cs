@@ -16,6 +16,7 @@ namespace MedEquipCentral.DA.Contracts.Model
         public string Job { get; set; }
         public string CompanyInfo { get; set; }
         public UserRole Role { get; set; }
+        public int? CompanyId { get; set; }
 
         public User(string email, string password, string name, string surname, string city, string country, string phone, string job, string companyInfo, UserRole role)
         {
@@ -41,6 +42,5 @@ namespace MedEquipCentral.DA.Contracts.Model
         {
             return Role.ToString().ToLower();
         }
-        public int? CompanyId { get; set; }
     }
 }

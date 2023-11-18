@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Company } from './model/company.model';
-import { User } from './model/user.model';
+import { User } from '../user-management/model/user.model';
 import { Equipment } from './model/equipment.model';
 import { Appointment } from './model/appointment.model';
 
@@ -11,7 +11,7 @@ import { Appointment } from './model/appointment.model';
 })
 export class CompanyManagementService {
 
-  private apiUrl = 'https://localhost:7209/api/company';
+  private apiUrl = 'https://localhost:44367/api/company';
 
   constructor(private http: HttpClient) { }
 
@@ -23,13 +23,20 @@ export class CompanyManagementService {
     return this.http.get<Company>(this.apiUrl + '/getById/' + id);
   }
 
-  //PREMESTITI U MODUL ZA USERE!
   getCompanyAdmins(copmanyId: number): Observable<User[]> {
     return this.http.get<User[]>('https://localhost:7209/api/user/getAllByCompanyId/' + copmanyId);
   }
 
   updateCompany(company: Company): Observable<Company> {
     return this.http.put<Company>(this.apiUrl, company)
+  }
+
+  getAll(): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/getAll');
+  }
+
+  getAllBySearch(dataIn: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl + '/getAllBySearch', dataIn);
   }
 
   removeCompanyAdmin(user: User): Observable<User> {

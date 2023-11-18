@@ -1,0 +1,38 @@
+<div class="container mt-4">
+    <h2>Company Data</h2>
+    <div>
+        <input type="text" class="col-xs-3" [(ngModel)]="search" name="search"/>
+        <select [(ngModel)]="selectedRating" class="form-control">
+            <option *ngFor="let option of ratingOptions" [value]="option">{{ option }}</option>
+          </select>
+        <button (click)="searchCompanies()" class="btn-primary">Search</button>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>Name</th>
+            <th>Street</th>
+            <th>Street Number</th>
+            <th>City</th>
+            <th>ZIP</th>
+            <th>Country</th>
+            <th>Description</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let company of companies">
+            <td>{{company.name}}</td>
+            <td>{{company.location.street}}</td>
+            <td>{{company.location.streetNumber}}</td>
+            <td>{{company.location.city}}</td>
+            <td>{{company.location.zip}}</td>
+            <td>{{company.location.country}}</td>
+            <td>{{company.description}}</td>
+            <td>{{company.rating}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

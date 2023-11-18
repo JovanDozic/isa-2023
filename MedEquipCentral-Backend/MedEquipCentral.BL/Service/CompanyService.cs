@@ -32,12 +32,11 @@ namespace MedEquipCentral.BL.Service
             return companyDto;
         }
 
-
-        public IEnumerable<CompanyDto> GetAll()
+        public async Task<List<CompanyDto>> GetAll()
         {
             var companies = _unitOfWork.GetCompanyRepository().GetAll();
             
-            return _mapper.Map<IEnumerable<CompanyDto>>(companies);
+            return _mapper.Map<List<CompanyDto>>(companies);
         }
 
         public async Task<PagedResult<CompanyDto>> Search(CompanyPagedIn dataIn)

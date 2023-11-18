@@ -17,9 +17,9 @@ namespace MedEquipCentral.Controllers
         }
 
         [HttpGet("getAll")]
-        public IEnumerable<CompanyDto> GetAll()
+        public async Task<List<CompanyDto>> GetAll()
         {
-            return _companyService.GetAll();
+            return await _companyService.GetAll();
         }
 
         [HttpGet("getById/{id}")]
@@ -40,8 +40,8 @@ namespace MedEquipCentral.Controllers
             return _companyService.Add(companyDto);
         }
 
-        [HttpPost("search")]
-        public Task<PagedResult<CompanyDto>> Search(CompanyPagedIn dataIn)
+        [HttpPost("getAllBySearch")]
+        public Task<PagedResult<CompanyDto>> Search([FromBody] CompanyPagedIn dataIn)
         {
             return _companyService.Search(dataIn);
         }

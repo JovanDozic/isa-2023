@@ -3,6 +3,7 @@ using MedEquipCentral.DA.Contexts;
 using MedEquipCentral.DA.Contracts.IRepository;
 using MedEquipCentral.DA.Contracts.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MedEquipCentral.DA.Repository
 {
@@ -23,16 +24,10 @@ namespace MedEquipCentral.DA.Repository
         public async Task<List<Company>> GetAllBySearch(CompanyPagedIn dataIn)
         {
             var search = dataIn.CompanyFilter.Search;
-            var query = _dbContext.Set<Company>().Include(x => x.Location).Where(x => x.Name == search || x.Location.City == search).AsQueryable();
-
-            if(!string.IsNullOrEmpty(dataIn.CompanyFilter.City))
+            var query = _dbContext.Set<Company>().Include(x => x.Location).AsQueryable();
+            if (!search.IsNullOrEmpty())
             {
-                query = query.Where(x => x.Location.City ==  dataIn.CompanyFilter.City);
-            }
-
-            if(!string.IsNullOrEmpty(dataIn.CompanyFilter.Country))
-            {
-                query = query.Where(x => x.Location.Country == dataIn.CompanyFilter.Country);
+                query = _dbContext.Set<Company>().Include(x => x.Location).Where(x => x.Name == search || x.Location.City == search);
             }
 
             if(dataIn.CompanyFilter.Rating != 0)

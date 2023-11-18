@@ -17,7 +17,7 @@ namespace MedEquipCentral.Controllers
             _userService = userService;
         }
 
-        [HttpGet("getById/{id}")]
+        [HttpGet("getById/{id:int}")]
         public async Task<UserDto> Get(int id) 
         {
             return await _userService.GetById(id);
@@ -27,6 +27,12 @@ namespace MedEquipCentral.Controllers
         public async Task<List<UserDto>> GetCompanyAdmins(int companyId)
         {
             return await _userService.GetCompanyAdmins(companyId);
+        }
+
+        [HttpPut("update")]
+        public async Task<UserDto> Update(UserDto user)
+        {
+            return await _userService.Update(user);
         }
 
         [HttpPatch("{userId:int}/removeFromCompany")]
