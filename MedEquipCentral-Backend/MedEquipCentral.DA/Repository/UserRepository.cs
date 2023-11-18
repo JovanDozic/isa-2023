@@ -22,12 +22,6 @@ namespace MedEquipCentral.DA.Repository
             return _dbContext.Set<User>().ToList();
         }
 
-        public bool Exists(string email)
-        {
-
-            return GetByEmailAsync(email) != null;
-        }
-
         public async Task<User> GetByEmailAsync(string email)
         {
             return await _dbContext.Set<User>().FirstOrDefaultAsync(x => x.Email == email);

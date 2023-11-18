@@ -43,7 +43,11 @@ public class AuthenticationService : IAuthenticationService
     {
         string appDomain = _configuration.GetSection("Application:AppDomain").Value;
         string confirmationLink = _configuration.GetSection("Application:EmailConfirmation").Value;
-        if (_unitOfWork.GetUserRepository().Exists(userDto.Email)) return null;
+        var userdb = await _unitOfWork.GetUserRepository().GetByEmailAsync(userDto.Email);
+        if(userdb == null)
+        {
+            return null;
+        }
         try
         {
             await _unitOfWork.GetUserRepository().Add(new User(userDto.Email, userDto.Password, userDto.Name, userDto.Surname, userDto.City, userDto.Country, userDto.Phone, userDto.Job, userDto.CompanyInfo, UserRole.Unauthenticated));
