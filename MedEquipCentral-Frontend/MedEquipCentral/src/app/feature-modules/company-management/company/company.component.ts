@@ -12,23 +12,33 @@ import { User } from '../model/user.model';
 export class CompanyComponent implements OnInit {
   company?: Company;
   admins: User[] = [];
+  companyId!: number;
+  shouldEdit: boolean = false;
+  
   constructor(private service: CompanyManagementService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const tourId = params['id'];
-
-      this.service.getCompany(tourId).subscribe({
-        next: response => {
-          this.company = response;
-        }
-      })
-      this.service.getCompanyAdmins(tourId).subscribe({
-        next: response => {
-          this.admins = response;
-        }
-      })
+      this.companyId = params['id'];
+      this.getCompany();
     })
 
+  }
+
+  getCompany() {
+    this.service.getCompany(this.companyId).subscribe({
+      next: response => {
+        this.company = response;
+      }
+    })
+    this.service.getCompanyAdmins(this.companyId).subscribe({
+      next: response => {
+        this.admins = response;
+      }
+    })
+  }
+
+  onEditClicked() {
+    this.shouldEdit = true;
   }
 }

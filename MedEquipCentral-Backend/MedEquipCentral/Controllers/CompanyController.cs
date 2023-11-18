@@ -23,9 +23,9 @@ namespace MedEquipCentral.Controllers
         }
 
         [HttpGet("getById/{id}")]
-        public async Task<CompanyDto> GetByIdAsync(int id)
+        public CompanyDto GetById(int id)
         {
-            return await _companyService.GetById(id);
+            return _companyService.GetById(id);
         }
 
         [HttpPut]

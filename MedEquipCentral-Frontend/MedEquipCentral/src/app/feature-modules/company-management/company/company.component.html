@@ -11,8 +11,10 @@
             <ul class="list-group mb-3 mt-3">
                 <li class="list-group-item"><strong>Location:</strong>
                     <ul id="location">
-                        <li>Coordinates(Latitude, Longitude): <span id="latitude">{{company?.location?.latitude}}, {{company?.location?.longitude}}</span></li>
-                        <li>Street: <span id="street">{{company?.location?.street}} {{company?.location?.streetNumber}}</span></li>
+                        <li>Coordinates(Latitude, Longitude): <span id="latitude">{{company?.location?.latitude}},
+                                {{company?.location?.longitude}}</span></li>
+                        <li>Street: <span id="street">{{company?.location?.street}}
+                                {{company?.location?.streetNumber}}</span></li>
                         <li>City: <span id="city">{{company?.location?.city}}</span></li>
                         <li>Zip Code: <span id="zipCode">{{company?.location?.zip}}</span></li>
                         <li>Country: <span id="country">{{company?.location?.country}}</span></li>
@@ -23,34 +25,33 @@
                 <li class="list-group-item"><strong>Admins:</strong>
                     <ul id="adminsList">
                         <li *ngFor="let admin of admins">
-                            <span>First Name: {{admin.name}}, Last Name: {{admin.surname}}, Email: {{admin.email}}</span>
+                            <span>First Name: {{admin.name}}, Last Name: {{admin.surname}}, Email:
+                                {{admin.email}}</span>
                         </li>
                     </ul>
                 </li>
             </ul>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <button class="btn btn-outline-secondary end-0" data-bs-toggle="modal" data-bs-target="#editCompanyModal"
+                (click)="onEditClicked()">
                 Edit Profile
             </button>
         </div>
     </div>
 
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="editCompanyModal">
+        <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Edit Company Profile</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h1 class="modal-title">Edit tour</h1>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Your Edit Form Goes Here -->
-                    <app-company-form></app-company-form>
+                    <app-company-form [shouldEdit]="shouldEdit" [company]="company"
+                        (companyUpdated)="getCompany()"></app-company-form>
                 </div>
             </div>
         </div>
     </div>
+
 </div>

@@ -1,59 +1,66 @@
 <div class="container col-md-9">
     <h1 class="my-5">Register Company</h1>
-    <form [formGroup]="companyForm" (ngSubmit)="addCompany()">
+    <form [formGroup]="companyForm">
         <div class="row my-1">
             <h3 class="my-2">Basic info</h3>
             <div class="col-md-6">
                 <div class="form-floating my-2">
-                    <input type="text" class="form-control" id="inputCompanyName" placeholder="">
+                    <input type="text" class="form-control" id="inputCompanyName" formControlName="name" placeholder="">
                     <label for="inputCompanyName">Company name</label>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-floating my-2">
-                    <input type="text" class="form-control" id="inputCompanyDesc" placeholder="">
+                    <input type="text" class="form-control" id="inputCompanyDesc" formControlName="description"
+                        placeholder="">
                     <label for="inputCompanyDesc">Description</label>
                 </div>
             </div>
         </div>
 
-        <div class="row my-1">
-            <h3 class="my-2">Address</h3>
-            <div class="col-md-8">
-                <div class="form-floating my-2">
-                    <input type="text" class="form-control" id="inputAdrStreet" placeholder="">
-                    <label for="inputAdrStreet" class="form-label">Street</label>
+        <div formGroupName="location">
+            <div class="row my-1">
+                <h3 class="my-2">Address</h3>
+                <div class="col-md-8">
+                    <div class="form-floating my-2">
+                        <input type="text" class="form-control" id="inputAdrStreet" formControlName="street"
+                            placeholder="">
+                        <label for="inputAdrStreet" class="form-label">Street</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating my-2">
+                        <input type="text" class="form-control" id="inputAdrNumber" formControlName="streetNumber"
+                            placeholder="">
+                        <label for="inputAdrNumber" class="form-label">Number</label>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-floating my-2">
-                    <input type="text" class="form-control" id="inputAdrNumber" placeholder="">
-                    <label for="inputAdrNumber" class="form-label">Number</label>
+
+            <div class="row my-1">
+                <div class="col-md-5">
+                    <div class="form-floating my-2">
+                        <input type="text" class="form-control" id="inputAdrCity" formControlName="city" placeholder="">
+                        <label for="inputAdrCity" class="form-label">City</label>
+                    </div>
                 </div>
-            </div>            
+                <div class="col-md-2">
+                    <div class="form-floating my-2">
+                        <input type="text" class="form-control" id="inputAdrZip" formControlName="zip" placeholder="">
+                        <label for="inputAdrZip" class="form-label">ZIP</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-floating my-2">
+                        <input type="text" class="form-control" id="inputAdrConutry" formControlName="country"
+                            placeholder="">
+                        <label for="inputAdrConutry" class="form-label">Country</label>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="row my-1">
-            <div class="col-md-5">
-                <div class="form-floating my-2">
-                    <input type="text" class="form-control" id="inputAdrCity" placeholder="">
-                    <label for="inputAdrCity" class="form-label">City</label>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-floating my-2">
-                    <input type="text" class="form-control" id="inputAdrZip" placeholder="">
-                    <label for="inputAdrZip" class="form-label">ZIP</label>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="form-floating my-2">
-                    <input type="text" class="form-control" id="inputAdrConutry" placeholder="">
-                    <label for="inputAdrConutry" class="form-label">Country</label>
-                </div>
-            </div>
-        </div>
-
-        <button class="btn btn-primary my-3" type="submit">Register</button>
+        <button *ngIf="!shouldEdit" class="btn btn-primary my-3" type="submit" (click)="addCompany()">Register</button>
+        <button *ngIf="shouldEdit" class="btn btn-primary my-3" type="submit" (click)="editCompany()">Edit</button>
     </form>
 </div>

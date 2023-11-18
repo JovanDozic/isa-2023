@@ -42,9 +42,9 @@ namespace MedEquipCentral.BL.Service
                 result = returnDto,
             };
         }
-        public async Task<CompanyDto> GetById(int id)
+        public CompanyDto GetById(int id) //IZMENITI DA BUDE POSEBNA FUNKCIJA U COMPANY REPOZITORIJUMU
         {
-            var company = await _unitOfWork.GetCompanyRepository().GetByIdAsync(id);
+            var company = _unitOfWork.GetCompanyRepository().GetAll().FirstOrDefault(x => x.Id == id);
             var companyDto = _mapper.Map<CompanyDto>(company);
             return companyDto;
         }
