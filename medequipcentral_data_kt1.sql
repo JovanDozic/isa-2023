@@ -95,3 +95,7 @@ INSERT INTO medequipcentral."Users" ("Id", "Email", "Password", "Name", "Surname
 INSERT INTO medequipcentral."Users" ("Id", "Email", "Password", "Name", "Surname", "City", "Country", "Phone", "Job", "CompanyInfo", "CompanyId", "Role") VALUES (23, 'barbara.williams@example.com', '9c676872dc04575bb95281a78549d9e4', 'Barbara', 'Williams', 'Fairview', 'Australia', '+16432746563', 'Doctor', 'Research', 5, 2);
 INSERT INTO medequipcentral."Users" ("Id", "Email", "Password", "Name", "Surname", "City", "Country", "Phone", "Job", "CompanyInfo", "CompanyId", "Role") VALUES (24, 'patricia.brown@example.com', '0fad3afd32a052082815acd1cc7ff383', 'Patricia', 'Brown', 'Sunnyvale', 'Spain', '+18885272401', 'Administrator', 'Pharmacy', 5, 2);
 INSERT INTO medequipcentral."Users" ("Id", "Email", "Password", "Name", "Surname", "City", "Country", "Phone", "Job", "CompanyInfo", "CompanyId", "Role") VALUES (25, 'patricia.davis@example.com', '97f13bb293509bbb9e6324c33eabd1a2', 'Patricia', 'Davis', 'Fairview', 'Spain', '+18554216265', 'Engineer', 'Non-profit', 2, 2);
+
+
+
+
