@@ -9,6 +9,7 @@ import { CompanyManagementModule } from './feature-modules/company-management/co
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './core/app-routing/app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserModule } from './feature-modules/user-management/user.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     SharedModule,
     LayoutModule,
-    CompanyManagementModule
+    CompanyManagementModule,
+    UserModule,
   ],
   bootstrap: [AppComponent]
 })
