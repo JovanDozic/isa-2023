@@ -9,6 +9,7 @@ namespace MedEquipCentral.BL.Mapper
         public CommonProfile()
         {
             CreateMap<LocationDto, Location>().ReverseMap();
+            CreateMap<AppointmentDto, Appointment>().ReverseMap();
         }
     }
 }

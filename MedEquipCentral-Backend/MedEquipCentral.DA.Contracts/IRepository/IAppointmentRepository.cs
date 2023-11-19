@@ -9,5 +9,6 @@ namespace MedEquipCentral.DA.Contracts.IRepository
 {
     public interface IAppointmentRepository : IRepository<Appointment>
     {
+        Appointment AddAppointment(Appointment appointment);
     }
 }

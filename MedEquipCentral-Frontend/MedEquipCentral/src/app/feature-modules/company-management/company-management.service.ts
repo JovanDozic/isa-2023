@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Company } from './model/company.model';
 import { User } from './model/user.model';
 import { Equipment } from './model/equipment.model';
+import { Appointment } from './model/appointment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,8 +35,12 @@ export class CompanyManagementService {
   removeCompanyAdmin(user: User): Observable<User> {
     return this.http.put<User>('https://localhost:7209/api/user/' + user.id + '/removeAdmin', user);
   }
-  
-  getEquipment(companyId: number):Observable<Equipment[]> {
+
+  getEquipment(companyId: number): Observable<Equipment[]> {
     return this.http.get<Equipment[]>('https://localhost:7209/api/equipment/getAllForCompany/' + companyId);
+  }
+
+  makeAppointment(appointment: Appointment): Observable<Appointment> {
+    return this.http.post<Appointment>('https://localhost:7209/api/appointment/', appointment)
   }
 }

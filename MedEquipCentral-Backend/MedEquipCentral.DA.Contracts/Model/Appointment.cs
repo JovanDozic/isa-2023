@@ -11,19 +11,15 @@ namespace MedEquipCentral.DA.Contracts.Model
     {
         public int UserId { get; set; }
         public int EquipmentId { get; set; }
-        public DateTime? Date { get; set; }
+        public int CompanyId { get; set; }
+        public string? Date { get; set; }
 
-        public Appointment(int userId, int equipmentId, DateTime? date)
+        public Appointment(int userId, int equipmentId, string? date)
         {
             UserId = userId;
             EquipmentId = equipmentId;
             Date = date;
-            //Validate();
         }
 
-        private void Validate()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -16,5 +16,6 @@ namespace MedEquipCentral.DA.Contracts
         public ITokenGeneratorRepository GetTokenGeneratorRepository();
         public IEquipmentRepository GetEquipmentRepository();
         public IEquipmentTypeRepository GetEquipmentTypeRepository();
+        public IAppointmentRepository GetAppointmentRepository();
     }
 }

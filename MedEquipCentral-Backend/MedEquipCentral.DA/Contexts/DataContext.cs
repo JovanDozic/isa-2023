@@ -11,6 +11,7 @@ namespace MedEquipCentral.DA.Contexts
         public DbSet<Location> Locations { get; set; }
         public DbSet<Equipment> Equipment { get; set; }
         public DbSet<EquipmentType> EquipmentType { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
