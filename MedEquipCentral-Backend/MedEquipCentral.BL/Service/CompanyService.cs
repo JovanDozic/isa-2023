@@ -22,20 +22,12 @@ namespace MedEquipCentral.BL.Service
         public async Task<CompanyDto> Add(CompanyDto companyDto)
         {
             var companyEntity = _mapper.Map<Company>(companyDto);
-
-            // Add the company and get the EntityEntry
             var entityEntry = await _unitOfWork.GetCompanyRepository().Add(companyEntity);
 
-            // Save changes to the database
             await _unitOfWork.Save();
-
-            // Retrieve the new ID from the EntityEntry
             var newCompanyId = entityEntry.Entity.Id;
 
-            // Continue with other operations such as updating user company IDs
             await _unitOfWork.GetUserRepository().UpdateCompanyIds(newCompanyId);
-
-            // Update the CompanyDto with the new ID and return it
             companyDto.Id = newCompanyId;
             return companyDto;
         }
