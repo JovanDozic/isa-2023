@@ -29,4 +29,8 @@ export class CompanyManagementService {
   updateCompany(company: Company): Observable<Company> {
     return this.http.put<Company>(this.apiUrl, company)
   }
+
+  removeCompanyAdmin(user: User): Observable<User> {
+    return this.http.put<User>('https://localhost:7209/api/user/' + user.id + '/removeAdmin', user);
+  }
 }

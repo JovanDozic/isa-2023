@@ -2,7 +2,6 @@
 using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts;
-using MedEquipCentral.DA.Contracts.Model;
 using MedEquipCentral.DA.Contracts.Shared;
 
 namespace MedEquipCentral.BL.Service
@@ -39,5 +38,31 @@ namespace MedEquipCentral.BL.Service
             var companyAdminsDto = users.ToList().Where(x => x.CompanyId == companyId);
             return _mapper.Map<List<UserDto>>(companyAdminsDto);
         }
+
+        public async Task RemoveFromCompany(int userId)
+        {
+            var user = await _unitOfWork.GetUserRepository().GetByIdAsync(userId);
+            user.CompanyId = null;
+            user.Role = UserRole.Registered;
+            _unitOfWork.GetUserRepository().Update(user);
+            await _unitOfWork.Save();
+        }
+
+        public async Task AddToCompany(int userId, int companyId)
+        {
+            var user = await _unitOfWork.GetUserRepository().GetByIdAsync(userId);
+            user.CompanyId = companyId;
+            user.Role = UserRole.Company_Admin;
+            _unitOfWork.GetUserRepository().Update(user);
+            await _unitOfWork.Save();
+        }
+
+        public async Task<List<UserDto>> GetAllRegistered()
+        {
+            var users = (await _unitOfWork.GetUserRepository().GetAll()).Where(x => x.Role == UserRole.Registered);
+            return _mapper.Map<List<UserDto>>(users);
+        }
+
+        
     }
 }

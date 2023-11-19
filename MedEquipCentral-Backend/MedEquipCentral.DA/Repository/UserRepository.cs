@@ -33,5 +33,16 @@ namespace MedEquipCentral.DA.Repository
                 return true;
             return false;
         }
+
+        public Task UpdateCompanyIds(int companyId)
+        {
+            var newAdmins = GetAll().Where(x => x.CompanyId == 0);
+            foreach (var admin in newAdmins)
+            {
+                admin.CompanyId = companyId;
+            }
+            _dbContext.SaveChanges();
+            return Task.CompletedTask;
+        }
     }
 }

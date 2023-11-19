@@ -3,7 +3,7 @@
 public enum UserRole
 {
     Unauthenticated,
-    Registred,
+    Registered,
     Company_Admin,
     System_Admin
 }

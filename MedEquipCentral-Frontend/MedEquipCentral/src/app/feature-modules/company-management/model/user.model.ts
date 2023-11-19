@@ -10,5 +10,6 @@ export interface User{
     job: string,
     password: string,
     phone: string,
+    companyId?: number
 }
 //PREMESTITI U MODUL ZA USERE!

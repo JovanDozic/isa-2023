@@ -1,5 +1,7 @@
 <div class="container col-md-9">
-    <h1 class="my-5">Register Company</h1>
+
+    <h1 class="my-5" *ngIf="!shouldEdit">Register Company</h1>
+
     <form [formGroup]="companyForm">
         <div class="row my-1">
             <h3 class="my-2">Basic info</h3>
@@ -18,49 +20,84 @@
             </div>
         </div>
 
-        <div formGroupName="location">
-            <div class="row my-1">
-                <h3 class="my-2">Address</h3>
-                <div class="col-md-8">
-                    <div class="form-floating my-2">
-                        <input type="text" class="form-control" id="inputAdrStreet" formControlName="street"
-                            placeholder="">
-                        <label for="inputAdrStreet" class="form-label">Street</label>
+        <div class="row my-1">
+
+            <h5>Company administrators</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-8">
+                            <select class="form-select" aria-label="select administrators" formControlName="selectedAdmin">
+                                <option selected>Select...</option>
+                                <option *ngFor="let user of users" [value]="user.id">
+                                    <span>{{ user.name }} {{ user.surname }} ({{ user.email }})</span>
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-outline-success" (click)="addUserToCompany()"><i
+                                    class="bi bi-plus"></i></button>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-floating my-2">
-                        <input type="text" class="form-control" id="inputAdrNumber" formControlName="streetNumber"
-                            placeholder="">
-                        <label for="inputAdrNumber" class="form-label">Number</label>
+                <li class="col-md-6 list-group-item">
+                    <ul id="adminsList">
+                        <li *ngFor="let admin of admins" class="d-flex justify-content-between mb-1">
+                            <span class="mb-0">{{admin.name}} {{admin.surname}} ({{admin.email}})</span>
+                            <button class="btn btn-outline-danger ms-3" (click)="removeUserFromCompany(admin)"><i
+                                    class="bi bi-x"></i></button>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+
+            <div formGroupName="location">
+                <div class="row my-1 mt-4">
+                    <h3 class="my-2">Address</h3>
+                    <div class="col-md-8">
+                        <div class="form-floating my-2">
+                            <input type="text" class="form-control" id="inputAdrStreet" formControlName="street"
+                                placeholder="">
+                            <label for="inputAdrStreet" class="form-label">Street</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating my-2">
+                            <input type="text" class="form-control" id="inputAdrNumber" formControlName="streetNumber"
+                                placeholder="">
+                            <label for="inputAdrNumber" class="form-label">Number</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row my-1">
+                    <div class="col-md-5">
+                        <div class="form-floating my-2">
+                            <input type="text" class="form-control" id="inputAdrCity" formControlName="city"
+                                placeholder="">
+                            <label for="inputAdrCity" class="form-label">City</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-floating my-2">
+                            <input type="text" class="form-control" id="inputAdrZip" formControlName="zip"
+                                placeholder="">
+                            <label for="inputAdrZip" class="form-label">ZIP</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-floating my-2">
+                            <input type="text" class="form-control" id="inputAdrConutry" formControlName="country"
+                                placeholder="">
+                            <label for="inputAdrConutry" class="form-label">Country</label>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row my-1">
-                <div class="col-md-5">
-                    <div class="form-floating my-2">
-                        <input type="text" class="form-control" id="inputAdrCity" formControlName="city" placeholder="">
-                        <label for="inputAdrCity" class="form-label">City</label>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-floating my-2">
-                        <input type="text" class="form-control" id="inputAdrZip" formControlName="zip" placeholder="">
-                        <label for="inputAdrZip" class="form-label">ZIP</label>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="form-floating my-2">
-                        <input type="text" class="form-control" id="inputAdrConutry" formControlName="country"
-                            placeholder="">
-                        <label for="inputAdrConutry" class="form-label">Country</label>
-                    </div>
-                </div>
-            </div>
+            <button *ngIf="!shouldEdit" class="btn btn-primary my-3" type="submit"
+                (click)="addCompany()">Register</button>
+            <button *ngIf="shouldEdit" class="btn btn-primary my-3" type="submit" (click)="editCompany()">Save</button>
         </div>
-
-        <button *ngIf="!shouldEdit" class="btn btn-primary my-3" type="submit" (click)="addCompany()">Register</button>
-        <button *ngIf="shouldEdit" class="btn btn-primary my-3" type="submit" (click)="editCompany()">Edit</button>
     </form>
 </div>

@@ -6,5 +6,8 @@ namespace MedEquipCentral.BL.Contracts.IService
     {
         Task<UserDto> GetById(int id);
         Task<List<UserDto>> GetCompanyAdmins(int companyId);
+        Task RemoveFromCompany(int userId);
+        Task AddToCompany(int userId, int companyId);
+        Task<List<UserDto>> GetAllRegistered();
     }
 }

@@ -20,8 +20,8 @@
               <i class="bi bi-building"></i> Company management 
             </a>
             <ul class="dropdown-menu me-3">
-              <li><a class="dropdown-item" [routerLink]="['company-form']">Create a company</a></li>
-              <li><a class="dropdown-item" href="#">something else</a></li>
+              <li><a class="dropdown-item" [routerLink]="['company-form']">Create company</a></li>
+              <li><a class="dropdown-item" (click)="ViewCompanyById()">View company</a></li>
             </ul>
           </li>
         </ul>

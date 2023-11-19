@@ -2,6 +2,10 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyManagementService } from '../company-management.service';
 import { Company } from '../model/company.model';
+import { User } from '../model/user.model';
+import { UserService } from '../../user-management/user.service';
+import { Observable } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-company-form',
@@ -9,13 +13,15 @@ import { Company } from '../model/company.model';
   styleUrl: './company-form.component.css'
 })
 export class CompanyFormComponent implements OnInit, OnChanges {
+
   @Input() company?: Company;
+  @Input() admins?: User[];
   @Input() shouldEdit: boolean = false;
   @Output() companyUpdated = new EventEmitter<null>();
-
+  users: User[] = [];
   companyForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private companyService: CompanyManagementService) { }
+  constructor(private fb: FormBuilder, private companyService: CompanyManagementService, private userService: UserService, private location: Location) { }
 
   ngOnInit(): void {
     this.companyForm = this.fb.group({
@@ -32,9 +38,26 @@ export class CompanyFormComponent implements OnInit, OnChanges {
         country: ['', Validators.required],
       }),
       description: [''],
-      rating: [0, Validators.required]
+      rating: [0, Validators.required],
+      selectedAdmin: [null],
     });
+
+    this.getUsers();
+    if (!this.shouldEdit) {
+      this.admins = [];
+    }
+
   }
+
+  getUsers() {
+    this.userService.getAllRegistered().subscribe(
+      (response: User[]) => {
+        this.users = response;
+      },
+      (error) => console.log(error)
+    );
+  }
+
 
   ngOnChanges() {
     this.companyForm.reset();
@@ -45,19 +68,20 @@ export class CompanyFormComponent implements OnInit, OnChanges {
   }
 
   addCompany() {
-
     console.log(this.companyForm.value);
     if (this.companyForm.valid) {
-      console.log("nes se desilo");
       this.companyService.addCompany(this.companyForm.value).subscribe(
-        (response) => console.log(response),
+        (response) => {
+          console.log(response);
+          this.companyUpdated.emit();
+          this.location.back();
+        },
         (error) => console.log(error)
       );
     }
   }
 
   editCompany() {
-    
     if (this.companyForm.valid && this.company != undefined) {
       const editedCompany: Company = {
         id: this.companyForm.value.id,
@@ -81,12 +105,40 @@ export class CompanyFormComponent implements OnInit, OnChanges {
         next: resposne => {
           console.log(resposne);
           this.companyUpdated.emit();
+          this.location.back();
         },
         error: err => {
           console.log(err);
         }
       });
     }
+  }
+
+  removeUserFromCompany(user: User) {
+    this.userService.removeFromCompany(user.id).subscribe(
+      (response) => {
+        this.admins = this.admins?.filter(u => u.id != user.id);
+        this.users.push(user);
+        console.log(response);
+        this.companyUpdated.emit();
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  addUserToCompany() {
+    const userId = this.companyForm.value.selectedAdmin;
+    let user = this.users.find(u => u.id == userId);
+    this.userService.addToCompany(userId, this.companyForm.value.id).subscribe(
+      (response) => {
+        if (user != undefined)
+          this.admins?.push(user);
+        this.users = this.users.filter(u => u.id != userId);
+        console.log(response);
+        this.companyUpdated.emit();
+      },
+      (error) => console.log(error)
+    );
   }
 
 }

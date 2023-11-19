@@ -43,11 +43,11 @@
         <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title">Edit tour</h1>
+                    <h1 class="modal-title">Edit company</h1>
                     <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <app-company-form [shouldEdit]="shouldEdit" [company]="company"
+                    <app-company-form [shouldEdit]="shouldEdit" [company]="company" [admins]="admins"
                         (companyUpdated)="getCompany()"></app-company-form>
                 </div>
             </div>
