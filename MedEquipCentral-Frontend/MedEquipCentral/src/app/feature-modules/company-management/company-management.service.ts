@@ -11,7 +11,7 @@ import { Appointment } from './model/appointment.model';
 })
 export class CompanyManagementService {
 
-  private apiUrl = 'https://localhost:44367/api/company';
+  private apiUrl = 'https://localhost:7209/api/company';
 
   constructor(private http: HttpClient) { }
 
