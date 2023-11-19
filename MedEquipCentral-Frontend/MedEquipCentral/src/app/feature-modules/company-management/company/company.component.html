@@ -32,7 +32,26 @@
                 </li>
             </ul>
 
-            <button class="btn btn-outline-secondary end-0" data-bs-toggle="modal" data-bs-target="#editCompanyModal"
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of equipment">
+                        <td>{{item.name}}</td>
+                        <td>{{item.description}}</td>
+                        <td>
+                            <button class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#makeAppointmentModal">Reserve</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button class="btn btn-outline-primary end-0" data-bs-toggle="modal" data-bs-target="#editCompanyModal"
                 (click)="onEditClicked()">
                 Edit Profile
             </button>
@@ -49,6 +68,21 @@
                 <div class="modal-body">
                     <app-company-form [shouldEdit]="shouldEdit" [company]="company" [admins]="admins"
                         (companyUpdated)="getCompany()"></app-company-form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="makeAppointmentModal">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title">Make appointment</h1>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input class="date" type="date">
+                    <button class="btn btn-outline-primary m-3">Make appointment</button>
                 </div>
             </div>
         </div>

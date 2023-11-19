@@ -56,6 +56,7 @@ namespace MedEquipCentral
             services.AddAutoMapper(typeof(CommonProfile));
             services.AddAutoMapper(typeof(CompanyProfile));
             services.AddAutoMapper(typeof(UserProfile));
+            services.AddAutoMapper(typeof(EquipmentProfile));
 
             //JWT authentication
             var key = Environment.GetEnvironmentVariable("JWT_KEY") ?? "medequipcentral_secret_key";
@@ -139,6 +140,7 @@ namespace MedEquipCentral
             services.AddTransient<ITokenGeneratorRepository, TokenGeneratorRepository>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IEquipmentService, EquipmentService>();
         }
 
     }

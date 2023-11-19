@@ -3,6 +3,7 @@ import { CompanyManagementService } from '../company-management.service';
 import { Company } from '../model/company.model';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../model/user.model';
+import { Equipment } from '../model/equipment.model';
 
 @Component({
   selector: 'app-company',
@@ -14,6 +15,7 @@ export class CompanyComponent implements OnInit {
   admins: User[] = [];
   companyId!: number;
   shouldEdit: boolean = false;
+  equipment: Equipment[] = [];
   
   constructor(private service: CompanyManagementService, private route: ActivatedRoute) { }
 
@@ -34,6 +36,11 @@ export class CompanyComponent implements OnInit {
     this.service.getCompanyAdmins(this.companyId).subscribe({
       next: response => {
         this.admins = response;
+      }
+    })
+    this.service.getEquipment(this.companyId).subscribe({
+      next: response => {
+        this.equipment = response;
       }
     })
   }

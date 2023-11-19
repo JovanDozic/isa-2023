@@ -9,6 +9,7 @@ namespace MedEquipCentral.DA.Contexts
         public DbSet<Company>? Company { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<Equipment> Equipment { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

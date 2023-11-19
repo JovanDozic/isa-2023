@@ -14,5 +14,6 @@ namespace MedEquipCentral.DA.Contracts
         public ICompanyRepository GetCompanyRepository();
         public ILocationRepository GetLocationRepository();
         public ITokenGeneratorRepository GetTokenGeneratorRepository();
+        public IEquipmentRepository GetEquipmentRepository();
     }
 }

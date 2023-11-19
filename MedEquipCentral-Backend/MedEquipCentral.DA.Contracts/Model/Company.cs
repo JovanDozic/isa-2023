@@ -11,7 +11,7 @@ namespace MedEquipCentral.DA.Contracts.Model
         public Location Location { get; set; }
         public string Description { get; set; } = string.Empty;
         public double Rating { get; set; }
-
+        
         // TODO: Lista termina
     }
 }

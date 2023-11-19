@@ -18,6 +18,7 @@ namespace MedEquipCentral.DA
         private ICompanyRepository CompanyRepository { get; set; }
         private ILocationRepository LocationRepository { get; set; }
         private ITokenGeneratorRepository TokenGeneratorRepository { get; set; }
+        private IEquipmentRepository EquipmentRepository { get; set; }
 
         public async void Dispose()
         {
@@ -55,6 +56,11 @@ namespace MedEquipCentral.DA
         public ITokenGeneratorRepository GetTokenGeneratorRepository()
         {
             return TokenGeneratorRepository ?? (TokenGeneratorRepository = new TokenGeneratorRepository());
+        }
+
+        public IEquipmentRepository GetEquipmentRepository()
+        {
+            return EquipmentRepository ?? (EquipmentRepository = new EquipmentRepository(_context));
         }
     }
 }
