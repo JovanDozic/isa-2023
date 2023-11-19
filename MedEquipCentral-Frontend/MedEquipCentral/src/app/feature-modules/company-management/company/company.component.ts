@@ -4,6 +4,8 @@ import { Company } from '../model/company.model';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../model/user.model';
 import { Equipment } from '../model/equipment.model';
+import { Appointment } from '../model/appointment.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-company',
@@ -16,13 +18,20 @@ export class CompanyComponent implements OnInit {
   companyId!: number;
   shouldEdit: boolean = false;
   equipment: Equipment[] = [];
-  
-  constructor(private service: CompanyManagementService, private route: ActivatedRoute) { }
+  selectedItem?: Equipment;
+  appointmentForm!: FormGroup;
+
+
+  constructor(private service: CompanyManagementService, private route: ActivatedRoute, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.companyId = params['id'];
       this.getCompany();
+    })
+
+    this.appointmentForm = this.fb.group({
+      appointmentDate: ['', Validators.required]
     })
 
   }
@@ -47,5 +56,30 @@ export class CompanyComponent implements OnInit {
 
   onEditClicked() {
     this.shouldEdit = true;
+  }
+
+  setSelectedItem(item: Equipment) {
+    this.selectedItem = item;
+  }
+
+  makeAppointment() {
+    if (this.appointmentForm.valid && this.selectedItem != undefined && this.selectedItem.id != undefined) {
+      const appointment: Appointment = {
+        userId: 1,
+        equipmentId: this.selectedItem.id,
+        companyId: this.companyId,
+        date: this.appointmentForm.value.appointmentDate,
+      }
+      console.log(appointment.date);
+
+      this.service.makeAppointment(appointment).subscribe({
+        next: response => {
+          console.log(response);
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
+    }
   }
 }

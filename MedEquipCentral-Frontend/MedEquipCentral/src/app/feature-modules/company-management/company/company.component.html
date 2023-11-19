@@ -37,6 +37,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Description</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,7 +46,7 @@
                         <td>{{item.description}}</td>
                         <td>
                             <button class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#makeAppointmentModal">Reserve</button>
+                                data-bs-target="#makeAppointmentModal" (click)="setSelectedItem(item)">Reserve</button>
                         </td>
                     </tr>
                 </tbody>
@@ -81,11 +82,17 @@
                     <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input class="date" type="date">
-                    <button class="btn btn-outline-primary m-3">Make appointment</button>
+                    <form [formGroup]="appointmentForm" (submit)="makeAppointment()">
+                        <div class="form-group">
+                            <label for="datetimepicker">Select Date and Time:</label>
+                            <input type="datetime-local" class="form-control" id="datetimepicker" name="datetimepicker"
+                                required formControlName="appointmentDate">
+                            <button type="submit" class="btn btn-outline-primary mt-3">Make appointment</button>
+
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
 </div>

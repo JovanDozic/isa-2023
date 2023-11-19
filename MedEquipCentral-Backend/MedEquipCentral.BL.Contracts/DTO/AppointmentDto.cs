@@ -11,6 +11,7 @@ namespace MedEquipCentral.BL.Contracts.DTO
         public int Id { get; set; }
         public int UserId { get; set; }
         public int EquipmentId { get; set; }
-        public DateTime? Date { get; set; }
+        public int CompanyId { get; set; }
+        public string? Date { get; set; }
     }
 }

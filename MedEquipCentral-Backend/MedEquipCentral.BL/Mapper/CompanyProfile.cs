@@ -9,7 +9,6 @@ namespace MedEquipCentral.BL.Mapper
         public CompanyProfile()
         {
             CreateMap<CompanyDto, Company>().ReverseMap();
-            CreateMap<AppointmentDto, Appointment>().ReverseMap();
         }
     }
 }

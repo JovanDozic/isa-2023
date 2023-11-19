@@ -1,6 +1,7 @@
 ﻿using MedEquipCentral.DA.Contexts;
 using MedEquipCentral.DA.Contracts.IRepository;
 using MedEquipCentral.DA.Contracts.Model;
+using MedEquipCentral.DA.Contracts.Shared;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,5 +19,10 @@ namespace MedEquipCentral.DA.Repository
         }
         public AppointmentRepository(DbContext dbContext) : base(dbContext) { }
 
+        public Appointment AddAppointment(Appointment appointment)
+        {
+            _dbContext.Set<Appointment>().AddAsync(appointment);
+            return appointment;
+        }
     }
 }
