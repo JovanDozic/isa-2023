@@ -44,28 +44,24 @@ public class AuthenticationService : IAuthenticationService
         string appDomain = _configuration.GetSection("Application:AppDomain").Value;
         string confirmationLink = _configuration.GetSection("Application:EmailConfirmation").Value;
         var userdb = await _unitOfWork.GetUserRepository().GetByEmailAsync(userDto.Email);
-        if(userdb == null)
+        if(userdb != null)
         {
             return null;
         }
-        try
+
+        await _unitOfWork.GetUserRepository().Add(new User(userDto.Email, userDto.Password, userDto.Name, userDto.Surname, userDto.City, userDto.Country, userDto.Phone, userDto.Job, userDto.CompanyInfo, UserRole.Unauthenticated));
+        await _unitOfWork.Save();
+        var user = await _unitOfWork.GetUserRepository().GetByEmailAsync(userDto.Email);
+        var token = await _unitOfWork.GetTokenGeneratorRepository().GenerateAccessToken(user);
+        await _emailService.SendConfirmEmail(new UserEmailOptionsDto
         {
-            await _unitOfWork.GetUserRepository().Add(new User(userDto.Email, userDto.Password, userDto.Name, userDto.Surname, userDto.City, userDto.Country, userDto.Phone, userDto.Job, userDto.CompanyInfo, UserRole.Unauthenticated));
-            var user = await _unitOfWork.GetUserRepository().GetByEmailAsync(userDto.Email);
-            var token = await _unitOfWork.GetTokenGeneratorRepository().GenerateAccessToken(user);
-            await _emailService.SendConfirmEmail(new UserEmailOptionsDto
+            ToEmail = userDto.Email,
+            Placeholders = new List<KeyValuePair<string, string>>()
             {
-                ToEmail = userDto.Email,
-                Placeholders = new List<KeyValuePair<string, string>>()
-                {
-                    new KeyValuePair<string, string>("{{UserName}}", user.Name),
-                    new KeyValuePair<string, string>("{{Link}}", string.Format(appDomain + confirmationLink, user.Id, token.AccessToken))
-                }
-            });
-            return token;
-        } catch(Exception ex)
-        {
-            return null;
-        }
+                new KeyValuePair<string, string>("{{UserName}}", user.Name),
+                new KeyValuePair<string, string>("{{Link}}", string.Format(appDomain + confirmationLink, user.Id, token.AccessToken))
+            }
+        });
+        return token;
     }
 }

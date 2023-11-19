@@ -9,7 +9,7 @@ using System.Text;
 namespace MedEquipCentral.BL.Service;
 public class EmailService : IEmailService
 {
-    private const string templatePath = @"EmailTemplate/{0}.html";
+    //private const string templatePath = "../EmailTemplate/emailTemplate.html";
     private readonly SMTPConfig _smtpConfig;
     public EmailService(IOptions<SMTPConfig> smtpConfig) 
     { 
@@ -52,7 +52,7 @@ public class EmailService : IEmailService
 
     private string GetEmailBody(string templateName)
     {
-        var body = File.ReadAllText(string.Format(templatePath, templateName));
+        var body = File.ReadAllText("C:\\Users\\mbovan\\Desktop\\ISA\\isa-2023\\MedEquipCentral-Backend\\MedEquipCentral.BL\\EmailTemplate\\emailTemplate.html");
         return body;
     }
 

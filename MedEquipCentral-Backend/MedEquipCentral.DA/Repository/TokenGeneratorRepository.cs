@@ -13,7 +13,7 @@ public class TokenGeneratorRepository : ITokenGeneratorRepository
     private readonly string _issuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "medequipcentral";
     private readonly string _audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? "medequipcentral-front.com";
 
-    public Task<AuthenticationTokensDto> GenerateAccessToken(User user)
+    public async Task<AuthenticationTokensDto> GenerateAccessToken(User user)
     {
         var authenticationResponse = new AuthenticationTokensDto();
 
@@ -29,8 +29,7 @@ public class TokenGeneratorRepository : ITokenGeneratorRepository
         authenticationResponse.Id = user.Id;
         authenticationResponse.AccessToken = jwt;
 
-        //TODO
-        return null;
+        return authenticationResponse;
     }
 
     private string CreateToken(IEnumerable<Claim> claims, double expirationTimeInMinutes)

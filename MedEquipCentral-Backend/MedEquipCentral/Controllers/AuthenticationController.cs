@@ -1,7 +1,6 @@
 ﻿using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Common;
 
 namespace MedEquipCentral.Controllers;
 
@@ -19,14 +18,8 @@ public class AuthenticationController : Controller
 
     [HttpPost("register")]
     public async Task<AuthenticationTokensDto> RegisterUser([FromBody] UserDto user)
-    {
-        try 
-        {
-            return await _authenticationService.RegisterUser(user);
-        } catch (Exception ex)
-        {
-            throw new Exception("User already exists.");
-        }
+    { 
+        return await _authenticationService.RegisterUser(user);
     }
 
     [HttpGet("registred")]
@@ -35,7 +28,7 @@ public class AuthenticationController : Controller
         return await _authenticationService.ConfirmEmailAsync(Convert.ToInt32(uid), token);
     }
 
-    [HttpPost("login")]
+    /*[HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] CredentialsDto credentials)
     {
         var token = await _authenticationService.Login(credentials);
@@ -44,5 +37,5 @@ public class AuthenticationController : Controller
             return Ok(new {token});
         }
         return BadRequest(new { message = "Username or password is incorrect"});
-    }
+    }*/
 }

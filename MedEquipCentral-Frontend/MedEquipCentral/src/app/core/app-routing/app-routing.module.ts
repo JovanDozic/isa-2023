@@ -6,6 +6,7 @@ import { CompanyComponent } from '../../feature-modules/company-management/compa
 import { UserProfileComponent } from '../../feature-modules/user-management/user-profile/user-profile.component';
 import { CompaniesComponent } from '../../feature-modules/company-management/companies/companies.component';
 import { EquipmentSearchComponent } from '../../feature-modules/equipment-management/equipment-search/equipment-search.component';
+import {RegistrationComponent} from "../auth/registration/registration.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'profile', component: UserProfileComponent },
   { path: 'companies', component: CompaniesComponent},
   { path: 'equipment/search', component: EquipmentSearchComponent },
+  { path: 'register', component: RegistrationComponent}
 ];
 
 @NgModule({
