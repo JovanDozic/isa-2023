@@ -10,6 +10,7 @@ namespace MedEquipCentral.DA.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Equipment> Equipment { get; set; }
+        public DbSet<EquipmentType> EquipmentType { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -17,6 +18,14 @@ namespace MedEquipCentral.DA.Contexts
                 .HasOne(c => c.Location)
                 .WithMany()
                 .HasForeignKey(c => c.LocationId);
+            modelBuilder.Entity<Equipment>()
+                .HasOne(e => e.Type)
+                .WithMany()
+                .HasForeignKey(e => e.TypeId);
+            modelBuilder.Entity<Equipment>()
+                .HasMany(e => e.Companies)
+                .WithMany()
+                .UsingEntity(j => j.ToTable("CompanyEquipment"));
         }
     }
 }

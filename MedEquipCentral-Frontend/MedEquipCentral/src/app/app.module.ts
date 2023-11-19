@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './core/app-routing/app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserModule } from './feature-modules/user-management/user.module';
+import { EquipmentManagementModule } from './feature-modules/equipment-management/equipment-management.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { UserModule } from './feature-modules/user-management/user.module';
     LayoutModule,
     CompanyManagementModule,
     UserModule,
+    EquipmentManagementModule,
   ],
   bootstrap: [AppComponent]
 })

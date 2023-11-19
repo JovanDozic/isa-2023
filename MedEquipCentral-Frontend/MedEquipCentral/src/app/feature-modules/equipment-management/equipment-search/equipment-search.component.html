@@ -1,44 +1,71 @@
 <div class="container col-md-9">
 
-    <h1 class="my-5">Equipment</h1>
-
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Enter equipment name" aria-label="Equipment name" aria-describedby="button-addon2">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-    </div>
-
-    <!-- Filter Options -->
-    <div class="mb-3">
-        <select class="form-select" aria-label="Filter by">
-            <option selected>Filter by</option>
-            <option value="1">Rating</option>
-            <option value="2">Equipment Type</option>
-            <!-- Add more filter options here -->
-        </select>
-    </div>
-
-    <!-- Equipment Cards -->
     <div class="row">
-        <!-- Example of a Single Card -->
-        <div class="col-md-4 mb-3">
+        <h1 class="my-5">Equipment</h1>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Enter equipment name" aria-label="Search"
+                    aria-describedby="button-addon2" [(ngModel)]="searchTerm">
+                <button class="btn btn-outline-primary" type="button" id="button-addon2" (click)="searchEquipment()">Search</button>
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="removeSearch()"><i class="bi bi-x-lg"></i></button>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="input-group d-flex align-items-end justify-content-end">
+
+                <span class="input-group-text">Name:</span>
+                <button type="button" class="btn btn-outline-secondary" id="priceToggle" (click)="toggleSortDirection()">
+                    <i *ngIf="sortDirection == undefined" class="bi bi-arrow-down-up"></i>
+                    <i *ngIf="sortDirection != undefined && sortDirection" class="bi bi-arrow-up"></i>
+                    <i *ngIf="sortDirection != undefined && !sortDirection" class="bi bi-arrow-down"></i>
+                </button>
+
+                <span class="input-group-text">Type:</span>
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">{{selectedType?.type ?? "Type"}}</button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let type of equipmentTypes"><a class="dropdown-item" (click)="setTypeFilter(type)">{{type.type}}</a></li>
+                </ul>
+
+                <button type="button" class="btn btn-outline-primary" (click)="searchFilter()">Filter</button>
+            
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="removeFilters()"><i class="bi bi-x-lg"></i></button>
+            
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mt-3">
+
+        <div class="col-md-4 mb-3" *ngFor="let equipment of equipment; index as i">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Equipment Name</h5>
-                    <p class="card-text">Equipment Type</p>
-                    <p class="card-text">Description...</p>
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#companyList1" aria-expanded="false" aria-controls="companyList1">
+                    <h5 class="card-title">{{equipment.name}}</h5>
+                    <p class="card-text">{{equipment.type.type}}</p>
+                    <p class="card-text">{{equipment.description}}</p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        [attr.data-bs-target]="'#companyList' + i" aria-expanded="false"
+                        [attr.aria-controls]="'companyList' + i">
                         Show Companies
                     </button>
-                    <div class="collapse" id="companyList1">
+                    <div class="collapse" id="companyList{{i}}">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Company 1</li>
-                            <li class="list-group-item">Company 2</li>
-                            <!-- More companies -->
+                            <li class="list-group-item" *ngFor="let company of equipment.companies">{{company.name}}
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Repeat for each piece of equipment -->
+
+
+
+
+
     </div>
 </div>

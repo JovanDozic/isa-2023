@@ -15,6 +15,12 @@ namespace MedEquipCentral.Controllers
             _equipmentService = equipmentService;
         }
 
+        [HttpGet("getAll")]
+        public List<EquipmentDto> GetAll()
+        {
+            return _equipmentService.GetAll();
+        }
+
         [HttpGet("getAllForCompany/{companyId:int}")]
         public async Task<List<EquipmentDto>> GetAllForCompany(int companyId)
         {

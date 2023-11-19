@@ -141,6 +141,7 @@ namespace MedEquipCentral
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IEquipmentService, EquipmentService>();
+            services.AddTransient<IEquipmentTypeService, EquipmentTypeService>();
         }
 
     }

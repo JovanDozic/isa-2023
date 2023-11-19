@@ -2,11 +2,6 @@
 using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MedEquipCentral.BL.Service
 {
@@ -21,10 +16,16 @@ namespace MedEquipCentral.BL.Service
             _mapper = mapper;
         }
 
+        public List<EquipmentDto> GetAll()
+        {
+            var equipment = _unitOfWork.GetEquipmentRepository().GetAll();
+            return _mapper.Map<List<EquipmentDto>>(equipment);
+        }
+
         public async Task<List<EquipmentDto>> GetAllForCompany(int companyId)
         {
-            var equipments = await _unitOfWork.GetEquipmentRepository().GetAllForCompany(companyId);
-            return _mapper.Map<List<EquipmentDto>>(equipments);
+            var equipment = await _unitOfWork.GetEquipmentRepository().GetAllForCompany(companyId);
+            return _mapper.Map<List<EquipmentDto>>(equipment);
         }
     }
 }
