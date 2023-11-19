@@ -1,1 +1,44 @@
-<p>equipment-search works!</p>
+<div class="container col-md-9">
+
+    <h1 class="my-5">Equipment</h1>
+
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter equipment name" aria-label="Equipment name" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+    </div>
+
+    <!-- Filter Options -->
+    <div class="mb-3">
+        <select class="form-select" aria-label="Filter by">
+            <option selected>Filter by</option>
+            <option value="1">Rating</option>
+            <option value="2">Equipment Type</option>
+            <!-- Add more filter options here -->
+        </select>
+    </div>
+
+    <!-- Equipment Cards -->
+    <div class="row">
+        <!-- Example of a Single Card -->
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Equipment Name</h5>
+                    <p class="card-text">Equipment Type</p>
+                    <p class="card-text">Description...</p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#companyList1" aria-expanded="false" aria-controls="companyList1">
+                        Show Companies
+                    </button>
+                    <div class="collapse" id="companyList1">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Company 1</li>
+                            <li class="list-group-item">Company 2</li>
+                            <!-- More companies -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Repeat for each piece of equipment -->
+    </div>
+</div>
