@@ -32,7 +32,7 @@ namespace MedEquipCentral.DA.Repository
 
             if(dataIn.CompanyFilter.Rating != 0)
             {
-                query = query.Where(x => x.Rating == dataIn.CompanyFilter.Rating);
+                query = query.Where(x => x.Rating <= dataIn.CompanyFilter.Rating);
             }
 
             return query.ToList();
