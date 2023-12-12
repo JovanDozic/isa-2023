@@ -4,10 +4,10 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {TokenStorage} from './jwt/token.service';
 import {environment} from "../../shared/environment";
-import { JwtHelperService } from '@auth0/angular-jwt';
 import {AuthenticationResponse} from './model/authentication-response.model';
 import {User, UserRole} from './model/user.model';
 import {Registration} from './model/registration.model';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
