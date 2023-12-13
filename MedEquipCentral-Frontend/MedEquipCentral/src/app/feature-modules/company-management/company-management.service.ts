@@ -5,13 +5,14 @@ import { Company } from './model/company.model';
 import { User } from '../user-management/model/user.model';
 import { Equipment } from './model/equipment.model';
 import { Appointment } from './model/appointment.model';
+import { environment } from '../../shared/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyManagementService {
 
-  private apiUrl = 'https://localhost:7209/api/company';
+  private apiUrl = environment.apiHost + 'company';
 
   constructor(private http: HttpClient) { }
 
@@ -24,7 +25,7 @@ export class CompanyManagementService {
   }
 
   getCompanyAdmins(copmanyId: number, adminId: number): Observable<User[]> {
-    return this.http.get<User[]>('https://localhost:7209/api/user/getOtherCompanyAdmins/' + copmanyId + '/' + adminId);
+    return this.http.get<User[]>(environment.apiHost + 'user/getOtherCompanyAdmins/' + copmanyId + '/' + adminId);
   }
 
   updateCompany(company: Company): Observable<Company> {
@@ -40,18 +41,18 @@ export class CompanyManagementService {
   }
 
   removeCompanyAdmin(user: User): Observable<User> {
-    return this.http.put<User>('https://localhost:7209/api/user/' + user.id + '/removeAdmin', user);
+    return this.http.put<User>(this.apiUrl + 'user/' + user.id + '/removeAdmin', user);
   }
 
   getEquipment(companyId: number): Observable<Equipment[]> {
-    return this.http.get<Equipment[]>('https://localhost:7209/api/equipment/getAllForCompany/' + companyId);
+    return this.http.get<Equipment[]>(this.apiUrl + 'equipment/getAllForCompany/' + companyId);
   }
 
   createAppointment(appointment: Appointment): Observable<Appointment> {
-    return this.http.post<Appointment>('https://localhost:7209/api/appointment/', appointment)
+    return this.http.post<Appointment>(this.apiUrl + 'appointment/', appointment)
   }
 
   getFreeAppointments(companyId: number): Observable<Appointment[]> {
-    return this.http.get<Appointment[]>('https://localhost:7209/api/appointment/getFreeAppointmentsForCompany/' + companyId);
+    return this.http.get<Appointment[]>(this.apiUrl + 'appointment/getFreeAppointmentsForCompany/' + companyId);
   }
 }

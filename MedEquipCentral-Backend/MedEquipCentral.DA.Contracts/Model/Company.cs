@@ -11,7 +11,9 @@ namespace MedEquipCentral.DA.Contracts.Model
         public Location Location { get; set; }
         public string Description { get; set; } = string.Empty;
         public double Rating { get; set; }
+        public TimeOnly StartTime { get; set; }
+        public TimeOnly EndTime { get; set;}
         
-        // TODO: Lista termina i Radno vreme
+        // TODO: Lista termina
     }
 }

@@ -10,8 +10,9 @@ namespace MedEquipCentral.BL.Contracts.DTO
         public LocationDto Location { get; set; }
         public string Description { get; set; }
         public double Rating { get; set; }
+        public TimeOnly StartTime { get; set; }
+        public TimeOnly EndTime { get; set; }
 
-        // TODO: Lista terminaDto
         // public List<UserDto> CompanyAdmins { get; set; }
     }
 }

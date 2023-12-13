@@ -11,5 +11,6 @@ namespace MedEquipCentral.BL.Contracts.IService
     {
         Task<AppointmentDto> AddAppointment(AppointmentDto appointment);
         Task<List<AppointmentDto>> GetFreeAppointmentsForCompany(int companyId);
+        Task<string> CreateExtraordinaryAppointment(AppointmentDto dataIn);
     }
 }
