@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserManagementModule } from './feature-modules/user-management/user-management.module';
 import { UserModule } from './feature-modules/user-management/user.module';
 import { EquipmentManagementModule } from './feature-modules/equipment-management/equipment-management.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { EquipmentManagementModule } from './feature-modules/equipment-managemen
     UserManagementModule,
     UserModule,
     EquipmentManagementModule,
+    NgbModule,
   ],
   bootstrap: [AppComponent]
 })

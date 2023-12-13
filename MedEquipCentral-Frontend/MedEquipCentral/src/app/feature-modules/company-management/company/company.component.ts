@@ -13,11 +13,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './company.component.css',
 })
 export class CompanyComponent implements OnInit {
-  company?: Company;
+  company!: Company;
   admins: User[] = [];
   companyId!: number;
   shouldEdit: boolean = false;
   equipment: Equipment[] = [];
+  appointments: Appointment[] = [];
   selectedItem?: Equipment;
   appointmentForm!: FormGroup;
 
@@ -31,7 +32,8 @@ export class CompanyComponent implements OnInit {
     })
 
     this.appointmentForm = this.fb.group({
-      appointmentDate: ['', Validators.required]
+      appointmentDate: ['', Validators.required],
+      duration: ['', Validators.required],
     })
 
   }
@@ -42,7 +44,7 @@ export class CompanyComponent implements OnInit {
         this.company = response;
       }
     })
-    this.service.getCompanyAdmins(this.companyId).subscribe({
+    this.service.getCompanyAdmins(this.companyId, 1).subscribe({
       next: response => {
         this.admins = response;
       }
@@ -50,6 +52,11 @@ export class CompanyComponent implements OnInit {
     this.service.getEquipment(this.companyId).subscribe({
       next: response => {
         this.equipment = response;
+      }
+    })
+    this.service.getFreeAppointments(this.companyId).subscribe({
+      next: response => {
+        this.appointments = response;
       }
     })
   }
@@ -62,19 +69,23 @@ export class CompanyComponent implements OnInit {
     this.selectedItem = item;
   }
 
-  makeAppointment() {
-    if (this.appointmentForm.valid && this.selectedItem != undefined && this.selectedItem.id != undefined) {
+  createAppointment() {
+    if (this.appointmentForm.valid) {
       const appointment: Appointment = {
-        userId: 1,
-        equipmentId: this.selectedItem.id,
+        id: 0,
+        startTime: this.appointmentForm.value.appointmentDate,
+        duration: this.appointmentForm.value.duration,
         companyId: this.companyId,
-        date: this.appointmentForm.value.appointmentDate,
+        adminName: 'admin',
+        adminSurname: 'adminic',
+        adminId: 1,
       }
-      console.log(appointment.date);
+      console.log(appointment.startTime);
 
-      this.service.makeAppointment(appointment).subscribe({
+      this.service.createAppointment(appointment).subscribe({
         next: response => {
           console.log(response);
+          this.getCompany();
         },
         error: err => {
           console.log(err);

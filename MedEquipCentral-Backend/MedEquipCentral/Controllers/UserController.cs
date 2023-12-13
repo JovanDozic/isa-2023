@@ -23,10 +23,16 @@ namespace MedEquipCentral.Controllers
             return await _userService.GetById(id);
         }
 
-        [HttpGet("getAllByCompanyId/{companyId:int}")]
+        [HttpGet("getCompanyAdmins/{companyId:int}")]
         public async Task<List<UserDto>> GetCompanyAdmins(int companyId)
         {
             return await _userService.GetCompanyAdmins(companyId);
+        }
+
+        [HttpGet("getOtherCompanyAdmins/{companyId:int}/{adminId:int}")]
+        public async Task<List<UserDto>> GetOtherCompanyAdmins(int companyId, int adminId)
+        {
+            return await _userService.GetOtherCompanyAdmins(companyId, adminId);
         }
 
         [HttpPut("update")]

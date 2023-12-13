@@ -75,6 +75,11 @@ namespace MedEquipCentral.BL.Service
             return _mapper.Map<List<UserDto>>(users);
         }
 
-        
+        public async Task<List<UserDto>> GetOtherCompanyAdmins(int companyId, int adminId)
+        {
+            var users = await _unitOfWork.GetUserRepository().GetAll();
+            var companyAdminsDto = users.ToList().Where(x => x.CompanyId == companyId && x.Id != adminId);
+            return _mapper.Map<List<UserDto>>(companyAdminsDto);
+        }
     }
 }

@@ -29,5 +29,11 @@ namespace MedEquipCentral.BL.Service
             return _mapper.Map<AppointmentDto>(appointment.Entity);
 
         }
+
+        public async Task<List<AppointmentDto>> GetFreeAppointmentsForCompany(int companyId)
+        {
+            var appointments = _unitOfWork.GetAppointmentRepository().GetAll().Result.Where(x => x.CompanyId == companyId && x.EquipmentId == null).ToList();
+            return _mapper.Map<List<AppointmentDto>>(appointments);
+        }
     }
 }

@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompanyComponent } from './company/company.component';
 import { CompaniesComponent } from './companies/companies.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CompaniesComponent } from './companies/companies.component';
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule,
   ],
   exports:[
     CompanyComponent,

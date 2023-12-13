@@ -104,9 +104,7 @@ export class CompanyFormComponent implements OnInit, OnChanges {
 
       this.companyService.updateCompany(editedCompany).subscribe({
         next: resposne => {
-          console.log(resposne);
-          this.companyUpdated.emit();
-          this.location.back();
+          window.location.reload();
         },
         error: err => {
           console.log(err);

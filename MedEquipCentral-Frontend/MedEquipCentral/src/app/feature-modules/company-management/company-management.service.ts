@@ -23,8 +23,8 @@ export class CompanyManagementService {
     return this.http.get<Company>(this.apiUrl + '/getById/' + id);
   }
 
-  getCompanyAdmins(copmanyId: number): Observable<User[]> {
-    return this.http.get<User[]>('https://localhost:7209/api/user/getAllByCompanyId/' + copmanyId);
+  getCompanyAdmins(copmanyId: number, adminId: number): Observable<User[]> {
+    return this.http.get<User[]>('https://localhost:7209/api/user/getOtherCompanyAdmins/' + copmanyId + '/' + adminId);
   }
 
   updateCompany(company: Company): Observable<Company> {
@@ -47,7 +47,11 @@ export class CompanyManagementService {
     return this.http.get<Equipment[]>('https://localhost:7209/api/equipment/getAllForCompany/' + companyId);
   }
 
-  makeAppointment(appointment: Appointment): Observable<Appointment> {
+  createAppointment(appointment: Appointment): Observable<Appointment> {
     return this.http.post<Appointment>('https://localhost:7209/api/appointment/', appointment)
+  }
+
+  getFreeAppointments(companyId: number): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>('https://localhost:7209/api/appointment/getFreeAppointmentsForCompany/' + companyId);
   }
 }

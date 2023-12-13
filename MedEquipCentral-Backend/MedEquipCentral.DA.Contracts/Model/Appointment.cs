@@ -9,16 +9,23 @@ namespace MedEquipCentral.DA.Contracts.Model
 {
     public class Appointment : Entity
     {
-        public int UserId { get; set; }
-        public int EquipmentId { get; set; }
+        public DateTime StartTime { get; set; }
+        public int Duration { get; set; }
         public int CompanyId { get; set; }
-        public string? Date { get; set; }
+        public string AdminName { get; set; }
+        public string AdminSurname { get; set; }
+        public int AdminId { get; set; }
+        public int? BuyerId { get; set; }
+        public int? EquipmentId { get; set; }
 
-        public Appointment(int userId, int equipmentId, string? date)
+        public Appointment(DateTime startTime, int duration, string adminName, string adminSurname, int adminId, int companyId)
         {
-            UserId = userId;
-            EquipmentId = equipmentId;
-            Date = date;
+            StartTime = startTime.ToUniversalTime();
+            Duration = duration;
+            AdminName = adminName;
+            AdminSurname = adminSurname;
+            AdminId = adminId;
+            CompanyId = companyId;
         }
 
     }

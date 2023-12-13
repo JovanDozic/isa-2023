@@ -10,5 +10,6 @@ namespace MedEquipCentral.BL.Contracts.IService
     public interface IAppointmentService
     {
         Task<AppointmentDto> AddAppointment(AppointmentDto appointment);
+        Task<List<AppointmentDto>> GetFreeAppointmentsForCompany(int companyId);
     }
 }

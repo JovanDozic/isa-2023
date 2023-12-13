@@ -1,62 +1,87 @@
-<div class="container mt-4">
-    <div class="card">
-        <div class="card-header">
-            Company Profile
+<div class="container my-4">
+    <div>
+
+
+        <div style="display: flex; align-items: center;">
+            <h2 class="card-title">{{company.name}}</h2>
+            <ngb-rating class="ms-3 mb-2" [max]="5" [(rate)]="company.rating" [readonly]="true"></ngb-rating>
         </div>
-        <div class="card-body">
-            <h5 class="card-title">{{company?.name}}</h5>
-            <p class="card-text">{{company?.description}}</p>
-            <strong>Rating: </strong> <span id="rating">{{company?.rating}}</span>
 
-            <ul class="list-group mb-3 mt-3">
-                <li class="list-group-item"><strong>Location:</strong>
-                    <ul id="location">
-                        <li>Coordinates(Latitude, Longitude): <span id="latitude">{{company?.location?.latitude}},
-                                {{company?.location?.longitude}}</span></li>
-                        <li>Street: <span id="street">{{company?.location?.street}}
-                                {{company?.location?.streetNumber}}</span></li>
-                        <li>City: <span id="city">{{company?.location?.city}}</span></li>
-                        <li>Zip Code: <span id="zipCode">{{company?.location?.zip}}</span></li>
-                        <li>Country: <span id="country">{{company?.location?.country}}</span></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="list-group mb-3 mt-3">
-                <li class="list-group-item"><strong>Admins:</strong>
-                    <ul id="adminsList">
-                        <li *ngFor="let admin of admins">
-                            <span>First Name: {{admin.name}}, Last Name: {{admin.surname}}, Email:
-                                {{admin.email}}</span>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+        <p class="card-text">{{company.description}}</p>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of equipment">
-                        <td>{{item.name}}</td>
-                        <td>{{item.description}}</td>
-                        <td>
-                            <button class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#makeAppointmentModal" (click)="setSelectedItem(item)">Reserve</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <address class="">
+            {{company.location.street}} {{company.location.streetNumber}},<br>
+            {{company.location.city}}, {{company.location.zip}}, {{company.location.country}},<br>
+            Coordinates: {{company.location.latitude}}, {{company.location.longitude}}
+        </address>
+        <h5 class="card-title mt-5">Free appointments</h5>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th class="col-sm-5">Start time</th>
+                    <th>Duration</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let appointment of appointments">
+                    <td>{{appointment.startTime}}</td>
+                    <td>{{appointment.duration}} minutes</td>
+                    <td>{{appointment.adminName}}</td>
+                    <td>{{appointment.adminSurname}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h5 class="card-title mt-5">Administrators</h5>
+        <table class="table table-bordered mt-4">
+            <thead>
+                <tr>
+                    <th class="col-sm-1">#</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th class="col-sm-5">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let admin of admins">
+                    <td>{{admin.id}}</td>
+                    <td>{{admin.name}}</td>
+                    <td>{{admin.surname}}</td>
+                    <td>{{admin.email}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h5 class="card-title mt-5">Equipment</h5>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of equipment">
+                    <td>{{item.name}}</td>
+                    <td>{{item.description}}</td>
+                    <td>
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#selectAppointmentModal"
+                            (click)="setSelectedItem(item)">Reserve</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-            <button class="btn btn-outline-primary end-0" data-bs-toggle="modal" data-bs-target="#editCompanyModal"
+        <div class="mt-5">
+            <button class="btn btn-primary end-0" data-bs-toggle="modal" data-bs-target="#createAppointmentModal">Create
+                appointment</button>
+            <button class="btn btn-outline-primary ms-3" data-bs-toggle="modal" data-bs-target="#editCompanyModal"
                 (click)="onEditClicked()">
                 Edit Profile
             </button>
         </div>
+
     </div>
 
     <div class="modal fade" id="editCompanyModal">
@@ -74,21 +99,27 @@
         </div>
     </div>
 
-    <div class="modal fade" id="makeAppointmentModal">
+    <div class="modal fade" id="createAppointmentModal">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title">Make appointment</h1>
+                    <h1 class="modal-title">Create appointment</h1>
                     <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form [formGroup]="appointmentForm" (submit)="makeAppointment()">
+                    <form [formGroup]="appointmentForm" (submit)="createAppointment()">
                         <div class="form-group">
-                            <label for="datetimepicker">Select Date and Time:</label>
-                            <input type="datetime-local" class="form-control" id="datetimepicker" name="datetimepicker"
-                                required formControlName="appointmentDate">
-                            <button type="submit" class="btn btn-outline-primary mt-3">Make appointment</button>
 
+                            <label for="datetimepicker">Select date and time:</label>
+                            <input type="datetime-local" class="form-control" id="datetimepicker" name="datetimepicker"
+                                formControlName="appointmentDate" required>
+
+                            <label for="datetimepicker">Duration:</label>
+                            <input type="number" class="form-control" formControlName="duration" placeholder="minutes"
+                                required>
+                            <div class="row mt-3 mx-1">
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </div>
                         </div>
                     </form>
                 </div>
