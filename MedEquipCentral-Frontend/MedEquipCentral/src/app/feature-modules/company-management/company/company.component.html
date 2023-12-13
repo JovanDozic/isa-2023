@@ -4,7 +4,7 @@
 
         <div style="display: flex; align-items: center;">
             <h2 class="card-title">{{company.name}}</h2>
-            <ngb-rating class="ms-3 mb-2" [max]="5" [(rate)]="company.rating" [readonly]="true"></ngb-rating>
+            <ngb-rating class="ms-3 mb-1" [max]="5" [(rate)]="company.rating" [readonly]="true"></ngb-rating>
         </div>
 
         <p class="card-text">{{company.description}}</p>
@@ -18,7 +18,7 @@
         <table class="table mt-3">
             <thead>
                 <tr>
-                    <th class="col-sm-5">Start time</th>
+                    <th class="col-sm-4">Start time</th>
                     <th>Duration</th>
                     <th>Name</th>
                     <th>Surname</th>
@@ -26,7 +26,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let appointment of appointments">
-                    <td>{{appointment.startTime}}</td>
+                    <td>{{ appointment.startTime | date:'medium' }}</td>
                     <td>{{appointment.duration}} minutes</td>
                     <td>{{appointment.adminName}}</td>
                     <td>{{appointment.adminSurname}}</td>
