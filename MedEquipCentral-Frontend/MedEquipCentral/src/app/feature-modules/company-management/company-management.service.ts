@@ -11,7 +11,7 @@ import { Appointment } from './model/appointment.model';
 })
 export class CompanyManagementService {
 
-  private apiUrl = 'https://localhost:7209/api/company';
+  private apiUrl = environment.apiHost;
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +20,7 @@ export class CompanyManagementService {
   }
 
   getCompany(id: number): Observable<Company> {
-    return this.http.get<Company>(this.apiUrl + '/getById/' + id);
+    return this.http.get<Company>(this.apiUrl + 'company/getById/' + id);
   }
 
   getCompanyAdmins(copmanyId: number, adminId: number): Observable<User[]> {
@@ -28,15 +28,15 @@ export class CompanyManagementService {
   }
 
   updateCompany(company: Company): Observable<Company> {
-    return this.http.put<Company>(this.apiUrl, company)
+    return this.http.put<Company>(this.apiUrl + 'company/', company)
   }
 
   getAll(): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/getAll');
+    return this.http.get<any>(this.apiUrl + 'company/getAll');
   }
 
   getAllBySearch(dataIn: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/getAllBySearch', dataIn);
+    return this.http.post<any>(this.apiUrl +  'company/getAllBySearch', dataIn);
   }
 
   removeCompanyAdmin(user: User): Observable<User> {
