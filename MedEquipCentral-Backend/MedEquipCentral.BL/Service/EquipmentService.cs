@@ -2,6 +2,7 @@
 using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts;
+using MedEquipCentral.DA.Contracts.Shared;
 
 namespace MedEquipCentral.BL.Service
 {
@@ -26,6 +27,18 @@ namespace MedEquipCentral.BL.Service
         {
             var equipment = await _unitOfWork.GetEquipmentRepository().GetAllForCompany(companyId);
             return _mapper.Map<List<EquipmentDto>>(equipment);
+        }
+
+        public async Task<PagedResult<EquipmentDto>> Search(EquipmentPagedIn dataIn)
+        {
+            var result = await _unitOfWork.GetEquipmentRepository().GetAllBySearch(dataIn);
+            List<EquipmentDto> resultDto = _mapper.Map<List<EquipmentDto>>(result);
+
+            return new PagedResult<EquipmentDto>
+            {
+                Result = resultDto,
+                Count = resultDto.Count
+            };
         }
     }
 }

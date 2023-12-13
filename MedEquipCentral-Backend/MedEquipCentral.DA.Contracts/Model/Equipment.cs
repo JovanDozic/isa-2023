@@ -8,23 +8,17 @@ namespace MedEquipCentral.DA.Contracts.Model
         public string? Description { get; set; }
         public int TypeId { get; set; }
         public EquipmentType Type { get; set; }
-        public List<int> CompanyIds { get; set; }
-        public List<Company> Companies { get; set; }
+        public int CompanyId { get; set; }
+        public Company Company { get; set; }
 
-        public Equipment(/*string name, string description, int typeId, int companyId*/)
+        public Equipment(string name, string description, int typeId, int companyId)
         {
-            //Name = name;
-            //Description = description;
-            //TypeId = typeId;
+            Name = name;
+            Description = description;
+            TypeId = typeId;
             Type = new();
-            CompanyIds = new();
-            Companies = new();
-            //Validate();
-        }
-
-        private void Validate()
-        {
-            throw new NotImplementedException();
+            CompanyId = companyId;
+            Company = new Company();
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class PagedResult<TEntity>  where TEntity : class
     {
-        public List<TEntity> result { get; set; }
-        public int count { get; set; }
+        public List<TEntity> Result { get; set; }
+        public int Count { get; set; }
     }
 }

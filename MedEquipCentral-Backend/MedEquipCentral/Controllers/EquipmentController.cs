@@ -1,5 +1,6 @@
 ﻿using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
+using MedEquipCentral.DA.Contracts.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedEquipCentral.Controllers
@@ -25,6 +26,12 @@ namespace MedEquipCentral.Controllers
         public async Task<List<EquipmentDto>> GetAllForCompany(int companyId)
         {
             return await _equipmentService.GetAllForCompany(companyId);
+        }
+
+        [HttpPost("search")]
+        public async Task<PagedResult<EquipmentDto>> Search(EquipmentPagedIn dataIn)
+        {
+            return await _equipmentService.Search(dataIn);
         }
     }
 }

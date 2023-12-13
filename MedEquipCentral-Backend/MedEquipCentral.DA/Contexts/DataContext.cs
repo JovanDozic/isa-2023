@@ -24,9 +24,9 @@ namespace MedEquipCentral.DA.Contexts
                 .WithMany()
                 .HasForeignKey(e => e.TypeId);
             modelBuilder.Entity<Equipment>()
-                .HasMany(e => e.Companies)
+                .HasOne(e => e.Company)
                 .WithMany()
-                .UsingEntity(j => j.ToTable("CompanyEquipment"));
+                .HasForeignKey(e => e.CompanyId);
         }
     }
 }

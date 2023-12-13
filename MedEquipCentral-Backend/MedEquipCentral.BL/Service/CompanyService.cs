@@ -45,7 +45,7 @@ namespace MedEquipCentral.BL.Service
             var returnDto = _mapper.Map<List<CompanyDto>>(companies);
             return new PagedResult<CompanyDto>()
             {
-                result = returnDto,
+                Result = returnDto,
             };
         }
         public CompanyDto GetById(int id) //IZMENITI DA BUDE POSEBNA FUNKCIJA U COMPANY REPOZITORIJUMU
