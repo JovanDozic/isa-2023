@@ -1,8 +1,6 @@
 ﻿using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace MedEquipCentral.Controllers
 {
@@ -18,7 +16,7 @@ namespace MedEquipCentral.Controllers
         }
 
         [HttpGet("getById/{id:int}")]
-        public async Task<UserDto> Get(int id) 
+        public async Task<UserDto> Get(int id)
         {
             return await _userService.GetById(id);
         }
@@ -57,6 +55,12 @@ namespace MedEquipCentral.Controllers
         public async Task<List<UserDto>> GetAllRegistered()
         {
             return await _userService.GetAllRegistered();
+        }
+
+        [HttpPatch("{userId:int}/addSystemAdmin")]
+        public async Task AddSystemAdmin(int userId)
+        {
+            await _userService.AddSystemAdmin(userId);
         }
 
     }

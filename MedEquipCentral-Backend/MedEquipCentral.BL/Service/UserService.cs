@@ -22,7 +22,7 @@ namespace MedEquipCentral.BL.Service
         {
             var users = await _unitOfWork.GetUserRepository().GetAll();
             var usersList = users.ToList();
-            var returnDto =  _mapper.Map<List<UserDto>>(usersList);
+            var returnDto = _mapper.Map<List<UserDto>>(usersList);
             return returnDto;
         }
 
@@ -80,6 +80,20 @@ namespace MedEquipCentral.BL.Service
             var users = await _unitOfWork.GetUserRepository().GetAll();
             var companyAdminsDto = users.ToList().Where(x => x.CompanyId == companyId && x.Id != adminId);
             return _mapper.Map<List<UserDto>>(companyAdminsDto);
+        }
+
+        public async Task AddSystemAdmin(int userId)
+        {
+            var user = await _unitOfWork.GetUserRepository().GetByIdAsync(userId);
+            // TODO: Odluci da li ces imati ovaj uslov, pa davati upozorenje na frontu
+            //       Tj. skloniti ovaj `|| true`
+            if (user.Role == UserRole.Unauthenticated ||
+                user.Role == UserRole.Registered || true)
+            {
+                user.Role = UserRole.System_Admin;
+                _unitOfWork.GetUserRepository().Update(user);
+                await _unitOfWork.Save();
+            }
         }
     }
 }
