@@ -57,11 +57,22 @@ namespace MedEquipCentral.Controllers
             return await _userService.GetAllRegistered();
         }
 
+        [HttpGet("getAllSystemAdmins")]
+        public async Task<List<UserDto>> GetAllSystemAdmins()
+        {
+            return await _userService.GetAllSystemAdmins();
+        }
+
         [HttpPatch("{userId:int}/addSystemAdmin")]
         public async Task AddSystemAdmin(int userId)
         {
             await _userService.AddSystemAdmin(userId);
         }
 
+        [HttpPatch("{userId:int}/removeSystemAdmin")]
+        public async Task RemoveSystemAdmin(int userId)
+        {
+            await _userService.RemoveSystemAdmin(userId);
+        }
     }
 }

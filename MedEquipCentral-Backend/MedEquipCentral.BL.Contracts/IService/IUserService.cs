@@ -11,6 +11,8 @@ namespace MedEquipCentral.BL.Contracts.IService
         Task AddToCompany(int userId, int companyId);
         Task<List<UserDto>> GetAllRegistered();
         Task<List<UserDto>> GetOtherCompanyAdmins(int companyId, int adminId);
-        Task AddSystemAdmin(int adminId);
+        Task AddSystemAdmin(int userId);
+        Task RemoveSystemAdmin(int userId);
+        Task<List<UserDto>> GetAllSystemAdmins();
     }
 }

@@ -5,10 +5,12 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AppComponent } from "../../app.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component"
 import { RouterModule } from "@angular/router";
+import { SystemAdminsManagementComponent } from "./system-admins-management/system-admins-management.component";
 
 @NgModule({
     declarations: [
-        UserProfileComponent
+        UserProfileComponent,
+        SystemAdminsManagementComponent
     ],
     imports: [
       BrowserModule,
@@ -18,7 +20,8 @@ import { RouterModule } from "@angular/router";
       FormsModule
     ],
     exports:[
-        UserProfileComponent
+        UserProfileComponent,
+        SystemAdminsManagementComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

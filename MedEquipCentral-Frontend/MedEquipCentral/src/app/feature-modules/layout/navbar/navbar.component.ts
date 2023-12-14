@@ -11,11 +11,4 @@ export class NavbarComponent {
 
   constructor(private router: Router) { }
 
-  public ViewCompanyById() {
-    const companyId = prompt("Enter company ID:");
-    if (companyId) {
-      this.router.navigate([`/company/${companyId}`]);
-    }
-  }
-
 }

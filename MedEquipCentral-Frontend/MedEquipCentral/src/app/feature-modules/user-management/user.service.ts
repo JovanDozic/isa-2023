@@ -17,6 +17,10 @@ export class UserService {
     return this.http.get<User[]>(this.apiUrl + '/getAllRegistered');
   }
 
+  getAllSystemAdmins(): Observable<User[]> {
+    return this.http.get<User[]>(this.apiUrl + '/getAllSystemAdmins');
+  }
+
   addToCompany(userId: number, companyId: number): Observable<User> {
     return this.http.patch<User>(this.apiUrl + '/' + userId + '/addToCompany/' + companyId, null);
   }

@@ -95,5 +95,22 @@ namespace MedEquipCentral.BL.Service
                 await _unitOfWork.Save();
             }
         }
+
+        public async Task RemoveSystemAdmin(int userId)
+        {
+            var user = await _unitOfWork.GetUserRepository().GetByIdAsync(userId);
+            if (user.Role == UserRole.System_Admin)
+            {
+                user.Role = UserRole.Registered;
+                _unitOfWork.GetUserRepository().Update(user);
+                await _unitOfWork.Save();
+            }
+        }
+
+        public async Task<List<UserDto>> GetAllSystemAdmins()
+        {
+            var users = (await _unitOfWork.GetUserRepository().GetAll()).Where(x => x.Role == UserRole.System_Admin);
+            return _mapper.Map<List<UserDto>>(users);
+        }
     }
 }
