@@ -26,7 +26,7 @@ export class RegistrationComponent {
     country: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required]),
     job: new FormControl('', [Validators.required]),
-    companyInfo: new FormControl('', [Validators.required]),
+    companyInfo: new FormControl(''),
   });
 
   register(): void {

@@ -40,13 +40,18 @@ namespace MedEquipCentral
 
             });
 
-            
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().
+                 AllowAnyHeader());
+            });
 
             services.AddCors(options =>
             {
                 options.AddPolicy("_mySpecificOrigins", builder =>
                 {
                     builder.WithOrigins("http://localhost:4200")
+                           .AllowAnyOrigin()
                            .AllowAnyMethod()
                            .AllowAnyHeader();
                 });
@@ -118,9 +123,12 @@ namespace MedEquipCentral
 
             app.UseHttpsRedirection();
 
+            app.UseRouting();
+
+            app.UseCors("AllowOrigin");
+
             app.UseCors("_mySpecificOrigins");
 
-            app.UseRouting();
 
             app.UseAuthentication();
 

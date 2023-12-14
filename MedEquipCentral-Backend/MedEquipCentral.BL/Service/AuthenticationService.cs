@@ -21,17 +21,18 @@ public class AuthenticationService : IAuthenticationService
         _configuration = configuration;
     }
 
-    public async Task<AuthenticationTokensDto> ConfirmEmailAsync(int uid, string token)
+    public async Task<AuthenticationTokensDto> ConfirmEmailAsync(int userId)
     {
-        var user = await _unitOfWork.GetUserRepository().GetByIdAsync(uid);
+        var user = await _unitOfWork.GetUserRepository().GetByIdAsync(userId);
+        user.Role = UserRole.Registered;
         user = _unitOfWork.GetUserRepository().Update(user);
-
+        await _unitOfWork.Save();
         return await _unitOfWork.GetTokenGeneratorRepository().GenerateAccessToken(user);
     }
 
     public async Task<AuthenticationTokensDto?> Login(CredentialsDto credentials)
     {
-        var user = await _unitOfWork.GetUserRepository().GetByEmailAsync(credentials.Email);
+        var user = await _unitOfWork.GetUserRepository().GetByEmailAsync(credentials.Username);
         if(user != null && _unitOfWork.GetUserRepository().CheckPasswordAsync(user, credentials.Password)) 
         {
             return await _unitOfWork.GetTokenGeneratorRepository().GenerateAccessToken(user);
@@ -59,7 +60,7 @@ public class AuthenticationService : IAuthenticationService
             Placeholders = new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>("{{UserName}}", user.Name),
-                new KeyValuePair<string, string>("{{Link}}", string.Format(appDomain + confirmationLink, user.Id, token.AccessToken))
+                new KeyValuePair<string, string>("{{Link}}", string.Format(appDomain) + string.Format(confirmationLink))
             }
         });
         return token;

@@ -6,5 +6,5 @@ public interface IAuthenticationService
 {
     Task<AuthenticationTokensDto> Login(CredentialsDto credentials);
     Task<AuthenticationTokensDto> RegisterUser(UserDto userDto);
-    Task<AuthenticationTokensDto> ConfirmEmailAsync(int uid, string token);
+    Task<AuthenticationTokensDto> ConfirmEmailAsync(int uid);
 }
