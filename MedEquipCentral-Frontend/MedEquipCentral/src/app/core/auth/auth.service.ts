@@ -14,7 +14,7 @@ import {Login} from "./model/login.model";
   providedIn: 'root'
 })
 export class AuthService {
-  user$ = new BehaviorSubject<User>({id: 0, email: "", password: "", name: "", surname: "", city: "", country: "", phone: "", job: "", companyInfo: "", userRole: UserRole.Unauthenticated });
+  user$ = new BehaviorSubject<User>({id: 0, email: "", password: "", confirmPassword: "", name: "", surname: "", city: "", country: "", phone: "", job: "", companyInfo: "", userRole: UserRole.Unauthenticated });
 
   constructor(private http: HttpClient,
     private tokenStorage: TokenStorage,
@@ -46,7 +46,7 @@ export class AuthService {
     this.router.navigate(['/home']).then(_ => {
       this.tokenStorage.clear();
       this.user$.next({
-        companyInfo: "", email: "", id: 0, password: "", name: "", surname: "", city: "", country: "", phone: "", job: "", userRole: UserRole.Unauthenticated });
+        companyInfo: "", email: "", id: 0, password: "", confirmPassword: "", name: "", surname: "", city: "", country: "", phone: "", job: "", userRole: UserRole.Unauthenticated });
       }
     );
   }

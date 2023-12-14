@@ -7,5 +7,5 @@ export interface Appointment {
     adminSurname: string
     adminId: number,
     buyerId?: number,
-    equipmentId?: number,
+    equipmentIds?: number[],
 }

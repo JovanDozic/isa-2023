@@ -1,3 +1,5 @@
+import { UserRole } from "../../../core/auth/model/user.model";
+
 export interface User{
     id: number,
     name: string,
@@ -10,5 +12,6 @@ export interface User{
     job: string,
     password: string,
     phone: string,
-    companyId?: number
+    companyId?: number,
+    userRole?: UserRole
 }

@@ -12,6 +12,7 @@ namespace MedEquipCentral.DA.Contexts
         public DbSet<Equipment> Equipment { get; set; }
         public DbSet<EquipmentType> EquipmentType { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        //public DbSet<AppointmentEquipment> AppointmentEquipment { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +28,10 @@ namespace MedEquipCentral.DA.Contexts
                 .HasOne(e => e.Company)
                 .WithMany()
                 .HasForeignKey(e => e.CompanyId);
+            modelBuilder.Entity<Appointment>()
+                .HasMany(e => e.Equipment)
+                .WithMany()
+                .UsingEntity(j => j.ToTable("AppointmentEquipment"));
         }
     }
 }

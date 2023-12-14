@@ -9,4 +9,5 @@ export interface Equipment{
     type: EquipmentType,
     companyId: number,
     company: Company,
+    quantity: number
 }

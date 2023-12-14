@@ -21,7 +21,7 @@ namespace MedEquipCentral.DA.Repository
 
         public async Task<List<Appointment>> GetFreeAppointments(int companyId)
         {
-            var result = _dbContext.Set<Appointment>().Where(x => x.CompanyId == companyId && x.EquipmentId == null).ToList();
+            var result = _dbContext.Set<Appointment>().Where(x => x.CompanyId == companyId && x.BuyerId == 0).Include(x => x.Equipment).ToList();
 
             return result;
         }

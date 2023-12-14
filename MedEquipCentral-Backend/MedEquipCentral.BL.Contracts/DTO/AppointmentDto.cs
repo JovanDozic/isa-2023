@@ -16,7 +16,7 @@ namespace MedEquipCentral.BL.Contracts.DTO
         public string AdminSurname { get; set; }
         public int AdminId { get; set; }
         public int? BuyerId { get; set; }
-        public int? EquipmentId { get; set; }
+        public List<int>? EquipmentIds { get; set; }
         
     }
 }

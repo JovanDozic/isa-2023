@@ -6,6 +6,7 @@ import { User } from '../../user-management/model/user.model';
 import { Equipment } from '../model/equipment.model';
 import { Appointment } from '../model/appointment.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-company',
@@ -19,11 +20,13 @@ export class CompanyComponent implements OnInit {
   shouldEdit: boolean = false;
   equipment: Equipment[] = [];
   appointments: Appointment[] = [];
-  selectedItem?: Equipment;
-  appointmentForm!: FormGroup;
+  selectedItem: Equipment[] = [];
+  currentUser!: User
 
-
-  constructor(private service: CompanyManagementService, private route: ActivatedRoute, private fb: FormBuilder) { }
+  constructor(private service: CompanyManagementService, 
+              private route: ActivatedRoute, 
+              private fb: FormBuilder,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -31,11 +34,9 @@ export class CompanyComponent implements OnInit {
       this.getCompany();
     })
 
-    this.appointmentForm = this.fb.group({
-      appointmentDate: ['', Validators.required],
-      duration: ['', Validators.required],
-    })
 
+
+    this.currentUser = this.authService.user$.getValue();
   }
 
   getCompany() {
@@ -66,31 +67,6 @@ export class CompanyComponent implements OnInit {
   }
 
   setSelectedItem(item: Equipment) {
-    this.selectedItem = item;
-  }
-
-  createAppointment() {
-    if (this.appointmentForm.valid) {
-      const appointment: Appointment = {
-        id: 0,
-        startTime: this.appointmentForm.value.appointmentDate,
-        duration: this.appointmentForm.value.duration,
-        companyId: this.companyId,
-        adminName: 'admin',
-        adminSurname: 'adminic',
-        adminId: 1,
-      }
-      console.log(appointment.startTime);
-
-      this.service.createAppointment(appointment).subscribe({
-        next: response => {
-          console.log(response);
-          this.getCompany();
-        },
-        error: err => {
-          console.log(err);
-        }
-      })
-    }
+    this.selectedItem.push(item);
   }
 }

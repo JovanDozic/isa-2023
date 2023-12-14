@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MedEquipCentral.DA.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedEquipCentral.DA.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231214191315_MoreEquipInAppoint")]
+    partial class MoreEquipInAppoint
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,21 +25,6 @@ namespace MedEquipCentral.DA.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("AppointmentEquipment", b =>
-                {
-                    b.Property<int>("EquipmentId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("EquipmentId1")
-                        .HasColumnType("integer");
-
-                    b.HasKey("EquipmentId", "EquipmentId1");
-
-                    b.HasIndex("EquipmentId1");
-
-                    b.ToTable("AppointmentEquipment", (string)null);
-                });
 
             modelBuilder.Entity("MedEquipCentral.DA.Contracts.Model.Appointment", b =>
                 {
@@ -67,6 +55,7 @@ namespace MedEquipCentral.DA.Migrations
                         .HasColumnType("integer");
 
                     b.Property<List<int>>("EquipmentIds")
+                        .IsRequired()
                         .HasColumnType("integer[]");
 
                     b.Property<DateTime>("StartTime")
@@ -140,6 +129,8 @@ namespace MedEquipCentral.DA.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("EquipmentId");
 
                     b.HasIndex("TypeId");
 
@@ -249,21 +240,6 @@ namespace MedEquipCentral.DA.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("AppointmentEquipment", b =>
-                {
-                    b.HasOne("MedEquipCentral.DA.Contracts.Model.Appointment", null)
-                        .WithMany()
-                        .HasForeignKey("EquipmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MedEquipCentral.DA.Contracts.Model.Equipment", null)
-                        .WithMany()
-                        .HasForeignKey("EquipmentId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("MedEquipCentral.DA.Contracts.Model.Company", b =>
                 {
                     b.HasOne("MedEquipCentral.DA.Contracts.Model.Location", "Location")
@@ -283,6 +259,10 @@ namespace MedEquipCentral.DA.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MedEquipCentral.DA.Contracts.Model.Appointment", null)
+                        .WithMany("Equipment")
+                        .HasForeignKey("EquipmentId");
+
                     b.HasOne("MedEquipCentral.DA.Contracts.Model.EquipmentType", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId")
@@ -292,6 +272,11 @@ namespace MedEquipCentral.DA.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("MedEquipCentral.DA.Contracts.Model.Appointment", b =>
+                {
+                    b.Navigation("Equipment");
                 });
 #pragma warning restore 612, 618
         }

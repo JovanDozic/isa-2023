@@ -55,16 +55,17 @@ namespace MedEquipCentral.BL.Service
 
             if(result != null)
             {
-                await CreateQRCodeForAppointment(result);
+
+                await CreateQRCodeForAppointment(result.Id);
             }
 
             return "Appointment created successfully, QR code is sent to your email";
         }
 
-        private async Task<string> CreateQRCodeForAppointment(AppointmentDto appointment)
+        private async Task<string> CreateQRCodeForAppointment(int appointmentId)
         {
             QRCodeGenerator qRGenerator = new QRCodeGenerator();
-            //QRCodeData QrCodeInfo = qRGenerator.CreateQrCode(, QRCodeGenerator.ECCLevel.Q);
+            QRCodeData QrCodeInfo = qRGenerator.CreateQrCode($"{appointmentId}", QRCodeGenerator.ECCLevel.Q);
             return null;
         }
     }

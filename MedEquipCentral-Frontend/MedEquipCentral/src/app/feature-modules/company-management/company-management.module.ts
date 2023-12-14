@@ -8,13 +8,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompanyComponent } from './company/company.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppointmentFormComponent } from './company/appointment-form/appointment-form.component';
 
 
 @NgModule({
   declarations: [
     CompanyFormComponent,
     CompanyComponent,
-    CompaniesComponent
+    CompaniesComponent,
+    AppointmentFormComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   exports:[
     CompanyComponent,
     CompanyFormComponent,
-    CompaniesComponent
+    CompaniesComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
