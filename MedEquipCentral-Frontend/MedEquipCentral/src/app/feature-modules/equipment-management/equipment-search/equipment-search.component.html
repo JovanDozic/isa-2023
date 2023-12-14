@@ -2,8 +2,8 @@
 
     <div class="row">
         <h1 class="my-5">Equipment</h1>
-
     </div>
+    
     <div class="row">
         <div class="col-md-6">
             <div class="input-group">
@@ -31,7 +31,7 @@
                     <li *ngFor="let type of equipmentTypes"><a class="dropdown-item" (click)="setTypeFilter(type)">{{type.type}}</a></li>
                 </ul>
 
-                <button type="button" class="btn btn-outline-primary" (click)="searchFilter()">Filter</button>
+                <button type="button" class="btn btn-outline-primary" (click)="searchEquipment()">Filter</button>
             
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="removeFilters()"><i class="bi bi-x-lg"></i></button>
             
@@ -46,19 +46,11 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{equipment.name}}</h5>
-                    <p class="card-text">{{equipment.type.type}}</p>
-                    <p class="card-text">{{equipment.description}}</p>
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                        [attr.data-bs-target]="'#companyList' + i" aria-expanded="false"
-                        [attr.aria-controls]="'companyList' + i">
-                        Show Companies
-                    </button>
-                    <div class="collapse" id="companyList{{i}}">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item" *ngFor="let company of equipment.companies">{{company.name}}
-                            </li>
-                        </ul>
-                    </div>
+                    <p class="card-text fw-light">{{equipment.type.type}}</p>
+                    <p class="card-text text-secondary">{{equipment.description}}</p>
+                    <p class="card-text mt-4">
+                        <span><b class="text-primary">Available at: </b> {{equipment.company.name}}</span>
+                    </p>
                 </div>
             </div>
         </div>

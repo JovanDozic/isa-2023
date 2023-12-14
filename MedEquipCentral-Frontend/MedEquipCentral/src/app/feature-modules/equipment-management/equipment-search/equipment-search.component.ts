@@ -10,12 +10,8 @@ import { EquipmentType } from '../../company-management/model/equipment-type.mod
 })
 export class EquipmentSearchComponent implements OnInit, OnChanges {
 
-
-
-
-
-
   equipment: Equipment[] = [];
+  equipmentOriginal: Equipment[] = [];
   equipmentTypes: EquipmentType[] = [];
   searchTerm: string = '';
   selectedType?: EquipmentType = undefined;
@@ -36,6 +32,7 @@ export class EquipmentSearchComponent implements OnInit, OnChanges {
     this.equipmentService.getEquipment().subscribe(
       (response: any) => {
         this.equipment = response;
+        this.equipmentOriginal = response;
         console.log(this.equipment);
       },
       (error) => console.log(error)
@@ -57,7 +54,7 @@ export class EquipmentSearchComponent implements OnInit, OnChanges {
   }
 
   searchEquipment() {
-    console.log("IM DOING IT: " + this.searchTerm);
+    // ovde treba odmah i filter da se primeni
     if (!this.searchTerm) {
       this.getEquipment();
     }
@@ -67,6 +64,7 @@ export class EquipmentSearchComponent implements OnInit, OnChanges {
       );
       console.log(this.equipment);
     }
+    this.searchFilter();
   }
 
   removeSearch() {
@@ -90,9 +88,6 @@ export class EquipmentSearchComponent implements OnInit, OnChanges {
         }
       });
     }
-
-
-
   }
 
   toggleSortDirection() {
@@ -107,6 +102,7 @@ export class EquipmentSearchComponent implements OnInit, OnChanges {
   removeFilters() {
     this.selectedType = undefined;
     this.sortDirection = undefined;
+    this.equipment = this.equipmentOriginal;
     this.searchEquipment();
   }
 

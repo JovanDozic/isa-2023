@@ -7,6 +7,6 @@ export interface Equipment{
     description?: string,
     typeId: number,
     type: EquipmentType,
-    companyIds: number[],
-    companies: Company[],
+    companyId: number,
+    company: Company,
 }
