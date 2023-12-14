@@ -19,5 +19,12 @@ namespace MedEquipCentral.DA.Repository
         }
         public AppointmentRepository(DbContext dbContext) : base(dbContext) { }
 
+        public async Task<List<Appointment>> GetFreeAppointments(int companyId)
+        {
+            var result = _dbContext.Set<Appointment>().Where(x => x.CompanyId == companyId && x.EquipmentId == null).ToList();
+
+            return result;
+        }
+
     }
 }
