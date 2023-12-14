@@ -33,5 +33,11 @@ namespace MedEquipCentral.Controllers
         {
             return await _equipmentService.Search(dataIn);
         }
+
+        [HttpPost]
+        public async Task<EquipmentDto> Add(EquipmentDto equipmentDto)
+        {
+            return await _equipmentService.Add(equipmentDto);
+        }
     }
 }

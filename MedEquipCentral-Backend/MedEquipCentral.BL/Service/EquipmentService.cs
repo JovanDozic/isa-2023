@@ -2,6 +2,7 @@
 using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts;
+using MedEquipCentral.DA.Contracts.Model;
 using MedEquipCentral.DA.Contracts.Shared;
 
 namespace MedEquipCentral.BL.Service
@@ -15,6 +16,16 @@ namespace MedEquipCentral.BL.Service
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+        }
+
+        public async Task<EquipmentDto> Add(EquipmentDto equipmentDto)
+        {
+            var equipmentEntity = _mapper.Map<Equipment>(equipmentDto);
+            equipmentEntity.Company = null;
+            equipmentEntity.Type = null;
+            var equipment = await _unitOfWork.GetEquipmentRepository().Add(equipmentEntity);
+            await _unitOfWork.Save();
+            return _mapper.Map<EquipmentDto>(equipment.Entity);
         }
 
         public List<EquipmentDto> GetAll()

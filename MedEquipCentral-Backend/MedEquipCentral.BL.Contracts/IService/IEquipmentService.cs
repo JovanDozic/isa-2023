@@ -8,5 +8,6 @@ namespace MedEquipCentral.BL.Contracts.IService
         Task<List<EquipmentDto>> GetAllForCompany(int companyId);
         List<EquipmentDto> GetAll();
         Task<PagedResult<EquipmentDto>> Search(EquipmentPagedIn dataIn);
+        Task<EquipmentDto> Add(EquipmentDto equipmentDto);
     }
 }

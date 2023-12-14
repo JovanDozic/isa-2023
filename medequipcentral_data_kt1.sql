@@ -34,40 +34,7 @@ INSERT INTO medequipcentral."EquipmentType" ("Id", "Type", "Description") VALUES
 INSERT INTO medequipcentral."EquipmentType" ("Id", "Type", "Description") VALUES (9, 'Sterilizer', 'Sterilizes equipment');
 INSERT INTO medequipcentral."EquipmentType" ("Id", "Type", "Description") VALUES (10, 'Infusion Pump', 'Delivers fluids in controlled amounts');
 
--- Inserting Equipment Data
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyIds") VALUES (1, 'Equipment 1', 'Medical equipment for healthcare use', 6, '{8, 6}');
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyIds") VALUES (2, 'Equipment 2', 'Medical equipment for healthcare use', 5, '{6, 2}');
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyIds") VALUES (3, 'Equipment 3', 'Medical equipment for healthcare use', 7, '{6, 10, 4}');
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyIds") VALUES (4, 'Equipment 4', 'Medical equipment for healthcare use', 6, '{3, 6}');
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyIds") VALUES (5, 'Equipment 5', 'Medical equipment for healthcare use', 9, '{3}');
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyIds") VALUES (6, 'Equipment 6', 'Medical equipment for healthcare use', 9, '{8, 9}');
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyIds") VALUES (7, 'Equipment 7', 'Medical equipment for healthcare use', 3, '{7, 6}');
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyIds") VALUES (8, 'Equipment 8', 'Medical equipment for healthcare use', 1, '{3, 4}');
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyIds") VALUES (9, 'Equipment 9', 'Medical equipment for healthcare use', 1, '{4}');
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyIds") VALUES (10, 'Equipment 10', 'Medical equipment for healthcare use', 5, '{10, 2}');
 
--- Inserting CompanyEquipment Data
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (1, 9);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (1, 3);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (2, 1);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (2, 9);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (3, 2);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (3, 7);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (3, 4);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (4, 9);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (4, 4);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (4, 7);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (5, 8);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (5, 3);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (6, 7);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (7, 7);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (7, 5);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (7, 4);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (8, 8);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (9, 1);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (9, 5);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (9, 9);
-INSERT INTO medequipcentral."CompanyEquipment" ("CompaniesId", "EquipmentId") VALUES (10, 5);
 
 -- Inserting Users Data
 INSERT INTO medequipcentral."Users" ("Id", "Email", "Password", "Name", "Surname", "City", "Country", "Phone", "Job", "CompanyInfo", "CompanyId", "Role") VALUES (1, 'william.johnson@example.com', 'da48961a9f5efb9ca8a4aa133f47b50e', 'William', 'Johnson', 'Brookside', 'Italy', '+16491453150', 'Doctor', 'Medical', 4, 2);
