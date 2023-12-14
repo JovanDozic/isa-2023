@@ -40,3 +40,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# ne znam jesam dobru putanju stavio
+/MedEquipCentral-Frontend/MedEquipCentral/src/app/shared/environment.ts
