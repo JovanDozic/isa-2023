@@ -2,11 +2,10 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyManagementService } from '../company-management.service';
 import { Company } from '../model/company.model';
-import { UserService } from '../../user-management/user.service';
-
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 import { User } from '../../user-management/model/user.model';
+import { UserManagementService } from '../../user-management/user-management.service';
 
 @Component({
   selector: 'app-company-form',
@@ -22,7 +21,7 @@ export class CompanyFormComponent implements OnInit, OnChanges {
   users: User[] = [];
   companyForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private companyService: CompanyManagementService, private userService: UserService, private location: Location) { }
+  constructor(private fb: FormBuilder, private companyService: CompanyManagementService, private userService: UserManagementService, private location: Location) { }
 
   ngOnInit(): void {
     this.companyForm = this.fb.group({
@@ -47,7 +46,6 @@ export class CompanyFormComponent implements OnInit, OnChanges {
     if (!this.shouldEdit) {
       this.admins = [];
     }
-
   }
 
   getUsers() {

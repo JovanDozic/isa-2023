@@ -1,20 +1,23 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { UserService } from '../user.service';
 import { User } from '../../../core/auth/model/user.model';
+import { UserManagementService } from '../user-management.service';
 
 @Component({
   selector: 'app-system-admins-management',
   templateUrl: './system-admins-management.component.html',
   styleUrl: './system-admins-management.component.css'
 })
-export class SystemAdminsManagementComponent implements OnInit {
+export class SystemAdminsManagementComponent implements OnInit, OnChanges {
 
 
   regUsers: User[] = [];
   sysAdmins: User[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserManagementService) { }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    throw new Error('Method not implemented.');
+  }
 
   ngOnInit(): void {
     this.getUsers();
@@ -37,14 +40,28 @@ export class SystemAdminsManagementComponent implements OnInit {
     );
   }
 
-  removeSystemAdmin() {
-    throw new Error('Method not implemented.');
+  removeSystemAdmin(user: User) {
+    this.userService.removeSystemAdmin(user.id).subscribe(
+      (response: any) => {
+        this.sysAdmins = this.sysAdmins.filter((u) => u.id !== user.id);
+        this.regUsers.push(user);
+      },
+      (error) => console.log(error)
+    );
   }
 
 
-  
-  addSystemAdmin() {
-    throw new Error('Method not implemented.');
+
+  addSystemAdmin(user: User) {
+    this.userService.addSystemAdmin(user.id).subscribe(
+      (response: any) => {
+        this.regUsers = this.regUsers.filter((u) => u.id !== user.id);
+        this.sysAdmins.push(user);
+        console.log(this.sysAdmins);
+        console.log(this.regUsers);
+      },
+      (error) => console.log(error)
+    );
   }
 
 }
