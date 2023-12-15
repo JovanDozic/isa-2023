@@ -9,6 +9,7 @@ import { EquipmentSearchComponent } from '../../feature-modules/equipment-manage
 import { SystemAdminsManagementComponent } from '../../feature-modules/user-management/system-admins-management/system-admins-management.component';
 import {RegistrationComponent} from "../auth/registration/registration.component";
 import {LoginComponent} from "../auth/login/login.component";
+import {VerificationComponent} from "../auth/verification/verification.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'equipment/search', component: EquipmentSearchComponent },
   { path: 'register', component: RegistrationComponent},
   { path: 'login', component: LoginComponent},
+  { path: 'verify/:userId', component: VerificationComponent},
   { path: 'system-admins-management', component: SystemAdminsManagementComponent },
 ];
 

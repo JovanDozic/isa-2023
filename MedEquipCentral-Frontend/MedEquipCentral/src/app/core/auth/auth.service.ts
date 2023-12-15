@@ -59,6 +59,11 @@ export class AuthService {
     this.setUser();
   }
 
+  verify(userId: number): Observable<AuthenticationResponse>{
+    return this.http.
+    patch<AuthenticationResponse>(environment.apiHost + "users/verify/" + userId, null)
+  }
+
   private setUser(): void {
     const jwtHelperService = new JwtHelperService();
     const accessToken = this.tokenStorage.getAccessToken() || "";

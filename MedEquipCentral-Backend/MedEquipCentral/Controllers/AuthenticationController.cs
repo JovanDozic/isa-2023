@@ -9,12 +9,9 @@ namespace MedEquipCentral.Controllers;
 public class AuthenticationController : Controller
 {
     private readonly IAuthenticationService _authenticationService;
-    private readonly IEmailService _emailService;
-
-    public AuthenticationController(IAuthenticationService authenticationService, IEmailService emailService)
+    public AuthenticationController(IAuthenticationService authenticationService)
     {
         _authenticationService = authenticationService;
-        _emailService = emailService;
     }
 
     [HttpPost("register")]
@@ -24,8 +21,8 @@ public class AuthenticationController : Controller
         return await _authenticationService.RegisterUser(user);
     }
 
-    [HttpPatch("registred/{userId:int}")]
-    public async Task<AuthenticationTokensDto> RegistredUser([FromRoute]int userId)
+    [HttpPatch("verify/{userId:int}")]
+    public async Task<AuthenticationTokensDto> VerifyUser([FromRoute]int userId)
     {
         return await _authenticationService.ConfirmEmailAsync(userId);
     }

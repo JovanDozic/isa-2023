@@ -60,7 +60,7 @@ public class AuthenticationService : IAuthenticationService
             Placeholders = new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>("{{UserName}}", user.Name),
-                new KeyValuePair<string, string>("{{Link}}", string.Format(appDomain) + string.Format(confirmationLink))
+                new KeyValuePair<string, string>("{{Link}}", string.Format(appDomain) + string.Format(confirmationLink) + string.Format(user.Id.ToString()))
             }
         });
         return token;
