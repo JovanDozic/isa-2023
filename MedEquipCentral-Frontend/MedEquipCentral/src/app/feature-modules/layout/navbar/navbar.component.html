@@ -33,6 +33,8 @@
                         <li *ngIf="user.userRole == 2"><a class="dropdown-item"
                                 [routerLink]="['company/' + user.companyId]"><i class="bi bi-list-nested"></i>
                             My company</a></li>
+                        <li *ngIf="user.userRole == 2"><a class="dropdown-item"
+                                [routerLink]="['company-calendar']"><i class="bi bi-calendar"></i> My company calendar</a></li>
                     </ul>
                 </li>
 

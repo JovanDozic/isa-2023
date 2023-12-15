@@ -13,10 +13,12 @@ import { UserManagementModule } from './feature-modules/user-management/user-man
 import { UserModule } from './feature-modules/user-management/user.module';
 import { EquipmentManagementModule } from './feature-modules/equipment-management/equipment-management.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent
   ],
   imports: [
     AppRoutingModule,
@@ -32,6 +34,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     UserModule,
     EquipmentManagementModule,
     NgbModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    })
   ],
   bootstrap: [AppComponent]
 })

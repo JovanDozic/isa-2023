@@ -10,6 +10,7 @@ import { SystemAdminsManagementComponent } from '../../feature-modules/user-mana
 import {RegistrationComponent} from "../auth/registration/registration.component";
 import {LoginComponent} from "../auth/login/login.component";
 import {VerificationComponent} from "../auth/verification/verification.component";
+import { CompanyCalendarComponent } from '../../feature-modules/company-management/company-calendar/company-calendar.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'verify/:userId', component: VerificationComponent},
   { path: 'system-admins-management', component: SystemAdminsManagementComponent },
+  { path: 'company-calendar', component: CompanyCalendarComponent },
 ];
 
 @NgModule({
