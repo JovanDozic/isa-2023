@@ -1,14 +1,7 @@
 ﻿using MedEquipCentral.DA.Contexts;
 using MedEquipCentral.DA.Contracts.IRepository;
 using MedEquipCentral.DA.Contracts.Model;
-using MedEquipCentral.DA.Contracts.Shared;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MedEquipCentral.DA.Repository
 {
@@ -30,6 +23,13 @@ namespace MedEquipCentral.DA.Repository
         public async Task<List<Appointment>> GetAllForEquipment(int equipmentId)
         {
             var result = _dbContext.Set<Appointment>().Where(x => x.EquipmentIds.Contains(equipmentId)).ToList();
+
+            return result;
+        }
+
+        public async Task<List<Appointment>> GetAllByCompany(int companyId)
+        {
+            var result = _dbContext.Set<Appointment>().Where(x => x.CompanyId == companyId).ToList();
 
             return result;
         }

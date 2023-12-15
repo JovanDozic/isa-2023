@@ -4,6 +4,9 @@ import { CalendarEvent, CalendarView } from 'angular-calendar';
 import { EventColor, MonthViewDay } from 'calendar-utils';
 import { isSameDay, isSameMonth } from 'date-fns';
 import { Subject } from 'rxjs';
+import { CompanyManagementService } from '../company-management.service';
+import { UserManagementService } from '../../user-management/user-management.service';
+import { AuthService } from '../../../core/auth/auth.service';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -33,33 +36,39 @@ export class CompanyCalendarComponent implements OnInit {
   activeDayIsOpen: boolean = false;
   CalendarView = CalendarView;
 
-  events: CalendarEvent[] = [
-    {
-      title: 'Event 1',
-      start: new Date('2023-12-16 10:00:00'),
-      end: new Date('2023-12-16 11:00:00'),
-      color: { ...colors['red'] },
-    },
-    {
-      title: 'Event 2',
-      start: new Date('2023-12-16 15:00:00'),
-      end: new Date('2023-12-16 16:00:00'),
-    },
-    {
-      title: 'Event 3',
-      start: new Date('2023-12-20 10:00:00'),
-      end: new Date('2023-12-20 11:00:00'),
-    }
-  ];
+  events: CalendarEvent[] = [];
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private appointmentService: CompanyManagementService, private authService: AuthService) { }
 
 
   ngOnInit(): void {
+    const user = this.authService.user$.getValue();
+    console.log("Ulogovan gospo:");
+    console.log(user);
+    if (user.companyId) {
+      this.getAppointments(user.companyId);
+    }
+  }
 
-
-
-
+  getAppointments(companyId: number) {
+    this.appointmentService.getCompanyAppointments(companyId).subscribe(appointments => {
+      appointments.forEach(appointment => {
+        const startTime = new Date(appointment.startTime);
+        const endTime = new Date(startTime.getTime() + appointment.duration * 60000); // 60000 milliseconds in a minute
+      
+        // Format: "Appointment for 1 [10:00 - 11:00]"
+        const title = `Appointment for ${appointment.buyerId} [${startTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })} - ${endTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}]`;
+      
+        this.events.push({
+          title: title,
+          start: startTime,
+          end: endTime,
+          color: { ...colors['red'] },
+        });
+      });
+      
+      this.refresh.next();
+    });
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -74,7 +83,6 @@ export class CompanyCalendarComponent implements OnInit {
       }
       this.viewDate = date;
     }
-    this.cdr.detectChanges();
   }
 
   closeOpenMonthViewDay() {

@@ -13,6 +13,7 @@ import { EquipmentManagementModule } from "../equipment-management/equipment-man
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CompanyCalendarComponent } from './company-calendar/company-calendar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { CompanyCalendarComponent } from './company-calendar/company-calendar.co
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    BrowserAnimationsModule,
     NgbModalModule,
   ],
   exports: [

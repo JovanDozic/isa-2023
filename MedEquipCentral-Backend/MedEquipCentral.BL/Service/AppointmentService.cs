@@ -4,9 +4,6 @@ using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts;
 using MedEquipCentral.DA.Contracts.Model;
 using QRCoder;
-using static QRCoder.PayloadGenerator;
-using System.Reflection.Emit;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace MedEquipCentral.BL.Service
 {
@@ -53,7 +50,7 @@ namespace MedEquipCentral.BL.Service
         {
             var result = await AddAppointment(dataIn);
 
-            if(result != null)
+            if (result != null)
             {
 
                 await CreateQRCodeForAppointment(result.Id);
@@ -67,6 +64,12 @@ namespace MedEquipCentral.BL.Service
             QRCodeGenerator qRGenerator = new QRCodeGenerator();
             QRCodeData QrCodeInfo = qRGenerator.CreateQrCode($"{appointmentId}", QRCodeGenerator.ECCLevel.Q);
             return null;
+        }
+
+        public async Task<List<AppointmentDto>> GetCompanyAppointments(int companyId)
+        {
+            var appointments = await _unitOfWork.GetAppointmentRepository().GetAllByCompany(companyId);
+            return _mapper.Map<List<AppointmentDto>>(appointments);
         }
     }
 }

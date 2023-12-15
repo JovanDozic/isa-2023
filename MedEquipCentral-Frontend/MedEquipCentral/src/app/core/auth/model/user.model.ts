@@ -1,7 +1,7 @@
 export enum UserRole{
   Unauthenticated,
   Registered,
-  Company_Admin,
+  Company_Admin = 2,
   System_Admin
 }
 

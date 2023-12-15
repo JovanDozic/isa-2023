@@ -24,7 +24,8 @@ public class TokenGeneratorRepository : ITokenGeneratorRepository
             new("email", user.Email),
             new("name", user.Name),
             new("surname", user.Surname),
-            new("userRole", user.Role.ToString())
+            new("userRole", user.Role.ToString()),
+            new("companyId", user.CompanyId.ToString())
         };
 
         var jwt = CreateToken(claims, 60 * 24);
