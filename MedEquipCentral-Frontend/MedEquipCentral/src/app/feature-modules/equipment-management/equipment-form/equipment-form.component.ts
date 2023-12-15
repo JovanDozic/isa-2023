@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/auth/auth.service';
 import { User } from '../../../core/auth/model/user.model';
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './equipment-form.component.html',
   styleUrl: './equipment-form.component.css'
 })
-export class EquipmentFormComponent implements OnInit {
+export class EquipmentFormComponent implements OnInit, OnChanges {
   @Input() isEdit: boolean = false;
   @Input() equipment?: Equipment = undefined;
   @Output() refreshEquipment = new EventEmitter<null>();
@@ -65,11 +65,10 @@ export class EquipmentFormComponent implements OnInit {
 
   ngOnChanges() {
     this.equipmentForm.reset();
-    if (this.isEdit && this.equipment != undefined) {
-      console.log(this.equipment);
-      this.equipmentForm.patchValue(this.equipment);
-      this.setFormAvailabilty();
+    if (this.isEdit) {
+      this.equipmentForm.patchValue(this.equipment!);
     }
+    this.setFormAvailabilty();
   }
 
   addEquipment() {
