@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { User } from "./model/user.model";
 import { environment } from "../../shared/environment";
 import { observableToBeFn } from "rxjs/internal/testing/TestScheduler";
+import { User } from "../../core/auth/model/user.model";
 
 @Injectable({
     providedIn: 'root'

@@ -1,4 +1,4 @@
-import { User } from "../../user-management/model/user.model"
+import { User } from "../../../core/auth/model/user.model"
 
 export interface Appointment {
     id: number,

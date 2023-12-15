@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { User } from '../model/user.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserManagementService } from '../user-management.service';
+import { User } from '../../../core/auth/model/user.model';
 
 @Component({
   selector: 'app-user-profile',
