@@ -51,5 +51,15 @@ namespace MedEquipCentral.BL.Service
                 Count = resultDto.Count
             };
         }
+
+        public async Task<EquipmentDto> Update(EquipmentDto equipmentDto)
+        {
+            var equipmentEntity = _mapper.Map<Equipment>(equipmentDto);
+            equipmentEntity.Company = null;
+            equipmentEntity.Type = null;
+            var equipment = _unitOfWork.GetEquipmentRepository().Update(equipmentEntity);
+            await _unitOfWork.Save();
+            return _mapper.Map<EquipmentDto>(equipment);
+        }
     }
 }

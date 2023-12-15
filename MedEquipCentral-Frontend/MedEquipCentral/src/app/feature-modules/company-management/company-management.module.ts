@@ -9,6 +9,8 @@ import { CompanyComponent } from './company/company.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentFormComponent } from './company/appointment-form/appointment-form.component';
+import { EquipmentManagementModule } from "../equipment-management/equipment-management.module";
+
 
 
 @NgModule({
@@ -24,6 +26,7 @@ import { AppointmentFormComponent } from './company/appointment-form/appointment
     HttpClientModule,
     FormsModule,
     NgbModule,
+    EquipmentManagementModule,
   ],
   exports:[
     CompanyComponent,

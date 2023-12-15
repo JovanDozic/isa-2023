@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CompanyManagementService } from '../company-management.service';
 import { Company } from '../model/company.model';
 import { ActivatedRoute } from '@angular/router';
-import { User } from '../../user-management/model/user.model';
 import { Equipment } from '../model/equipment.model';
 import { Appointment } from '../model/appointment.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/auth/auth.service';
+import { User } from '../../../core/auth/model/user.model';
 
 @Component({
   selector: 'app-company',
@@ -20,8 +20,9 @@ export class CompanyComponent implements OnInit {
   shouldEdit: boolean = false;
   equipment: Equipment[] = [];
   appointments: Appointment[] = [];
-  selectedItem: Equipment[] = [];
-  currentUser!: User
+  selectedItems: Equipment[] = [];
+  selectedItem?: Equipment;
+  user!: User;
 
   constructor(private service: CompanyManagementService, 
               private route: ActivatedRoute, 
@@ -29,14 +30,13 @@ export class CompanyComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.user = this.authService.user$.getValue();
+    this.user.userRole = 2;
+
     this.route.params.subscribe(params => {
       this.companyId = params['id'];
       this.getCompany();
     })
-
-
-
-    this.currentUser = this.authService.user$.getValue();
   }
 
   getCompany() {
@@ -45,7 +45,7 @@ export class CompanyComponent implements OnInit {
         this.company = response;
       }
     })
-    this.service.getCompanyAdmins(this.companyId, 1).subscribe({
+    this.service.getCompanyAdmins(this.companyId, this.user.id).subscribe({
       next: response => {
         this.admins = response;
       }
@@ -67,6 +67,7 @@ export class CompanyComponent implements OnInit {
   }
 
   setSelectedItem(item: Equipment) {
-    this.selectedItem.push(item);
+    this.selectedItems.push(item);
+    this.selectedItem = item;
   }
 }

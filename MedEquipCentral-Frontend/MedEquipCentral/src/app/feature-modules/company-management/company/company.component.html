@@ -14,6 +14,10 @@
             {{company.location.city}}, {{company.location.zip}}, {{company.location.country}},<br>
             Coordinates: {{company.location.latitude}}, {{company.location.longitude}}
         </address>
+        <button *ngIf="user.userRole == 2" class="btn btn-outline-primary" data-bs-toggle="modal"
+            data-bs-target="#editCompanyModal" (click)="onEditClicked()">
+            Edit Profile
+        </button>
         <h5 class="card-title mt-5">Free appointments</h5>
         <table class="table mt-3">
             <thead>
@@ -33,79 +37,54 @@
                 </tr>
             </tbody>
         </table>
-        <h5 class="card-title mt-5">Administrators</h5>
-        <table class="table table-bordered mt-4">
-            <thead>
-                <tr>
-                    <th class="col-sm-1">#</th>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th class="col-sm-5">Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let admin of admins">
-                    <td>{{admin.id}}</td>
-                    <td>{{admin.name}}</td>
-                    <td>{{admin.surname}}</td>
-                    <td>{{admin.email}}</td>
-                </tr>
-            </tbody>
-        </table>
-        <h5 class="card-title mt-5">Equipment</h5>
-        <table class="table mt-3">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of equipment">
-                    <td>{{item.name}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.quantity}}</td>
-                    <td>
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#selectAppointmentModal"
-                            (click)="setSelectedItem(item)">Reserve</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <button *ngIf="user.userRole == 2" class="btn btn-outline-primary end-0" data-bs-toggle="modal"
+            data-bs-target="#createAppointmentModal">Create
+            appointment</button>
+        <button class="btn btn-primary ms-3 end-0" *ngIf="user.userRole == 2">Create extraordinary appointment</button>
 
-        <div class="mt-5">
-            <button class="btn btn-primary end-0" data-bs-toggle="modal" data-bs-target="#createAppointmentModal">Create
-                appointment</button>
-            <button class="btn btn-primary end-0" *ngIf="currentUser.userRole == 1">Create extraordinary appointment</button>
-            <button class="btn btn-outline-primary ms-3" data-bs-toggle="modal" data-bs-target="#editCompanyModal"
-                (click)="onEditClicked()">
-                Edit Profile
-            </button>
+        <div *ngIf="user.userRole == 2">
+            <h5 class="card-title mt-5">Administrators</h5>
+            <table class="table table-bordered mt-4">
+                <thead>
+                    <tr>
+                        <th class="col-sm-1">#</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th class="col-sm-5">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let admin of admins">
+                        <td>{{admin.id}}</td>
+                        <td>{{admin.name}}</td>
+                        <td>{{admin.surname}}</td>
+                        <td>{{admin.email}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="mt-5">
+
+            </div>
+            <app-equipment-search [showForCompany]="true"></app-equipment-search>
         </div>
 
-    </div>
-
-    <div class="modal fade" id="editCompanyModal">
-        <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title">Edit company</h1>
-                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <app-company-form [shouldEdit]="shouldEdit" [company]="company" [admins]="admins"
-                        (companyUpdated)="getCompany()"></app-company-form>
+        <div class="modal fade" id="editCompanyModal">
+            <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title">Edit company</h1>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <app-company-form [shouldEdit]="shouldEdit" [company]="company" [admins]="admins"
+                            (companyUpdated)="getCompany()"></app-company-form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="modal fade" id="createAppointmentModal">
-        <app-appointment-form 
-            [companyId]="companyId"
-            [user]="currentUser"
-        ></app-appointment-form>
+        <div class="modal fade" id="createAppointmentModal">
+            <app-appointment-form [companyId]="companyId" [user]="user" (appointmentAdded)="getCompany()"></app-appointment-form>
+        </div>
     </div>
-</div>

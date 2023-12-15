@@ -30,6 +30,9 @@
                     <ul class="dropdown-menu me-3">
                         <li><a class="dropdown-item" [routerLink]="['companies']"><i class="bi bi-list-nested"></i> All
                                 companies</a></li>
+                        <li *ngIf="user.userRole == 2"><a class="dropdown-item"
+                                [routerLink]="['company/' + user.companyId]"><i class="bi bi-list-nested"></i>
+                            My company</a></li>
                     </ul>
                 </li>
 

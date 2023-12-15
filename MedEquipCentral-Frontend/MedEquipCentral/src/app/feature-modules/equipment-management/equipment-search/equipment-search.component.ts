@@ -1,7 +1,10 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { EquipmentService } from '../equipment.service';
 import { Equipment } from '../../company-management/model/equipment.model';
 import { EquipmentType } from '../../company-management/model/equipment-type.model';
+import { AuthService } from '../../../core/auth/auth.service';
+import { User } from '../../../core/auth/model/user.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-equipment-search',
@@ -9,34 +12,57 @@ import { EquipmentType } from '../../company-management/model/equipment-type.mod
   styleUrl: './equipment-search.component.css'
 })
 export class EquipmentSearchComponent implements OnInit, OnChanges {
-
+  @Input() showForCompany: boolean = false;
   equipment: Equipment[] = [];
   equipmentOriginal: Equipment[] = [];
   equipmentTypes: EquipmentType[] = [];
   searchTerm: string = '';
   selectedType?: EquipmentType = undefined;
   sortDirection?: boolean = undefined;
+  user!: User;
+  isEdit: boolean = false;
+  selectedEquipment?: Equipment = undefined;
 
-  constructor(private equipmentService: EquipmentService) { }
+  constructor(private equipmentService: EquipmentService, private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    throw new Error('Method not implemented.');
+    this.getEquipment();
+    this.getEquipmentTypes();
   }
 
   ngOnInit(): void {
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
+
     this.getEquipment();
     this.getEquipmentTypes();
   }
 
   getEquipment() {
-    this.equipmentService.getEquipment().subscribe(
-      (response: any) => {
-        this.equipment = response;
-        this.equipmentOriginal = response;
-        console.log(this.equipment);
-      },
-      (error) => console.log(error)
-    );
+    if (!this.showForCompany) {
+      this.equipmentService.getEquipment().subscribe(
+        (response: any) => {
+          this.equipment = response;
+          this.equipmentOriginal = response;
+          console.log(this.equipment);
+        },
+        (error) => console.log(error)
+      );
+    }
+    else {
+      this.route.params.subscribe(params => {
+        const companyId = params['id'];
+        this.equipmentService.getEquipmentForCompany(companyId).subscribe(
+          (response: any) => {
+            this.equipment = response;
+            this.equipmentOriginal = response;
+            console.log(this.equipment);
+          },
+          (error) => console.log(error)
+        );
+      })
+    }
   }
 
   getEquipmentTypes() {
@@ -75,7 +101,7 @@ export class EquipmentSearchComponent implements OnInit, OnChanges {
   searchFilter() {
     if (this.selectedType) {
       this.equipment = this.equipment.filter(equipmentItem =>
-        equipmentItem.type.id === this.selectedType?.id
+        equipmentItem.type?.id === this.selectedType?.id
       );
     }
     if (this.sortDirection !== undefined) {
@@ -104,6 +130,16 @@ export class EquipmentSearchComponent implements OnInit, OnChanges {
     this.sortDirection = undefined;
     this.equipment = this.equipmentOriginal;
     this.searchEquipment();
+  }
+
+  setIsEditFalse() {
+    this.isEdit = false;
+    this.selectedEquipment = undefined;
+  }
+
+  setIsEditTrue(equipment: Equipment) {
+    this.isEdit = true;
+    this.selectedEquipment = equipment;
   }
 
 }

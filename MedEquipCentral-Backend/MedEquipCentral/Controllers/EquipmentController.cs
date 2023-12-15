@@ -39,5 +39,11 @@ namespace MedEquipCentral.Controllers
         {
             return await _equipmentService.Add(equipmentDto);
         }
+
+        [HttpPut]
+        public async Task<EquipmentDto> Update(EquipmentDto equipmentDto)
+        {
+            return await _equipmentService.Update(equipmentDto);
+        }
     }
 }

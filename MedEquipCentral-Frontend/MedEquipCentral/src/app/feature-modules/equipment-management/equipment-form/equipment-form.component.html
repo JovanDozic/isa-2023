@@ -1,0 +1,31 @@
+<div class="container">
+    <form [formGroup]="equipmentForm">
+
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="Name" formControlName="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" name="Description" rows="3" formControlName="description" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="typeId">Type:</label>
+            <select type="number" class="form-control form-select" id="typeId" name="TypeId" formControlName="typeId" required>
+                <option *ngFor="let type of equipmentTypes" [value]="type.id">{{type.type}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" class="form-control" id="quantity" name="Quantity" formControlName="quantity" required>
+        </div>
+
+        <div class="row mx-1">
+            <button *ngIf="!isEdit" type="submit" class="btn btn-primary mt-3" (click)="addEquipment()">Add</button>
+            <button *ngIf="isEdit" type="submit" class="btn btn-primary mt-3" (click)="updateEquipment()">Edit</button>
+        </div>
+    </form>
+</div>

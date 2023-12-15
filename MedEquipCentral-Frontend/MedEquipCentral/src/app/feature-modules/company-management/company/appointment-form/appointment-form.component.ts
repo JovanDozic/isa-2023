@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
@@ -19,6 +19,7 @@ export class AppointmentFormComponent implements OnInit {
 
   @Input() companyId: number = 0;
   @Input() user!: User
+  @Output() appointmentAdded = new EventEmitter<null>();
 
   constructor(private service: CompanyManagementService, 
               private route: ActivatedRoute, 
@@ -49,7 +50,7 @@ export class AppointmentFormComponent implements OnInit {
       this.service.createAppointment(appointment).subscribe({
         next: response => {
           console.log(response);
-          this.getCompany();
+          this.appointmentAdded.emit();
         },
         error: err => {
           console.log(err);

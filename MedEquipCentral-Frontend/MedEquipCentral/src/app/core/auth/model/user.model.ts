@@ -18,4 +18,5 @@ export interface User {
     job?: string;
     companyInfo?: string;
     userRole: UserRole;
+    companyId?: number;
 }

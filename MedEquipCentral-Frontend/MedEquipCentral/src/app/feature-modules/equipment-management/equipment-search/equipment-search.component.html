@@ -3,22 +3,28 @@
     <div class="row">
         <h1 class="my-5">Equipment</h1>
     </div>
-    
+    <div *ngIf="showForCompany" class="mb-4">
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal"
+            data-bs-target="#equipmentFormModal"><i class="bi bi-plus" (click)="setIsEditFalse()"></i>Add equipment</button>
+    </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Enter equipment name" aria-label="Search"
                     aria-describedby="button-addon2" [(ngModel)]="searchTerm">
-                <button class="btn btn-outline-primary" type="button" id="button-addon2" (click)="searchEquipment()">Search</button>
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="removeSearch()"><i class="bi bi-x-lg"></i></button>
+                <button class="btn btn-outline-primary" type="button" id="button-addon2"
+                    (click)="searchEquipment()">Search</button>
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="removeSearch()"><i
+                        class="bi bi-x-lg"></i></button>
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="input-group d-flex align-items-end justify-content-end">
 
                 <span class="input-group-text">Name:</span>
-                <button type="button" class="btn btn-outline-secondary" id="priceToggle" (click)="toggleSortDirection()">
+                <button type="button" class="btn btn-outline-secondary" id="priceToggle"
+                    (click)="toggleSortDirection()">
                     <i *ngIf="sortDirection == undefined" class="bi bi-arrow-down-up"></i>
                     <i *ngIf="sortDirection != undefined && sortDirection" class="bi bi-arrow-up"></i>
                     <i *ngIf="sortDirection != undefined && !sortDirection" class="bi bi-arrow-down"></i>
@@ -28,13 +34,15 @@
                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">{{selectedType?.type ?? "Type"}}</button>
                 <ul class="dropdown-menu">
-                    <li *ngFor="let type of equipmentTypes"><a class="dropdown-item" (click)="setTypeFilter(type)">{{type.type}}</a></li>
+                    <li *ngFor="let type of equipmentTypes"><a class="dropdown-item"
+                            (click)="setTypeFilter(type)">{{type.type}}</a></li>
                 </ul>
 
                 <button type="button" class="btn btn-outline-primary" (click)="searchEquipment()">Filter</button>
-            
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="removeFilters()"><i class="bi bi-x-lg"></i></button>
-            
+
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="removeFilters()"><i
+                        class="bi bi-x-lg"></i></button>
+
             </div>
         </div>
     </div>
@@ -46,16 +54,39 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{equipment.name}}</h5>
-                    <p class="card-text fw-light">{{equipment.type.type}}</p>
+                    <p class="card-text fw-light">{{equipment.type?.type}}</p>
                     <p class="card-text text-secondary">{{equipment.description}}</p>
-                    <p class="card-text mt-4">
-                        <span><b class="text-primary">Available at: </b> {{equipment.company.name}}</span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="card-text text-body-secondary">Quantity: {{equipment.quantity}}</p>
+                        </div>
+                        <div *ngIf="showForCompany" class="col-md-6">
+                            <div class="d-flex align-items-end justify-content-end">
+                                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                                data-bs-target="#equipmentFormModal" (click)="setIsEditTrue(equipment)">+ Add</button>
+                            </div>
+                        </div>
+                    </div>
+                    <p *ngIf="!showForCompany" class="card-text mt-4">
+                        <span><b class="text-primary">Available at: </b> {{equipment.company?.name}}</span>
                     </p>
                 </div>
             </div>
         </div>
 
-
+        <div class="modal fade" id="equipmentFormModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title">Add equipment</h1>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <app-equipment-form [isEdit]="isEdit" [equipment]="selectedEquipment"></app-equipment-form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
