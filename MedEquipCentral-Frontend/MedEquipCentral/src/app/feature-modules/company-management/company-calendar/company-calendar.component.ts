@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { CalendarEvent } from 'angular-calendar';
-import { EventColor } from 'calendar-utils';
+import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CalendarEvent, CalendarView } from 'angular-calendar';
+import { EventColor, MonthViewDay } from 'calendar-utils';
+import { isSameDay, isSameMonth } from 'date-fns';
+import { Subject } from 'rxjs';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -23,15 +26,19 @@ const colors: Record<string, EventColor> = {
   styleUrl: './company-calendar.component.css'
 })
 export class CompanyCalendarComponent implements OnInit {
-  
+
+  view: CalendarView = CalendarView.Month;
   viewDate: Date = new Date();
+  refresh = new Subject<void>();
+  activeDayIsOpen: boolean = false;
+  CalendarView = CalendarView;
 
   events: CalendarEvent[] = [
     {
       title: 'Event 1',
       start: new Date('2023-12-16 10:00:00'),
       end: new Date('2023-12-16 11:00:00'),
-      color: { ... colors['red'] },
+      color: { ...colors['red'] },
     },
     {
       title: 'Event 2',
@@ -45,13 +52,39 @@ export class CompanyCalendarComponent implements OnInit {
     }
   ];
 
-  
+  constructor(private cdr: ChangeDetectorRef) { }
 
 
   ngOnInit(): void {
-    
-    
+
+
 
 
   }
+
+  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+    if (isSameMonth(date, this.viewDate)) {
+      if (
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+        events.length === 0
+      ) {
+        this.activeDayIsOpen = false;
+      } else {
+        this.activeDayIsOpen = true;
+      }
+      this.viewDate = date;
+    }
+    this.cdr.detectChanges();
+  }
+
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
+  }
+
+  setView(view: CalendarView) {
+    this.view = view;
+  }
+
+
+
 }
