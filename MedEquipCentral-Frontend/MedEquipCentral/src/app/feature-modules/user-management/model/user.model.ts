@@ -1,17 +1,16 @@
 import { UserRole } from "../../../core/auth/model/user.model";
 
 export interface User{
-    id: number,
-    name: string,
-    surname: string,
-    email: string,
-    city: string,
-    companyInfo: string,
-    confirmPassword: string,
-    country: string,
-    job: string,
-    password: string,
-    phone: string,
+    id: number;
+    email: string;
+    password?: string;
+    confirmPassword?: string,
+    name: string;
+    surname: string;
+    city?: string;
+    country?: string;
+    phone?: string;
+    job?: string;
     companyId?: number,
     userRole?: UserRole
 }
