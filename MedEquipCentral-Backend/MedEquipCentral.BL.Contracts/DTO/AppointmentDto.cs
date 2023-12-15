@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#nullable disable
 
 namespace MedEquipCentral.BL.Contracts.DTO
 {
@@ -16,7 +12,8 @@ namespace MedEquipCentral.BL.Contracts.DTO
         public string AdminSurname { get; set; }
         public int AdminId { get; set; }
         public int? BuyerId { get; set; }
+        public UserDto? Buyer { get; set; }
         public List<int>? EquipmentIds { get; set; }
-        
+
     }
 }

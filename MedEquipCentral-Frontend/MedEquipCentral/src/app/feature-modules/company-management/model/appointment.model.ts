@@ -1,3 +1,5 @@
+import { User } from "../../../core/auth/model/user.model"
+
 export interface Appointment {
     id: number,
     startTime: Date,
@@ -7,5 +9,6 @@ export interface Appointment {
     adminSurname: string
     adminId: number,
     buyerId?: number,
+    buyer?: User,
     equipmentIds?: number[],
 }

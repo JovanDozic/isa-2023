@@ -5,7 +5,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { CompanyManagementService } from '../../company-management.service';
 import { Appointment } from '../../model/appointment.model';
 import { Company } from '../../model/company.model';
-import { User } from '../../../user-management/model/user.model';
+import { User } from '../../../../core/auth/model/user.model';
 
 @Component({
   selector: 'app-appointment-form',

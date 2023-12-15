@@ -1,11 +1,5 @@
 ﻿using MedEquipCentral.DA.Contracts.Shared;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MedEquipCentral.DA.Contracts.Model
 {
@@ -17,22 +11,22 @@ namespace MedEquipCentral.DA.Contracts.Model
         public string AdminName { get; set; }
         public string AdminSurname { get; set; }
         public int AdminId { get; set; }
-        public int? BuyerId { get; set; }
+        public int BuyerId { get; set; }
+        public User? Buyer { get; set; }
         public List<int>? EquipmentIds { get; set; }
         [ForeignKey("EquipmentId")]
         public List<Equipment>? Equipment { get; set; }
 
-        public Appointment(DateTime startTime, int duration, string adminName, string adminSurname, int adminId, int companyId, List<int> equipmentIds)
+        public Appointment(DateTime startTime, int duration, int companyId, string adminName, string adminSurname, int adminId, int buyerId, List<int>? equipmentIds)
         {
-            StartTime = startTime.ToUniversalTime();
+            StartTime = startTime;
             Duration = duration;
+            CompanyId = companyId;
             AdminName = adminName;
             AdminSurname = adminSurname;
             AdminId = adminId;
-            CompanyId = companyId;
+            BuyerId = buyerId;
             EquipmentIds = equipmentIds;
-            Equipment = new List<Equipment>();
         }
-
     }
 }

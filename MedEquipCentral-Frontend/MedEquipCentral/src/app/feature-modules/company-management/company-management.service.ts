@@ -56,4 +56,8 @@ export class CompanyManagementService {
   getFreeAppointments(companyId: number): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(this.apiUrl + 'appointment/getFreeAppointmentsForCompany/' + companyId);
   }
+
+  getCompanyAppointments(companyId: number): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(this.apiUrl + 'appointment/getCompanyAppointments/' + companyId);
+  }
 }

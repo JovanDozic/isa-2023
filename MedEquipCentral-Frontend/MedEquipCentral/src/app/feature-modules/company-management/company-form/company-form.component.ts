@@ -4,8 +4,8 @@ import { CompanyManagementService } from '../company-management.service';
 import { Company } from '../model/company.model';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
-import { User } from '../../user-management/model/user.model';
 import { UserManagementService } from '../../user-management/user-management.service';
+import { User } from '../../../core/auth/model/user.model';
 
 @Component({
   selector: 'app-company-form',

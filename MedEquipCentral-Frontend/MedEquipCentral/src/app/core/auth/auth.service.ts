@@ -74,6 +74,7 @@ export class AuthService {
       userRole: jwtHelperService.decodeToken(accessToken).userRole,
       name: jwtHelperService.decodeToken(accessToken).name,
       surname: jwtHelperService.decodeToken(accessToken).surname,
+      companyId: jwtHelperService.decodeToken(accessToken).companyId,
     };
     this.user$.next(user);
   }

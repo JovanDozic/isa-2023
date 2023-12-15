@@ -32,5 +32,11 @@ namespace MedEquipCentral.Controllers
         {
             return await _appointmentService.CreateExtraordinaryAppointment(dataIn);
         }
+
+        [HttpGet("getCompanyAppointments/{companyId:int}")]
+        public async Task<List<AppointmentDto>> GetCompanyAppointments(int companyId)
+        {
+            return await _appointmentService.GetCompanyAppointments(companyId);
+        }
     }
 }

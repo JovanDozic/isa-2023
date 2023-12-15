@@ -1,22 +1,22 @@
-export enum UserRole{
+export enum UserRole {
   Unauthenticated,
   Registered,
-  Company_Admin,
+  Company_Admin = 2,
   System_Admin
 }
 
 export interface User {
-    id: number;
-    email: string;
-    password?: string;
-    confirmPassword?: string,
-    name: string;
-    surname: string;
-    city?: string;
-    country?: string;
-    phone?: string;
-    job?: string;
-    companyInfo?: string;
-    userRole: UserRole;
-    companyId?: number;
+  id: number;
+  email: string;
+  password?: string;
+  confirmPassword?: string,
+  name: string;
+  surname: string;
+  city?: string;
+  country?: string;
+  phone?: string;
+  job?: string;
+  companyId?: number,
+  userRole?: UserRole
+  companyInfo?: string;
 }

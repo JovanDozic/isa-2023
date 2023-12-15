@@ -7,18 +7,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompanyComponent } from './company/company.component';
 import { CompaniesComponent } from './companies/companies.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentFormComponent } from './company/appointment-form/appointment-form.component';
 import { EquipmentManagementModule } from "../equipment-management/equipment-management.module";
-
-
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CompanyCalendarComponent } from './company-calendar/company-calendar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     CompanyFormComponent,
     CompanyComponent,
     CompaniesComponent,
-    AppointmentFormComponent
+    AppointmentFormComponent,
+    CompanyCalendarComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,11 +30,18 @@ import { EquipmentManagementModule } from "../equipment-management/equipment-man
     FormsModule,
     NgbModule,
     EquipmentManagementModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+    BrowserAnimationsModule,
+    NgbModalModule,
   ],
-  exports:[
+  exports: [
     CompanyComponent,
     CompanyFormComponent,
     CompaniesComponent,
+    CompanyCalendarComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
