@@ -22,7 +22,9 @@ public class TokenGeneratorRepository : ITokenGeneratorRepository
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new("id", user.Id.ToString()),
             new("email", user.Email),
-            new(ClaimTypes.Role, user.GetPrimaryRoleName())
+            new("name", user.Name),
+            new("surname", user.Surname),
+            new("userRole", user.Role.ToString())
         };
 
         var jwt = CreateToken(claims, 60 * 24);

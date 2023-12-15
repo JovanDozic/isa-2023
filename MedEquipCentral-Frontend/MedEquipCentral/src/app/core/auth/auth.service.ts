@@ -63,6 +63,13 @@ export class AuthService {
     const jwtHelperService = new JwtHelperService();
     const accessToken = this.tokenStorage.getAccessToken() || "";
     id: +jwtHelperService.decodeToken(accessToken).id;
-    //this.user$.next(user);
+    const user: User = {
+      id: +jwtHelperService.decodeToken(accessToken).id,
+      email: jwtHelperService.decodeToken(accessToken).email,
+      userRole: jwtHelperService.decodeToken(accessToken).userRole,
+      name: jwtHelperService.decodeToken(accessToken).name,
+      surname: jwtHelperService.decodeToken(accessToken).surname,
+    };
+    this.user$.next(user);
   }
 }

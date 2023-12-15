@@ -12,10 +12,10 @@ export interface User {
     confirmPassword: string,
     name: string;
     surname: string;
-    city: string;
-    country: string;
-    phone: string;
-    job: string;
-    companyInfo: string;
+    city?: string;
+    country?: string;
+    phone?: string;
+    job?: string;
+    companyInfo?: string;
     userRole: UserRole;
 }
