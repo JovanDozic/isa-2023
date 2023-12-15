@@ -21,7 +21,7 @@ export class UserProfileComponent {
     country: '',
     job: '',
     password: '',
-    phone: ''
+    phone: '',
   };
   id: number = 1;
 

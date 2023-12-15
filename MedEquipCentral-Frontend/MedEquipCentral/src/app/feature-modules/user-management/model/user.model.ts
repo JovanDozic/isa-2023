@@ -13,4 +13,5 @@ export interface User{
     job?: string;
     companyId?: number,
     userRole?: UserRole
+    companyInfo?: string;
 }
