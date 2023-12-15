@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MedEquipCentral.DA.Contracts.Model;
+﻿using MedEquipCentral.DA.Contracts.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedEquipCentral.DA.Contexts
 {
@@ -32,6 +32,10 @@ namespace MedEquipCentral.DA.Contexts
                 .HasMany(e => e.Equipment)
                 .WithMany()
                 .UsingEntity(j => j.ToTable("AppointmentEquipment"));
+            modelBuilder.Entity<Appointment>()
+                .HasOne(e => e.Buyer)
+                .WithMany()
+                .HasForeignKey(e => e.BuyerId);
         }
     }
 }

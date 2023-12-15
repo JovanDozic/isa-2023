@@ -12,7 +12,5 @@ namespace MedEquipCentral.BL.Contracts.DTO
         public double Rating { get; set; }
         public TimeOnly StartTime { get; set; }
         public TimeOnly EndTime { get; set; }
-
-        // public List<UserDto> CompanyAdmins { get; set; }
     }
 }
