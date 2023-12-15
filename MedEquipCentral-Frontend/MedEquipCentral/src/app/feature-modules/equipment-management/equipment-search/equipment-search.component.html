@@ -5,7 +5,8 @@
     </div>
     <div *ngIf="showForCompany" class="mb-4">
         <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal"
-            data-bs-target="#equipmentFormModal"><i class="bi bi-plus" (click)="setIsEditFalse()"></i>Add equipment</button>
+            data-bs-target="#equipmentFormModal"><i class="bi bi-plus" (click)="setIsEditFalse()"></i>Add
+            equipment</button>
     </div>
     <div class="row">
         <div class="col-md-5">
@@ -53,7 +54,17 @@
         <div class="col-md-4 mb-3" *ngFor="let equipment of equipment; index as i">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">{{equipment.name}}</h5>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h5 class="card-title">{{equipment.name}}</h5>
+                        </div>
+                        <div *ngIf="showForCompany" class="col-md-5">
+                            <div class="d-flex align-items-end justify-content-end">
+                                <button *ngIf="showForCompany" class="btn btn-sm btn-outline-danger mt-1"
+                                    (click)="deleteEquipment(equipment)">- Delete</button>
+                            </div>
+                        </div>
+                    </div>
                     <p class="card-text fw-light">{{equipment.type?.type}}</p>
                     <p class="card-text text-secondary">{{equipment.description}}</p>
                     <div class="row">
@@ -63,13 +74,15 @@
                         <div *ngIf="showForCompany" class="col-md-6">
                             <div class="d-flex align-items-end justify-content-end">
                                 <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
-                                data-bs-target="#equipmentFormModal" (click)="setIsEditTrue(equipment)">+ Add</button>
+                                    data-bs-target="#equipmentFormModal" (click)="setIsEditTrue(equipment)">+ Add
+                                    more</button>
                             </div>
                         </div>
                     </div>
                     <p *ngIf="!showForCompany" class="card-text mt-4">
                         <span><b class="text-primary">Available at: </b> {{equipment.company?.name}}</span>
                     </p>
+
                 </div>
             </div>
         </div>
@@ -82,7 +95,8 @@
                         <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <app-equipment-form [isEdit]="isEdit" [equipment]="selectedEquipment"></app-equipment-form>
+                        <app-equipment-form [isEdit]="isEdit" [equipment]="selectedEquipment"
+                            (refreshEquipment)="getEquipment()"></app-equipment-form>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { EquipmentService } from '../equipment.service';
 import { Equipment } from '../../company-management/model/equipment.model';
 import { EquipmentType } from '../../company-management/model/equipment-type.model';
@@ -140,6 +140,19 @@ export class EquipmentSearchComponent implements OnInit, OnChanges {
   setIsEditTrue(equipment: Equipment) {
     this.isEdit = true;
     this.selectedEquipment = equipment;
+  }
+
+  deleteEquipment(equipment: Equipment) {
+    if (confirm('Are you sure you wish to delete ' + equipment.name)) {
+      this.equipmentService.delete(equipment.id!).subscribe({
+        next: response => {
+          if (response == true)
+            this.getEquipment();
+          else
+            alert('Cannot delete because there is an active appointment!');
+        }
+      })
+    }
   }
 
 }

@@ -1,3 +1,5 @@
+import { Time } from "@angular/common";
+
 export interface Company {
     id: number;
     name: string;
@@ -14,4 +16,6 @@ export interface Company {
     };
     description: string;
     rating: number;
+    startTime: Time;
+    endTime: Time;
 }

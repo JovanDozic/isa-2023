@@ -8,5 +8,6 @@ namespace MedEquipCentral.DA.Contracts.IRepository
         Task<List<Equipment>> GetAllForCompany(int companyId);
         List<Equipment> GetAll();
         Task<List<Equipment>> GetAllBySearch(EquipmentPagedIn dataIn);
+        Task<bool> Delete(int equipmentId);
     }
 }

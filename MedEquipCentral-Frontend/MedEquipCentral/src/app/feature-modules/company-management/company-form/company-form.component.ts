@@ -40,6 +40,8 @@ export class CompanyFormComponent implements OnInit, OnChanges {
       description: [''],
       rating: [0, Validators.required],
       selectedAdmin: [null],
+      startTime: ['', Validators.required],
+      endTime: ['', Validators.required],
     });
 
     this.getUsers();
@@ -98,7 +100,11 @@ export class CompanyFormComponent implements OnInit, OnChanges {
           country: this.companyForm.value.location.country,
         },
         rating: this.company.rating,
+        startTime: this.companyForm.value.startTime,
+        endTime: this.companyForm.value.endTime,
       }
+
+      console.log(editedCompany);
 
       this.companyService.updateCompany(editedCompany).subscribe({
         next: resposne => {

@@ -61,5 +61,21 @@ namespace MedEquipCentral.BL.Service
             await _unitOfWork.Save();
             return _mapper.Map<EquipmentDto>(equipment);
         }
+
+        public async Task<bool> Delete(int equipmentId)
+        {
+            var appointments = await _unitOfWork.GetAppointmentRepository().GetAllForEquipment(equipmentId);
+            if(appointments.Count == 0) //Prosiriti ovu logiku kada se doda da rezervacija nije pokupljena
+            {
+                var isDeleted = await _unitOfWork.GetEquipmentRepository().Delete(equipmentId);
+                if (isDeleted)
+                {
+                    await _unitOfWork.Save();
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

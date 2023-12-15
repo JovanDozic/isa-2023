@@ -41,5 +41,16 @@ namespace MedEquipCentral.DA.Repository
 
             return result.ToList();
         }
+
+        public async Task<bool> Delete(int equipmentId)
+        {
+            var equipment = _dbContext.Set<Equipment>().FirstOrDefault(x => x.Id == equipmentId);
+            if(equipment != null)
+            {
+                _dbContext.Set<Equipment>().Remove(equipment);
+                return true;
+            }
+            return false;
+        }
     }
 }

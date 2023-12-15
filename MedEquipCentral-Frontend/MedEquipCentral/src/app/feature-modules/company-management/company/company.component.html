@@ -3,13 +3,16 @@
 
 
         <div style="display: flex; align-items: center;">
-            <h2 class="card-title">{{company.name}}</h2>
+            <h2 class="title">{{company.name}}</h2>
             <ngb-rating class="ms-3 mb-1" [max]="5" [(rate)]="company.rating" [readonly]="true"></ngb-rating>
         </div>
 
-        <p class="card-text">{{company.description}}</p>
+        <p>
+            <span>{{company.description}}</span><br>
+            <span>Working hours: {{company.startTime}} - {{company.endTime}}</span>
+        </p>
 
-        <address class="">
+        <address>
             {{company.location.street}} {{company.location.streetNumber}},<br>
             {{company.location.city}}, {{company.location.zip}}, {{company.location.country}},<br>
             Coordinates: {{company.location.latitude}}, {{company.location.longitude}}
@@ -85,6 +88,7 @@
         </div>
 
         <div class="modal fade" id="createAppointmentModal">
-            <app-appointment-form [companyId]="companyId" [user]="user" (appointmentAdded)="getCompany()"></app-appointment-form>
+            <app-appointment-form [companyId]="companyId" [user]="user"
+                (appointmentAdded)="getCompany()"></app-appointment-form>
         </div>
     </div>

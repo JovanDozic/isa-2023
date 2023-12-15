@@ -10,5 +10,6 @@ namespace MedEquipCentral.BL.Contracts.IService
         Task<PagedResult<EquipmentDto>> Search(EquipmentPagedIn dataIn);
         Task<EquipmentDto> Add(EquipmentDto equipmentDto);
         Task<EquipmentDto> Update(EquipmentDto equipmentDto);
+        Task<bool> Delete(int equipmentId);
     }
 }

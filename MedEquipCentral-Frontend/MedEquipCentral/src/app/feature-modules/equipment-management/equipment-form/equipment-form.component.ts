@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/auth/auth.service';
 import { User } from '../../../core/auth/model/user.model';
@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class EquipmentFormComponent implements OnInit {
   @Input() isEdit: boolean = false;
   @Input() equipment?: Equipment = undefined;
+  @Output() refreshEquipment = new EventEmitter<null>();
   equipmentTypes!: EquipmentType[];
   equipmentForm!: FormGroup;
   user!: User;
@@ -85,7 +86,8 @@ export class EquipmentFormComponent implements OnInit {
       this.equipmentService.addEquipment(equipment).subscribe({
         next: response => {
           console.log(response);
-          window.location.reload();
+          this.refreshEquipment.emit();
+          this.equipmentForm.reset();
         }
       })
     }
@@ -105,7 +107,7 @@ export class EquipmentFormComponent implements OnInit {
       this.equipmentService.updateEquipment(equipment).subscribe({
         next: response => {
           console.log(response);
-          window.location.reload();
+          this.refreshEquipment.emit();
         }
       })
     }

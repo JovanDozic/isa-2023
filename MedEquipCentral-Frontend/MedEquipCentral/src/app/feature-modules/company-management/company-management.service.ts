@@ -30,7 +30,7 @@ export class CompanyManagementService {
   }
 
   updateCompany(company: Company): Observable<Company> {
-    return this.http.put<Company>(this.apiUrl + 'company/', company)
+    return this.http.put<Company>(this.apiUrl + 'company', company)
   }
 
   getAll(): Observable<any> {

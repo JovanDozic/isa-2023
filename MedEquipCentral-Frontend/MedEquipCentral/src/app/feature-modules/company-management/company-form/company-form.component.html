@@ -5,17 +5,31 @@
     <form [formGroup]="companyForm">
         <div class="row my-1">
             <h3 class="my-2">Basic info</h3>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-floating my-2">
                     <input type="text" class="form-control" id="inputCompanyName" formControlName="name" placeholder="">
                     <label for="inputCompanyName">Company name</label>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="form-floating my-2">
                     <input type="text" class="form-control" id="inputCompanyDesc" formControlName="description"
                         placeholder="">
                     <label for="inputCompanyDesc">Description</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-floating my-2">
+                    <input type="time" class="form-control" id="startTime" formControlName="startTime"
+                        placeholder="">
+                    <label for="startTime">Start time</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-floating my-2">
+                    <input type="time" class="form-control" id="endTime" formControlName="endTime"
+                        placeholder="">
+                    <label for="endTime">End time</label>
                 </div>
             </div>
         </div>

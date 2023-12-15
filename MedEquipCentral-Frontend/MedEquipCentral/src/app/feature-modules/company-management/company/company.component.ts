@@ -50,11 +50,6 @@ export class CompanyComponent implements OnInit {
         this.admins = response;
       }
     })
-    this.service.getEquipment(this.companyId).subscribe({
-      next: response => {
-        this.equipment = response;
-      }
-    })
     this.service.getFreeAppointments(this.companyId).subscribe({
       next: response => {
         this.appointments = response;
