@@ -11,13 +11,13 @@ namespace MedEquipCentral.DA.Contracts.Model
         public string AdminName { get; set; }
         public string AdminSurname { get; set; }
         public int AdminId { get; set; }
-        public int? BuyerId { get; set; }
+        public int BuyerId { get; set; }
         public User? Buyer { get; set; }
         public List<int>? EquipmentIds { get; set; }
         [ForeignKey("EquipmentId")]
         public List<Equipment>? Equipment { get; set; }
 
-        public Appointment(DateTime startTime, int duration, int companyId, string adminName, string adminSurname, int adminId, int buyerId, User buyer, List<int>? equipmentIds, List<Equipment>? equipment)
+        public Appointment(DateTime startTime, int duration, int companyId, string adminName, string adminSurname, int adminId, int buyerId, List<int>? equipmentIds)
         {
             StartTime = startTime;
             Duration = duration;
@@ -26,9 +26,7 @@ namespace MedEquipCentral.DA.Contracts.Model
             AdminSurname = adminSurname;
             AdminId = adminId;
             BuyerId = buyerId;
-            Buyer = buyer;
             EquipmentIds = equipmentIds;
-            Equipment = equipment;
         }
     }
 }

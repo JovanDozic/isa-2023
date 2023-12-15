@@ -57,7 +57,7 @@ export class CompanyCalendarComponent implements OnInit {
         const endTime = new Date(startTime.getTime() + appointment.duration * 60000); // 60000 milliseconds in a minute
       
         // Format: "Appointment for 1 [10:00 - 11:00]"
-        const title = `Appointment for ${appointment.buyerId} [${startTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })} - ${endTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}]`;
+        const title = `Appointment for ${appointment.buyer?.name + " " + appointment.buyer?.surname} [${startTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })} - ${endTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}]`;
       
         this.events.push({
           title: title,
