@@ -16,6 +16,12 @@ namespace MedEquipCentral.Controllers
             _appointmentService = appointmentService;
         }
 
+        [HttpPost("qr")]
+        public async void TestQrCode(AppointmentDto appointmentDto)
+        {
+            _appointmentService.CreateQRCodeForAppointment(appointmentDto);
+        }
+
         [HttpPost]
         public async Task<AppointmentDto> AddAppointment(AppointmentDto appointment)
         {

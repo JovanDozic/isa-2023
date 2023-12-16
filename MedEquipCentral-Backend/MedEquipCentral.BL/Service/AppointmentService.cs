@@ -5,6 +5,10 @@ using MedEquipCentral.DA.Contracts;
 using MedEquipCentral.DA.Contracts.Model;
 using MedEquipCentral.DA.Contracts.Shared;
 using QRCoder;
+using static QRCoder.PayloadGenerator;
+using System.Reflection.Emit;
+using static System.Runtime.CompilerServices.RuntimeHelpers;
+using IronBarCode;
 
 namespace MedEquipCentral.BL.Service
 {
@@ -60,10 +64,23 @@ namespace MedEquipCentral.BL.Service
             return "Appointment created successfully, QR code is sent to your email";
         }
 
+        public async void CreateQRCodeForAppointment(AppointmentDto appointmentDto)
+        {
+            /*List<Task<Equipment>> equipments = new List<Task<Equipment>>();
+            foreach (var id in appointmentDto.EquipmentIds)
+            {
+                equipments.Add(_unitOfWork.GetEquipmentRepository().GetByIdAsync(id));
+            }*/
+            var company = await _unitOfWork.GetCompanyRepository().GetByIdAsync(appointmentDto.CompanyId);
+            var appointment = $"Appointment Id:\t{appointmentDto.Id}\nStart time:\t{appointmentDto.StartTime}\nDuration:\t{appointmentDto.Duration}\nCompany:\t\nAdmin:\t{appointmentDto.AdminSurname} {appointmentDto.AdminName}\nEquipment:\t";
+            QRCodeLogo qrCodeLogo = new QRCodeLogo("C:\\Users\\mbovan\\Desktop\\ISA\\isa-2023\\favicon.png");
+            GeneratedBarcode myQRCodeWithLogo = QRCodeWriter.CreateQrCodeWithLogo(appointment, qrCodeLogo);
+            myQRCodeWithLogo.ResizeTo(500, 500).SetMargins(10).ChangeBarCodeColor(Color.DarkBlue);
+            //myQRCodeWithLogo.SaveAsPng("C:\\Users\\mbovan\\Desktop\\ISA\\isa-2023\\myQRWithLogo.png");
+            myQRCodeWithLogo.SaveAsHtmlFile("C:\\Users\\mbovan\\Desktop\\ISA\\isa-2023\\myQRWithLogo.html");
+        }
         private async Task<string> CreateQRCodeForAppointment(int appointmentId)
         {
-            QRCodeGenerator qRGenerator = new QRCodeGenerator();
-            QRCodeData QrCodeInfo = qRGenerator.CreateQrCode($"{appointmentId}", QRCodeGenerator.ECCLevel.Q);
             return null;
         }
 
