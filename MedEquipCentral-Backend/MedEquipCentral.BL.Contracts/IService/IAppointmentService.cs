@@ -10,11 +10,11 @@ namespace MedEquipCentral.BL.Contracts.IService
 {
     public interface IAppointmentService
     {
-        Task<AppointmentDto> AddAppointment(AppointmentDto appointment);
         Task<List<AppointmentDto>> GetFreeAppointmentsForCompany(int companyId);
         Task<string> CreateExtraordinaryAppointment(AppointmentDto dataIn);
         Task<List<AppointmentDto>> GetCompanyAppointments(int companyId);
         Task<AppointmentDto> GetById(int id);
         Task<PagedResult<AppointmentDto>> GetAllUsersAppointments(AppointmentPagedIn dataIn);
+        Task<string> CreateAppointment(AppointmentDto dataIn);
     }
 }

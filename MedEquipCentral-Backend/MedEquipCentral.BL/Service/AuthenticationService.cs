@@ -54,7 +54,7 @@ public class AuthenticationService : IAuthenticationService
         await _unitOfWork.Save();
         var user = await _unitOfWork.GetUserRepository().GetByEmailAsync(userDto.Email);
         var token = await _unitOfWork.GetTokenGeneratorRepository().GenerateAccessToken(user);
-        await _emailService.SendConfirmEmail(new UserEmailOptionsDto
+        await _emailService.SendVerficationEmail(new UserEmailOptionsDto
         {
             ToEmail = userDto.Email,
             Placeholders = new List<KeyValuePair<string, string>>()

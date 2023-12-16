@@ -9,6 +9,7 @@ using static QRCoder.PayloadGenerator;
 using System.Reflection.Emit;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 using IronBarCode;
+using System;
 
 namespace MedEquipCentral.BL.Service
 {
@@ -16,14 +17,16 @@ namespace MedEquipCentral.BL.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IEmailService _emailService;
 
-        public AppointmentService(IUnitOfWork unitOfWork, IMapper mapper)
+        public AppointmentService(IUnitOfWork unitOfWork, IMapper mapper, IEmailService emailService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _emailService = emailService;
         }
 
-        public async Task<AppointmentDto> AddAppointment(AppointmentDto appointmentDto)
+        private async Task<AppointmentDto> AddAppointment(AppointmentDto appointmentDto)
         {
             return await ValidateAndSave(appointmentDto);
         }
@@ -33,7 +36,7 @@ namespace MedEquipCentral.BL.Service
             var company = await _unitOfWork.GetCompanyRepository().GetByIdAsync(appointmentDto.CompanyId);
             var appointmentTime = TimeOnly.FromDateTime(appointmentDto.StartTime);
 
-            if (appointmentTime >= company.StartTime && appointmentTime <= company.EndTime && appointmentTime.AddMinutes(appointmentDto.Duration) <= company.EndTime)
+            if (true/*appointmentTime >= company.StartTime && appointmentTime <= company.EndTime && appointmentTime.AddMinutes(appointmentDto.Duration) <= company.EndTime*/)
             {
                 var appointment = _mapper.Map<Appointment>(appointmentDto);
                 await _unitOfWork.GetAppointmentRepository().Add(appointment);
@@ -51,37 +54,50 @@ namespace MedEquipCentral.BL.Service
             return _mapper.Map<List<AppointmentDto>>(appointments);
         }
 
-        public async Task<string> CreateExtraordinaryAppointment(AppointmentDto dataIn)
+        public async Task<string> CreateAppointment(AppointmentDto dataIn)
         {
             var result = await AddAppointment(dataIn);
 
             if (result != null)
             {
 
-                await CreateQRCodeForAppointment(result.Id);
+                await CreateQRCodeForAppointment(result);
             }
 
             return "Appointment created successfully, QR code is sent to your email";
         }
-
-        public async void CreateQRCodeForAppointment(AppointmentDto appointmentDto)
+        private async Task<string> CreateQRCodeForAppointment(AppointmentDto appointmentDto)
         {
-            /*List<Task<Equipment>> equipments = new List<Task<Equipment>>();
-            foreach (var id in appointmentDto.EquipmentIds)
+            var user = await _unitOfWork.GetUserRepository().GetByIdAsync(appointmentDto.BuyerId);
+            List<Equipment> equipments = new List<Equipment>();
+            foreach (int id in appointmentDto.EquipmentIds)
             {
-                equipments.Add(_unitOfWork.GetEquipmentRepository().GetByIdAsync(id));
-            }*/
-            var company = await _unitOfWork.GetCompanyRepository().GetByIdAsync(appointmentDto.CompanyId);
-            var appointment = $"Appointment Id:\t{appointmentDto.Id}\nStart time:\t{appointmentDto.StartTime}\nDuration:\t{appointmentDto.Duration}\nCompany:\t\nAdmin:\t{appointmentDto.AdminSurname} {appointmentDto.AdminName}\nEquipment:\t";
+                var equipment = _unitOfWork.GetEquipmentRepository().GetByIdAsync(id);
+                equipments.Add(equipment.Result);
+            }
+            var company = _unitOfWork.GetCompanyRepository().GetByIdAsync(appointmentDto.CompanyId);
+            CreateQrCode(appointmentDto, equipments, company);
+            await _emailService.SendAppointmentConfirmationEmail(new UserEmailOptionsDto
+            {
+                ToEmail = user.Email,
+                Placeholders = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("{{UserName}}", user.Name),
+                    new KeyValuePair<string, string>("{{Id}}", appointmentDto.Id.ToString()),
+                }
+            }, $"C:\\Users\\mbovan\\Desktop\\ISA\\isa-2023\\reservation{appointmentDto.Id}.png");
+            return null;
+        }
+
+        private static void CreateQrCode(AppointmentDto appointmentDto, List<Equipment> equipments, Task<Company> company)
+        {
+            //TODO ispis liste doraditi
+            //TODO uraditi relativne putanje
+            var appointment = $"Appointment Id:\t{appointmentDto.Id}\nStart time:\t{appointmentDto.StartTime}\nDuration:\t{appointmentDto.Duration}\nCompany:\t{company.Result.Name}\nAdmin:\t{appointmentDto.AdminSurname} {appointmentDto.AdminName}\nEquipment:\t{equipments}";
             QRCodeLogo qrCodeLogo = new QRCodeLogo("C:\\Users\\mbovan\\Desktop\\ISA\\isa-2023\\favicon.png");
             GeneratedBarcode myQRCodeWithLogo = QRCodeWriter.CreateQrCodeWithLogo(appointment, qrCodeLogo);
             myQRCodeWithLogo.ResizeTo(500, 500).SetMargins(10).ChangeBarCodeColor(Color.DarkBlue);
-            //myQRCodeWithLogo.SaveAsPng("C:\\Users\\mbovan\\Desktop\\ISA\\isa-2023\\myQRWithLogo.png");
-            myQRCodeWithLogo.SaveAsHtmlFile("C:\\Users\\mbovan\\Desktop\\ISA\\isa-2023\\myQRWithLogo.html");
-        }
-        private async Task<string> CreateQRCodeForAppointment(int appointmentId)
-        {
-            return null;
+            myQRCodeWithLogo.SaveAsPng($"C:\\Users\\mbovan\\Desktop\\ISA\\isa-2023\\reservation{appointmentDto.Id}.png");
         }
 
         public async Task<List<AppointmentDto>> GetCompanyAppointments(int companyId)

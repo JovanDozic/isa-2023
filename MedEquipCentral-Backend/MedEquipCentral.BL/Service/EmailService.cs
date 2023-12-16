@@ -16,11 +16,18 @@ public class EmailService : IEmailService
         _smtpConfig = smtpConfig.Value;
     }
 
-    public async Task SendConfirmEmail(UserEmailOptionsDto userEmailOptions)
+    public async Task SendVerficationEmail(UserEmailOptionsDto userEmailOptions)
     {
         userEmailOptions.Subject = UpdatePlaceHolders("Hello {{UserName}}, Confirm your email id.", userEmailOptions.Placeholders);
-        userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("EmailConfirm"), userEmailOptions.Placeholders);
+        userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("emailVerifyTemplate"), userEmailOptions.Placeholders);
         await SendEmail(userEmailOptions);
+    }
+
+    public async Task SendAppointmentConfirmationEmail(UserEmailOptionsDto userEmailOptions, string path)
+    {
+        userEmailOptions.Subject = UpdatePlaceHolders("Hello {{UserName}}, You have scheduled appointment.", userEmailOptions.Placeholders);
+        userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("emailConfirmTemplate"), userEmailOptions.Placeholders);
+        await SendEmailWithAttachement(userEmailOptions, path);
     }
     private async Task SendEmail(UserEmailOptionsDto emailOptions)
     {
@@ -49,10 +56,38 @@ public class EmailService : IEmailService
 
         await smtpClient.SendMailAsync(mail);
     }
+    private async Task SendEmailWithAttachement(UserEmailOptionsDto emailOptions, string path)
+    {
+        MailMessage mail = new MailMessage
+        {
+            Subject = emailOptions.Subject,
+            Body = emailOptions.Body,
+            From = new MailAddress(_smtpConfig.SenderAddress, _smtpConfig.SenderDisplayName),
+            IsBodyHtml = _smtpConfig.IsBodyHTML
+        };
+
+        mail.To.Add(emailOptions.ToEmail);
+
+        NetworkCredential networkCredential = new NetworkCredential(_smtpConfig.Username, _smtpConfig.Password);
+
+        SmtpClient smtpClient = new SmtpClient
+        {
+            Host = _smtpConfig.Host,
+            Port = _smtpConfig.Port,
+            EnableSsl = _smtpConfig.EnableSSL,
+            UseDefaultCredentials = _smtpConfig.UseDefaultCredentials,
+            Credentials = networkCredential
+        };
+
+        mail.BodyEncoding = Encoding.Default;
+        mail.Attachments.Add(new Attachment(path));
+
+        await smtpClient.SendMailAsync(mail);
+    }
 
     private string GetEmailBody(string templateName)
     {
-        var body = File.ReadAllText("C:\\Users\\mbovan\\Desktop\\ISA\\isa-2023\\MedEquipCentral-Backend\\MedEquipCentral.BL\\EmailTemplate\\emailTemplate.html");
+        var body = File.ReadAllText($"C:\\Users\\mbovan\\Desktop\\ISA\\isa-2023\\MedEquipCentral-Backend\\MedEquipCentral.BL\\EmailTemplate\\{templateName}.html");
         return body;
     }
 

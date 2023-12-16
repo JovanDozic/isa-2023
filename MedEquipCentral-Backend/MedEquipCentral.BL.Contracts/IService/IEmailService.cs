@@ -4,5 +4,6 @@ namespace MedEquipCentral.BL.Contracts.IService;
 
 public interface IEmailService
 {
-    Task SendConfirmEmail(UserEmailOptionsDto userEmailOptions);
+    Task SendVerficationEmail(UserEmailOptionsDto userEmailOptions);
+    Task SendAppointmentConfirmationEmail(UserEmailOptionsDto userEmailOptions, string path);
 }

@@ -15,29 +15,16 @@ namespace MedEquipCentral.Controllers
         {
             _appointmentService = appointmentService;
         }
-
-        [HttpPost("qr")]
-        public async void TestQrCode(AppointmentDto appointmentDto)
-        {
-            _appointmentService.CreateQRCodeForAppointment(appointmentDto);
-        }
-
-        [HttpPost]
-        public async Task<AppointmentDto> AddAppointment(AppointmentDto appointment)
-        {
-            return await _appointmentService.AddAppointment(appointment);
-        }
-
         [HttpGet("getFreeAppointmentsForCompany/{companyId:int}")]
         public async Task<List<AppointmentDto>> GetFreeAppointmentsForCompany(int companyId)
         {
             return await _appointmentService.GetFreeAppointmentsForCompany(companyId);
         }
 
-        [HttpPost("createExtraordinaryAppointment")]
-        public async Task<string> CreateExtraordinaryAppointment(AppointmentDto dataIn)
+        [HttpPost("createAppointment")]
+        public async Task<string> CreateAppointment(AppointmentDto dataIn)
         {
-            return await _appointmentService.CreateExtraordinaryAppointment(dataIn);
+            return await _appointmentService.CreateAppointment(dataIn);
         }
 
         [HttpGet("getCompanyAppointments/{companyId:int}")]
