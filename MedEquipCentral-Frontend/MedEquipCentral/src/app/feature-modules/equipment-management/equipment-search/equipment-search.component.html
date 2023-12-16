@@ -58,9 +58,9 @@
                         <div class="col-md-7">
                             <h5 class="card-title">{{equipment.name}}</h5>
                         </div>
-                        <div *ngIf="showForCompany" class="col-md-5">
+                        <div *ngIf="user.userRole == 2" class="col-md-5">
                             <div class="d-flex align-items-end justify-content-end">
-                                <button *ngIf="showForCompany" class="btn btn-sm btn-outline-danger mt-1"
+                                <button class="btn btn-sm btn-outline-danger mt-1"
                                     (click)="deleteEquipment(equipment)">- Delete</button>
                             </div>
                         </div>
@@ -73,13 +73,15 @@
                         </div>
                         <div *ngIf="showForCompany" class="col-md-6">
                             <div class="d-flex align-items-end justify-content-end">
-                                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                                <button *ngIf="user.userRole == 2" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
                                     data-bs-target="#equipmentFormModal" (click)="setIsEditTrue(equipment)">+ Add
                                     more</button>
+                                <button *ngIf="user.userRole == 1" class="btn btn-sm btn-outline-secondary"
+                                    data-bs-toggle="modal" data-bs-target="equipmentFormModal" (click)="addToCart(equipment.id)">Add to cart</button>
                             </div>
                         </div>
                     </div>
-                    <p *ngIf="!showForCompany" class="card-text mt-4">
+                    <p *ngIf="user.userRole == 2" class="card-text mt-4">
                         <span><b class="text-primary">Available at: </b> {{equipment.company?.name}}</span>
                     </p>
 
@@ -89,16 +91,11 @@
 
         <div class="modal fade" id="equipmentFormModal">
             <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title">Add equipment</h1>
-                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <app-equipment-form [isEdit]="isEdit" [equipment]="selectedEquipment"
-                            (refreshEquipment)="getEquipment()"></app-equipment-form>
-                    </div>
-                </div>
+                <app-equipment-form 
+                    [isEdit]="isEdit" 
+                    [equipment]="selectedEquipment"
+                    (refreshEquipment)="getEquipment()">
+                </app-equipment-form>
             </div>
         </div>
 

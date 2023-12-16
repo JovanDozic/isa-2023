@@ -2,7 +2,7 @@ import { Company } from "./company.model";
 import { EquipmentType } from "./equipment-type.model";
 
 export interface Equipment{
-    id?: number,
+    id: number,
     name: string,
     description?: string,
     typeId: number,

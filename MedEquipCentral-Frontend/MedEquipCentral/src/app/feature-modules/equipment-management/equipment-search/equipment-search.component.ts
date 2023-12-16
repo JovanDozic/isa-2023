@@ -23,6 +23,8 @@ export class EquipmentSearchComponent implements OnInit, OnChanges {
   isEdit: boolean = false;
   selectedEquipment?: Equipment = undefined;
 
+  reservedEquipmentId: number[] = [];
+
   constructor(private equipmentService: EquipmentService, private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -153,6 +155,16 @@ export class EquipmentSearchComponent implements OnInit, OnChanges {
         }
       })
     }
+  }
+
+  addToCart(equipmentId: number){
+    this.reservedEquipmentId.push(equipmentId)
+
+    this.equipment.forEach(element => {
+      if(element.id == equipmentId){
+        element.quantity -= 1;
+      }
+    });
   }
 
 }
