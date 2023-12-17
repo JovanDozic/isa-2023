@@ -23,7 +23,7 @@ export class EquipmentSearchComponent implements OnInit, OnChanges {
   isEdit: boolean = false;
   selectedEquipment?: Equipment = undefined;
 
-  reservedEquipmentId: number[] = [];
+  @Output() reservedEquipmentId = new EventEmitter();
   selectedEquipmentIds: number[] = [];
 
 
@@ -150,7 +150,7 @@ export class EquipmentSearchComponent implements OnInit, OnChanges {
     if (confirm('Are you sure you wish to delete ' + equipment.name)) {
       this.equipmentService.delete(equipment.id!).subscribe({
         next: response => {
-          if (response == true)
+          if (response)
             this.getEquipment();
           else
             alert('Cannot delete because there is an active appointment!');
@@ -160,7 +160,8 @@ export class EquipmentSearchComponent implements OnInit, OnChanges {
   }
 
   addToCart(equipmentId: number){
-    this.reservedEquipmentId.push(equipmentId)
+    this.selectedEquipmentIds.push(equipmentId);
+    this.reservedEquipmentId.emit(this.selectedEquipmentIds);
 
     this.equipment.forEach(element => {
       if(element.id == equipmentId){

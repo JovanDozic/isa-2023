@@ -1,10 +1,12 @@
 ﻿using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts.Shared;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedEquipCentral.Controllers
 {
+    [EnableCors("_mySpecificOrigins")]
     [Route("api/appointment")]
     [ApiController]
     public class AppointmentController : Controller

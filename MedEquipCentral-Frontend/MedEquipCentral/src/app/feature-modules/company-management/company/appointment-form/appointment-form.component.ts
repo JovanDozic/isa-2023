@@ -5,7 +5,6 @@ import { CompanyManagementService } from '../../company-management.service';
 import { Appointment } from '../../model/appointment.model';
 import { Company } from '../../model/company.model';
 import { User } from '../../../../core/auth/model/user.model';
-import {Equipment} from "../../model/equipment.model";
 
 @Component({
   selector: 'app-appointment-form',
@@ -17,10 +16,12 @@ export class AppointmentFormComponent implements OnInit {
   appointmentForm!: FormGroup;
   company!: Company;
   createYourOwn: boolean = false;
+  appointmentId: number = 0;
 
   @Input() companyId: number = 0;
   @Input() user!: User;
-  @Input() appointments: Appointment[] = []
+  @Input() appointments: Appointment[] = [];
+  @Input() reservedEquipmentId: number[] = [];
   @Output() appointmentAdded = new EventEmitter<null>();
 
   constructor(private service: CompanyManagementService,
@@ -35,45 +36,22 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   createAppointment() {
-    if (this.appointmentForm.valid) {
+    //if (this.appointmentForm.valid) {
       const appointment: Appointment = {
-        id: 0,
+        id: this.appointmentId,
         startTime: this.appointmentForm.value.appointmentDate,
         duration: this.appointmentForm.value.duration,
         companyId: this.companyId,
         adminId: 1,
         buyerId: this.user.id,
-        equipmentIds: [],
+        equipmentIds: this.reservedEquipmentId,
         equipment: [],
-        company: {
-          id: 0,
-          name: '',
-          locationId: 0,
-          location: {
-            id: 0,
-            latitude: 0,
-            longitude: 0,
-            street: '',
-            streetNumber: '',
-            city: '',
-            zip: '',
-            country: ''
-          },
-          description: '',
-          rating: 0,
-          startTime: {
-            hours: 0,
-            minutes: 0
-          },
-          endTime: {
-            hours: 0,
-            minutes: 0
-          }
-        },
-        adminName: this.user.name,
-        adminSurname: this.user.surname,
+        company: this.company,
+        adminName: '',
+        adminSurname: '',
       }
-      console.log(appointment.startTime);
+      console.log(this.reservedEquipmentId)
+      console.log(appointment.equipmentIds);
 
       this.service.createAppointment(appointment).subscribe({
         next: response => {
@@ -84,7 +62,7 @@ export class AppointmentFormComponent implements OnInit {
           console.log(err);
         }
       })
-    }
+    //}
   }
 
   getCompany() {
@@ -98,4 +76,15 @@ export class AppointmentFormComponent implements OnInit {
   createYourOwnFunction(){
     this.createYourOwn = true;
   }
+
+  getReservedEquipment(reservedEquipmentIds: any){
+    this.reservedEquipmentId = reservedEquipmentIds
+  }
+
+  selectAppointment(appointment: any){
+    this.appointmentId = appointment.id;
+    this.appointmentForm.value.appointmentDate = appointment.startTime;
+    this.appointmentForm.value.duration = appointment.duration;
+  }
+
 }
