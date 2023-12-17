@@ -13,6 +13,7 @@ import {VerificationComponent} from "../auth/verification/verification.component
 import { CompanyCalendarComponent } from '../../feature-modules/company-management/company-calendar/company-calendar.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'company-form', component: CompanyFormComponent },
   { path: 'company/:id', component: CompanyComponent },

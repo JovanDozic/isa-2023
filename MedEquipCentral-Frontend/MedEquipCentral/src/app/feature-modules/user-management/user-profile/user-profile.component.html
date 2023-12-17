@@ -1,6 +1,14 @@
-<h1>Profile details</h1>
-<div class="container">
-    <form>
+<div class="container col-md-9 mb-5">
+
+    <div class="row my-5">
+        <h1>Profile details</h1>
+    </div>
+
+    <div class="row" *ngIf="this.user == undefined || this.user.id == 0">
+        <h3>Please <a [routerLink]="['../login']">login</a>.</h3>
+    </div>
+
+    <form *ngIf="this.user != undefined && this.user.id != 0">
         <div class="col-s-5">
             <span class="form-label">Name:</span>
         </div>

@@ -43,8 +43,6 @@ export class CompanyCalendarComponent implements OnInit {
 
   ngOnInit(): void {
     const user = this.authService.user$.getValue();
-    console.log("Ulogovan gospo:");
-    console.log(user);
     if (user.companyId) {
       this.getAppointments(user.companyId);
     }

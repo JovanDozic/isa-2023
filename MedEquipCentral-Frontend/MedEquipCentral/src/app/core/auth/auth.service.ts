@@ -1,20 +1,20 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, tap} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Router} from '@angular/router';
-import {TokenStorage} from './jwt/token.service';
-import {environment} from "../../shared/environment";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { TokenStorage } from './jwt/token.service';
+import { environment } from "../../shared/environment";
 import { JwtHelperService } from '@auth0/angular-jwt';
-import {AuthenticationResponse} from './model/authentication-response.model';
-import {User, UserRole} from './model/user.model';
-import {Registration} from './model/registration.model';
-import {Login} from "./model/login.model";
+import { AuthenticationResponse } from './model/authentication-response.model';
+import { User, UserRole } from './model/user.model';
+import { Registration } from './model/registration.model';
+import { Login } from "./model/login.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user$ = new BehaviorSubject<User>({id: 0, email: "", password: "", confirmPassword: "", name: "", surname: "", city: "", country: "", phone: "", job: "", companyInfo: "", userRole: UserRole.Unauthenticated });
+  user$ = new BehaviorSubject<User>({ id: 0, email: "", password: "", confirmPassword: "", name: "", surname: "", city: "", country: "", phone: "", job: "", companyInfo: "", userRole: UserRole.Unauthenticated });
 
   constructor(private http: HttpClient,
     private tokenStorage: TokenStorage,
@@ -31,8 +31,8 @@ export class AuthService {
       );
   }
 
-    register(registration: Registration): Observable<AuthenticationResponse> {
-      return this.http
+  register(registration: Registration): Observable<AuthenticationResponse> {
+    return this.http
       .post<AuthenticationResponse>(environment.apiHost + 'users/register', registration)
       .pipe(
         tap((authenticationResponse) => {
@@ -40,14 +40,15 @@ export class AuthService {
           this.setUser();
         })
       );
-    }
+  }
 
   logout(): void {
     this.router.navigate(['/home']).then(_ => {
       this.tokenStorage.clear();
       this.user$.next({
-        companyInfo: "", email: "", id: 0, password: "", confirmPassword: "", name: "", surname: "", city: "", country: "", phone: "", job: "", userRole: UserRole.Unauthenticated });
-      }
+        companyInfo: "", email: "", id: 0, password: "", confirmPassword: "", name: "", surname: "", city: "", country: "", phone: "", job: "", userRole: UserRole.Unauthenticated
+      });
+    }
     );
   }
 
@@ -59,9 +60,9 @@ export class AuthService {
     this.setUser();
   }
 
-  verify(userId: number): Observable<AuthenticationResponse>{
+  verify(userId: number): Observable<AuthenticationResponse> {
     return this.http.
-    patch<AuthenticationResponse>(environment.apiHost + "users/verify/" + userId, null)
+      patch<AuthenticationResponse>(environment.apiHost + "users/verify/" + userId, null)
   }
 
   private setUser(): void {

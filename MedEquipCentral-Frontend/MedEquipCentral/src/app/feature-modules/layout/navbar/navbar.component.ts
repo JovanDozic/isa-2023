@@ -10,17 +10,19 @@ import { User } from '../../../core/auth/model/user.model';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit {
+
   user!: User;
 
   constructor(private router: Router, private authService: AuthService) { }
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       this.user = user;
-      console.log(this.user);
-      console.log(this.user.userRole);
-      //this.user.userRole = 2;
-      //this.user.companyId = 2;
     });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/home']);
   }
 
 }
