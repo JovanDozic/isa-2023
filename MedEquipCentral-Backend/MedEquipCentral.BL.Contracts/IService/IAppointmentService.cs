@@ -1,4 +1,5 @@
 ﻿using MedEquipCentral.BL.Contracts.DTO;
+using MedEquipCentral.DA.Contracts.Shared;
 
 namespace MedEquipCentral.BL.Contracts.IService
 {
@@ -9,6 +10,5 @@ namespace MedEquipCentral.BL.Contracts.IService
         Task<List<AppointmentDto>> GetCompanyAppointments(int companyId);
         Task<AppointmentDto> GetById(int id);
         Task<PagedResult<AppointmentDto>> GetAllUsersAppointments(AppointmentPagedIn dataIn);
-        Task<string> CreateAppointment(AppointmentDto dataIn);
     }
 }

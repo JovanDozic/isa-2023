@@ -4,6 +4,7 @@ using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts;
 using MedEquipCentral.DA.Contracts.Model;
 using IronBarCode;
+using MedEquipCentral.DA.Contracts.Shared;
 
 namespace MedEquipCentral.BL.Service
 {
