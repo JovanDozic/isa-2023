@@ -11,6 +11,7 @@ import {RegistrationComponent} from "../auth/registration/registration.component
 import {LoginComponent} from "../auth/login/login.component";
 import {VerificationComponent} from "../auth/verification/verification.component";
 import { CompanyCalendarComponent } from '../../feature-modules/company-management/company-calendar/company-calendar.component';
+import { ChangePasswordFormComponent } from '../../feature-modules/user-management/change-password-form/change-password-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'verify/:userId', component: VerificationComponent},
   { path: 'system-admins-management', component: SystemAdminsManagementComponent },
   { path: 'company-calendar', component: CompanyCalendarComponent },
+  { path: 'change-password', component: ChangePasswordFormComponent },
 ];
 
 @NgModule({

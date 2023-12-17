@@ -65,10 +65,10 @@ export class EquipmentFormComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.equipmentForm.reset();
+    this.setFormAvailabilty();
     if (this.isEdit) {
       this.equipmentForm.patchValue(this.equipment!);
     }
-    this.setFormAvailabilty();
   }
 
   addEquipment() {
@@ -81,6 +81,7 @@ export class EquipmentFormComponent implements OnInit, OnChanges {
         companyId: this.equipmentForm.value.companyId,
         quantity: this.equipmentForm.value.quantity,
       }
+      console.log(equipment);
 
       this.equipmentService.addEquipment(equipment).subscribe({
         next: response => {

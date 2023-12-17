@@ -19,7 +19,7 @@ namespace MedEquipCentral.DA.Contracts.Model
 
         public Appointment(DateTime startTime, int duration, int companyId, string adminName, string adminSurname, int adminId, int buyerId, List<int>? equipmentIds)
         {
-            StartTime = startTime;
+            StartTime = startTime.ToUniversalTime();
             Duration = duration;
             CompanyId = companyId;
             AdminName = adminName;

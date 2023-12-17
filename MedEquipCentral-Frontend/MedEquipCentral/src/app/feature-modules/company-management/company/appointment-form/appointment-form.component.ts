@@ -39,10 +39,10 @@ export class AppointmentFormComponent implements OnInit {
         startTime: this.appointmentForm.value.appointmentDate,
         duration: this.appointmentForm.value.duration,
         companyId: this.companyId,
-        adminName: 'admin',
-        adminSurname: 'adminic',
-        adminId: 1,
-        buyerId: this.user.id,
+        adminName: this.user.name,
+        adminSurname: this.user.surname,
+        adminId: this.user.id,
+        buyerId: 1,
         equipmentIds: []
       }
       console.log(appointment.startTime);

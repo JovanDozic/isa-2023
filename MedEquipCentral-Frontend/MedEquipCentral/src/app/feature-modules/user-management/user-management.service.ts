@@ -1,8 +1,7 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "../../shared/environment";
-import { observableToBeFn } from "rxjs/internal/testing/TestScheduler";
 import { User } from "../../core/auth/model/user.model";
 
 @Injectable({
@@ -44,5 +43,10 @@ export class UserManagementService {
 
     removeSystemAdmin(userId: number): Observable<User> {
         return this.http.patch<any>(this.apiUrl + "/" + userId + "/removeSystemAdmin", null);
+    }
+
+    changePassword(id: number, newPassword: string): Observable<any> {
+        const queryParams = new HttpParams().set('newPassword', newPassword);
+        return this.http.patch<any>(this.apiUrl + '/changePassword/' + id, null, { params: queryParams });
     }
 }

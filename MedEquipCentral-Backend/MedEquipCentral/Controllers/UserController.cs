@@ -74,5 +74,11 @@ namespace MedEquipCentral.Controllers
         {
             await _userService.RemoveSystemAdmin(userId);
         }
+
+        [HttpPatch("changePassword/{id:int}")]
+        public async Task ChangePassword(int id, string newPassword)
+        {
+            await _userService.ChangePassword(id, newPassword);
+        }
     }
 }

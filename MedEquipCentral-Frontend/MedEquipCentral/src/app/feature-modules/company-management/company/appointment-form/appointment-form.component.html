@@ -13,8 +13,12 @@
                         formControlName="appointmentDate" required>
 
                     <label for="datetimepicker">Duration:</label>
-                    <input type="number" class="form-control" formControlName="duration" placeholder="minutes"
-                        required>
+                    <select class="form-control form-select" formControlName="duration" required>
+                        <option value="15">15 minutes</option>
+                        <option value="30">30 minutes</option>
+                        <option value="45">45 minutes</option>
+                        <option value="60">60 minutes</option>
+                    </select>
                     <div class="row mt-3 mx-1">
                         <button type="submit" class="btn btn-primary">Create</button>
                     </div>

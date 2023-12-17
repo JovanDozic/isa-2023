@@ -1,7 +1,7 @@
 export enum UserRole {
   Unauthenticated,
   Registered,
-  Company_Admin = 2,
+  Company_Admin,
   System_Admin
 }
 
@@ -16,7 +16,8 @@ export interface User {
   country?: string;
   phone?: string;
   job?: string;
-  companyId?: number,
-  userRole?: UserRole
+  companyId?: number;
+  userRole?: UserRole;
   companyInfo?: string;
+  isFirstLogin?: string;
 }

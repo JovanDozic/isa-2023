@@ -112,5 +112,14 @@ namespace MedEquipCentral.BL.Service
             var users = (await _unitOfWork.GetUserRepository().GetAll()).Where(x => x.Role == UserRole.System_Admin);
             return _mapper.Map<List<UserDto>>(users);
         }
+
+        public async Task ChangePassword(int id, string newPassword)
+        {
+            var user = await _unitOfWork.GetUserRepository().GetByIdAsync(id);
+            user.Password = newPassword;
+            user.IsFirstLogin = false;
+            _unitOfWork.GetUserRepository().Update(user);
+            await _unitOfWork.Save();
+        }
     }
 }

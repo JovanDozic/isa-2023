@@ -26,7 +26,13 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(login).subscribe({
         next: () => {
-          this.router.navigate(['/home']);
+          const user = this.authService.user$.getValue();
+          console.log(user)
+          if ((user.userRole?.toString() == 'Company_Admin' || user.userRole?.toString() == 'System_Admin') && user.isFirstLogin == 'True') {
+            this.router.navigate(['/change-password']);
+          } else {
+            this.router.navigate(['/home']);
+          }
         },
       });
     }

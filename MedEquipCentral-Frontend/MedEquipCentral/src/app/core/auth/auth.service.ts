@@ -76,6 +76,7 @@ export class AuthService {
       name: jwtHelperService.decodeToken(accessToken).name,
       surname: jwtHelperService.decodeToken(accessToken).surname,
       companyId: jwtHelperService.decodeToken(accessToken).companyId,
+      isFirstLogin: jwtHelperService.decodeToken(accessToken).isFirstLogin,
     };
     this.user$.next(user);
   }

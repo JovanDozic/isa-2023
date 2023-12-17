@@ -14,5 +14,6 @@ namespace MedEquipCentral.BL.Contracts.IService
         Task AddSystemAdmin(int userId);
         Task RemoveSystemAdmin(int userId);
         Task<List<UserDto>> GetAllSystemAdmins();
+        Task ChangePassword(int id, string newPassword);
     }
 }
