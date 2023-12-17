@@ -8,6 +8,8 @@ namespace MedEquipCentral.DA.Contracts.Model
         public DateTime StartTime { get; set; }
         public int Duration { get; set; }
         public int CompanyId { get; set; }
+        [ForeignKey("CompanyId")]
+        public Company Company { get; set; }
         public string AdminName { get; set; }
         public string AdminSurname { get; set; }
         public int AdminId { get; set; }

@@ -80,6 +80,9 @@ export class EquipmentFormComponent implements OnInit, OnChanges {
         typeId: this.equipmentForm.value.typeId,
         companyId: this.equipmentForm.value.companyId,
         quantity: this.equipmentForm.value.quantity,
+        type: {
+          type: ''
+        }
       }
       console.log(equipment);
 
@@ -102,6 +105,9 @@ export class EquipmentFormComponent implements OnInit, OnChanges {
         typeId: this.equipment.typeId,
         companyId: this.equipment.companyId,
         quantity: this.equipmentForm.value.quantity,
+        type: {
+          type: ''
+        }
       }
 
       this.equipmentService.updateEquipment(equipment).subscribe({

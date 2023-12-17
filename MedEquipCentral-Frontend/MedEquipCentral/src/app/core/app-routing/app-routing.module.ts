@@ -11,6 +11,8 @@ import {RegistrationComponent} from "../auth/registration/registration.component
 import {LoginComponent} from "../auth/login/login.component";
 import {VerificationComponent} from "../auth/verification/verification.component";
 import { CompanyCalendarComponent } from '../../feature-modules/company-management/company-calendar/company-calendar.component';
+import { AppointmentDetailsComponent } from '../../feature-modules/user-management/appointment-details/appointment-details.component';
+import { UserAppointmentsComponent } from '../../feature-modules/user-management/user-appointments/user-appointments.component';
 import { ChangePasswordFormComponent } from '../../feature-modules/user-management/change-password-form/change-password-form.component';
 
 const routes: Routes = [
@@ -26,6 +28,8 @@ const routes: Routes = [
   { path: 'verify/:userId', component: VerificationComponent},
   { path: 'system-admins-management', component: SystemAdminsManagementComponent },
   { path: 'company-calendar', component: CompanyCalendarComponent },
+  { path: 'appointment-details/:id', component: AppointmentDetailsComponent},
+  { path: 'user-appointments', component: UserAppointmentsComponent},
   { path: 'change-password', component: ChangePasswordFormComponent },
 ];
 

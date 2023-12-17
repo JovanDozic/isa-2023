@@ -77,5 +77,13 @@ namespace MedEquipCentral.BL.Service
 
             return false;
         }
+
+        public async Task<EquipmentDto> GetById(int equipmentId)
+        {
+            var equipment = await _unitOfWork.GetEquipmentRepository().GetByIdAsync(equipmentId);
+            var equipmentDto = _mapper.Map<EquipmentDto>(equipment);
+
+            return equipmentDto;
+        }
     }
 }

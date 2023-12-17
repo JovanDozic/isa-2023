@@ -1,0 +1,19 @@
+<h3>YOUR APPOINTMENTS</h3>
+<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Date</th>
+        <th>Duration (min)</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let appointment of appointments">
+        <td>{{appointment.company.name}}</td>
+        <td>{{appointment.startTime | date:'medium'}}</td>
+        <td>{{appointment.duration}}</td>
+        <td><button class="btn btn-primary" (click)="viewMore(appointment.id)">View more</button></td>
+      </tr>
+    </tbody>
+  </table>

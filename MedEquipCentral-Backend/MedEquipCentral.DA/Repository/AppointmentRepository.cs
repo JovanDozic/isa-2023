@@ -1,4 +1,5 @@
-﻿using MedEquipCentral.DA.Contexts;
+﻿using MedEquipCentral.BL.Contracts.DTO;
+using MedEquipCentral.DA.Contexts;
 using MedEquipCentral.DA.Contracts.IRepository;
 using MedEquipCentral.DA.Contracts.Model;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +41,18 @@ namespace MedEquipCentral.DA.Repository
                                    .Include(x => x.Buyer)
                                    .Include(x => x.Equipment)
                                    .ToList();
+
+            return result;
+        }
+
+        public async Task<List<Appointment>> GetAllUsersAppointments(AppointmentPagedIn dataIn)
+        {
+            var result = _dbContext.Set<Appointment>()
+                            .Where(x => x.BuyerId == dataIn.UserId)
+                            .Include(x => x.Buyer)
+                            .Include(x => x.Equipment)
+                            .Include(x => x.Company)
+                            .ToList();
 
             return result;
         }

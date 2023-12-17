@@ -1,0 +1,42 @@
+<div class="container my-4">
+    <h1 style="margin-left: auto; margin-right: auto; width: 25rem;">Appointment details</h1>
+    <div style="display: flex; align-content: center; justify-content: space-between; align-items: stretch; flex-wrap: wrap;">
+        <div>
+            <h4>Customer details:</h4>
+            <label>Name: {{user.name}} {{user.surname}}</label><br>
+            <label>Email: {{user.email}}</label><br>
+            <address>
+                {{user.city}}, {{user.country}}
+            </address>
+        </div>
+        <div>
+            <h4>Company details:</h4>
+            <label>Company name: {{company.name}}</label><br>
+            <address>
+                {{company.location.street}} {{company.location.streetNumber}},<br>
+                {{company.location.zip}} {{company.location.city}} {{company.location.country}}<br>
+            </address>
+            <label>Worker: {{appointment.adminName}} {{appointment.adminSurname}}</label>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 5rem;">
+        Please pick up your equipment in {{appointment.startTime | date : 'medium'}}, you have {{appointment.duration}} minutes to pick up.
+    </div>
+    
+    <h4 style="margin-top: 5rem;">Table with equipment which you ordered:</h4>
+    <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let equipment of equipment">
+            <td>{{equipment.name}}</td>
+            <td>{{equipment.description}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>

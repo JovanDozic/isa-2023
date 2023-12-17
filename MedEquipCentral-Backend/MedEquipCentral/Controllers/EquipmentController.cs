@@ -51,5 +51,11 @@ namespace MedEquipCentral.Controllers
         {
             return await _equipmentService.Delete(equipmentId);
         }
+
+        [HttpGet("getById/{id:int}")]
+        public async Task<EquipmentDto> GetById(int id)
+        {
+            return await _equipmentService.GetById(id);
+        }
     }
 }

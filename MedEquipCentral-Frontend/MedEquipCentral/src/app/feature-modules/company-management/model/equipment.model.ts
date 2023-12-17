@@ -6,7 +6,7 @@ export interface Equipment{
     name: string,
     description?: string,
     typeId: number,
-    type?: EquipmentType,
+    type: EquipmentType,
     companyId: number,
     company?: Company,
     quantity: number,

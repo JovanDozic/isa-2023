@@ -39,6 +39,11 @@
                                 calendar</a></li>
                     </ul>
                 </li>
+                <li class="nav-item dropdown me-3">
+                    <a class="nav-link" [routerLink]="['user-appointments']">
+                        <span> Appointments</span>
+                    </a>
+                </li>
 
                 <!-- TODO: Ovaj meni treba da bude dostupan samo logovanom system adminu -->
                 <li class="nav-item dropdown me-3" *ngIf="this.user.userRole?.toString() == 'System_Admin'">

@@ -3,6 +3,7 @@ using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts;
 using MedEquipCentral.DA.Contracts.Model;
+using MedEquipCentral.DA.Contracts.Shared;
 using QRCoder;
 
 namespace MedEquipCentral.BL.Service
@@ -70,6 +71,27 @@ namespace MedEquipCentral.BL.Service
         {
             var appointments = await _unitOfWork.GetAppointmentRepository().GetAllByCompany(companyId);
             return _mapper.Map<List<AppointmentDto>>(appointments);
+        }
+
+        public async Task<AppointmentDto> GetById(int appointmentId)
+        {
+            var appointment = await _unitOfWork.GetAppointmentRepository().GetByIdAsync(appointmentId);
+
+            var appointmentDto = _mapper.Map<AppointmentDto>(appointment);
+
+            return appointmentDto;
+        }
+
+        public async Task<PagedResult<AppointmentDto>> GetAllUsersAppointments(AppointmentPagedIn dataIn)
+        {
+            var appointments = await _unitOfWork.GetAppointmentRepository().GetAllUsersAppointments(dataIn);
+
+            var appointmentsDto = _mapper.Map<List<AppointmentDto>>(appointments);
+
+            return new PagedResult<AppointmentDto>()
+            {
+                Result = appointmentsDto
+            };
         }
     }
 }

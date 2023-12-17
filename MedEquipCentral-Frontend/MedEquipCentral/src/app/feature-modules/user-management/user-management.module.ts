@@ -6,12 +6,16 @@ import { AppComponent } from "../../app.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component"
 import { RouterModule } from "@angular/router";
 import { SystemAdminsManagementComponent } from "./system-admins-management/system-admins-management.component";
+import { AppointmentDetailsComponent } from "./appointment-details/appointment-details.component";
+import { UserAppointmentsComponent } from "./user-appointments/user-appointments.component";
 import { ChangePasswordFormComponent } from "./change-password-form/change-password-form.component";
 
 @NgModule({
     declarations: [
         UserProfileComponent,
         SystemAdminsManagementComponent,
+        AppointmentDetailsComponent,
+        UserAppointmentsComponent,
         ChangePasswordFormComponent,
     ],
     imports: [
