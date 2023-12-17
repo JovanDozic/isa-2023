@@ -3,13 +3,7 @@ using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts;
 using MedEquipCentral.DA.Contracts.Model;
-using MedEquipCentral.DA.Contracts.Shared;
-using QRCoder;
-using static QRCoder.PayloadGenerator;
-using System.Reflection.Emit;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
 using IronBarCode;
-using System;
 
 namespace MedEquipCentral.BL.Service
 {
@@ -36,6 +30,7 @@ namespace MedEquipCentral.BL.Service
             var company = await _unitOfWork.GetCompanyRepository().GetByIdAsync(appointmentDto.CompanyId);
             var appointmentTime = TimeOnly.FromDateTime(appointmentDto.StartTime);
 
+            //TODO
             if (true/*appointmentTime >= company.StartTime && appointmentTime <= company.EndTime && appointmentTime.AddMinutes(appointmentDto.Duration) <= company.EndTime*/)
             {
                 var appointment = _mapper.Map<Appointment>(appointmentDto);
