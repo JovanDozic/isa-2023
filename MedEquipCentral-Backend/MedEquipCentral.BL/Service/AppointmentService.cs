@@ -63,7 +63,7 @@ namespace MedEquipCentral.BL.Service
         }
         private async Task<string> CreateQRCodeForAppointment(AppointmentDto appointmentDto)
         {
-            var user = await _unitOfWork.GetUserRepository().GetByIdAsync(appointmentDto.BuyerId);
+            var user = await _unitOfWork.GetUserRepository().GetByIdAsync(appointmentDto.BuyerId.Value);
             List<Equipment> equipments = new List<Equipment>();
             foreach (int id in appointmentDto.EquipmentIds)
             {

@@ -21,7 +21,7 @@
             data-bs-target="#editCompanyModal" (click)="onEditClicked()">
             Edit Profile
         </button>
-        <h5 class="card-title mt-5">Free appointments</h5>
+        <h5 class="card-title mt-5">Available appointments</h5>
         <table class="table mt-3">
             <thead>
                 <tr>
@@ -40,11 +40,9 @@
                 </tr>
             </tbody>
         </table>
-        <button *ngIf="user.userRole == 2" class="btn btn-outline-primary end-0" data-bs-toggle="modal"
+        <button class="btn btn-outline-primary end-0" data-bs-toggle="modal"
             data-bs-target="#createAppointmentModal">Create
             appointment</button>
-        <button class="btn btn-primary ms-3 end-0" *ngIf="user.userRole == 2">Create extraordinary appointment</button>
-
         <div *ngIf="user.userRole == 2">
             <h5 class="card-title mt-5">Administrators</h5>
             <table class="table table-bordered mt-4">
@@ -89,6 +87,7 @@
 
         <div class="modal fade" id="createAppointmentModal">
             <app-appointment-form [companyId]="companyId" [user]="user"
-                (appointmentAdded)="getCompany()"></app-appointment-form>
+                (appointmentAdded)="getCompany()"  [appointments]="appointments"></app-appointment-form>
         </div>
-    </div>
+  </div>
+</div>

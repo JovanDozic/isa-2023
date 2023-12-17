@@ -24,14 +24,13 @@ export class CompanyComponent implements OnInit {
   selectedItem?: Equipment;
   user!: User;
 
-  constructor(private service: CompanyManagementService, 
-              private route: ActivatedRoute, 
+  constructor(private service: CompanyManagementService,
+              private route: ActivatedRoute,
               private fb: FormBuilder,
               private authService: AuthService) { }
 
   ngOnInit(): void {
     this.user = this.authService.user$.getValue();
-    this.user.userRole = 2;
 
     this.route.params.subscribe(params => {
       this.companyId = params['id'];

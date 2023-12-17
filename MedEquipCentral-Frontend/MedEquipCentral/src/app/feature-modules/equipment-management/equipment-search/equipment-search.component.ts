@@ -3,7 +3,7 @@ import { EquipmentService } from '../equipment.service';
 import { Equipment } from '../../company-management/model/equipment.model';
 import { EquipmentType } from '../../company-management/model/equipment-type.model';
 import { AuthService } from '../../../core/auth/auth.service';
-import { User } from '../../../core/auth/model/user.model';
+import {User, UserRole} from '../../../core/auth/model/user.model';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -24,6 +24,8 @@ export class EquipmentSearchComponent implements OnInit, OnChanges {
   selectedEquipment?: Equipment = undefined;
 
   reservedEquipmentId: number[] = [];
+  selectedEquipmentIds: number[] = [];
+
 
   constructor(private equipmentService: EquipmentService, private authService: AuthService, private route: ActivatedRoute) { }
 
@@ -167,4 +169,5 @@ export class EquipmentSearchComponent implements OnInit, OnChanges {
     });
   }
 
+  protected readonly UserRole = UserRole;
 }

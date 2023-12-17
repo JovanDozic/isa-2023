@@ -1,12 +1,32 @@
-<div class="modal-dialog modal-dialog-scrollable">
+<div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
     <div class="modal-content">
         <div class="modal-header">
             <h1 class="modal-title">Create appointment</h1>
             <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <app-equipment-search [showForCompany]="false" style="max-height: 300px; overflow-y: auto;"></app-equipment-search>
+      <table class="table mt-3">
+        <thead>
+        <tr>
+          <th class="col-sm-4">Start time</th>
+          <th>Duration</th>
+          <th>Name</th>
+          <th>Surname</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let appointment of appointments">
+          <td>{{ appointment.startTime | date:'medium' }}</td>
+          <td>{{appointment.duration}} minutes</td>
+          <td>{{appointment.adminName}}</td>
+          <td>{{appointment.adminSurname}}</td>
+        </tr>
+        </tbody>
+      </table>
         <div class="modal-body">
+          <button class="btn btn-primary" (click)="createYourOwnFunction()">Create your own</button>
             <form [formGroup]="appointmentForm" (submit)="createAppointment()">
-                <div class="form-group">
+                <div *ngIf="createYourOwn" class="form-group">
 
                     <label for="datetimepicker">Select date and time:</label>
                     <input type="datetime-local" class="form-control" id="datetimepicker" name="datetimepicker"

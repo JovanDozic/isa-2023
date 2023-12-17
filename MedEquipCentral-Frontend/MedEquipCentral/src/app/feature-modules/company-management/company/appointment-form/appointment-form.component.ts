@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '@auth0/auth0-angular';
 import { CompanyManagementService } from '../../company-management.service';
 import { Appointment } from '../../model/appointment.model';
 import { Company } from '../../model/company.model';
 import { User } from '../../../../core/auth/model/user.model';
+import {Equipment} from "../../model/equipment.model";
 
 @Component({
   selector: 'app-appointment-form',
@@ -15,14 +15,16 @@ import { User } from '../../../../core/auth/model/user.model';
 })
 export class AppointmentFormComponent implements OnInit {
   appointmentForm!: FormGroup;
-  company!: Company
+  company!: Company;
+  createYourOwn: boolean = false;
 
   @Input() companyId: number = 0;
-  @Input() user!: User
+  @Input() user!: User;
+  @Input() appointments: Appointment[] = []
   @Output() appointmentAdded = new EventEmitter<null>();
 
-  constructor(private service: CompanyManagementService, 
-              private route: ActivatedRoute, 
+  constructor(private service: CompanyManagementService,
+              private route: ActivatedRoute,
               private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class AppointmentFormComponent implements OnInit {
       duration: ['', Validators.required],
     })
   }
-              
+
   createAppointment() {
     if (this.appointmentForm.valid) {
       const appointment: Appointment = {
@@ -91,5 +93,9 @@ export class AppointmentFormComponent implements OnInit {
         this.company = response;
       }
     })
+  }
+
+  createYourOwnFunction(){
+    this.createYourOwn = true;
   }
 }

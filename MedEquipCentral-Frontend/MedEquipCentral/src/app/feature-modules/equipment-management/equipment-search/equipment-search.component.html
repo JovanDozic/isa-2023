@@ -1,4 +1,4 @@
-<div class="container col-md-9">
+<div class="container col-md-20">
 
     <div class="row">
         <h1 class="my-5">Equipment</h1>
@@ -36,7 +36,8 @@
                     aria-expanded="false">{{selectedType?.type ?? "Type"}}</button>
                 <ul class="dropdown-menu">
                     <li *ngFor="let type of equipmentTypes"><a class="dropdown-item"
-                            (click)="setTypeFilter(type)">{{type.type}}</a></li>
+                            (click)="setTypeFilter(type)">{{type.type}}</a>
+                    </li>
                 </ul>
 
                 <button type="button" class="btn btn-outline-primary" (click)="searchEquipment()">Filter</button>
@@ -58,7 +59,7 @@
                         <div class="col-md-7">
                             <h5 class="card-title">{{equipment.name}}</h5>
                         </div>
-                        <div *ngIf="user.userRole == 2" class="col-md-5">
+                        <div *ngIf="showForCompany && user.userRole == 2" class="col-md-5">
                             <div class="d-flex align-items-end justify-content-end">
                                 <button class="btn btn-sm btn-outline-danger mt-1"
                                     (click)="deleteEquipment(equipment)">- Delete</button>
@@ -71,13 +72,12 @@
                         <div class="col-md-6">
                             <p class="card-text text-body-secondary">Quantity: {{equipment.quantity}}</p>
                         </div>
-                        <div *ngIf="showForCompany" class="col-md-6">
+                        <div class="col-md-6">
                             <div class="d-flex align-items-end justify-content-end">
-                                <button *ngIf="user.userRole == 2" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                                <button *ngIf="showForCompany && user.userRole == 2" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
                                     data-bs-target="#equipmentFormModal" (click)="setIsEditTrue(equipment)">+ Add
                                     more</button>
-                                <button *ngIf="user.userRole == 1" class="btn btn-sm btn-outline-secondary"
-                                    data-bs-toggle="modal" data-bs-target="equipmentFormModal" (click)="addToCart(equipment.id)">Add to cart</button>
+                                <button class="btn btn-sm btn-outline-secondary" (click)="addToCart(equipment.id)">Add to cart</button>
                             </div>
                         </div>
                     </div>
@@ -91,15 +91,12 @@
 
         <div class="modal fade" id="equipmentFormModal">
             <div class="modal-dialog">
-                <app-equipment-form 
-                    [isEdit]="isEdit" 
+                <app-equipment-form
+                    [isEdit]="isEdit"
                     [equipment]="selectedEquipment"
                     (refreshEquipment)="getEquipment()">
                 </app-equipment-form>
             </div>
         </div>
-
-
-
     </div>
 </div>
