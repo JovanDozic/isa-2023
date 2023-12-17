@@ -66,6 +66,6 @@ export class UserManagementService {
 
     changePassword(id: number, newPassword: string): Observable<any> {
         const queryParams = new HttpParams().set('newPassword', newPassword);
-        return this.http.patch<any>(this.apiUrl + '/changePassword/' + id, null, { params: queryParams });
+        return this.http.patch<any>(this.apiUrl + 'user/changePassword/' + id, null, { params: queryParams });
     }
 }

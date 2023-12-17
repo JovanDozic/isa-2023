@@ -1,6 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { User } from '../../../core/auth/model/user.model';
 import { UserManagementService } from '../user-management.service';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-system-admins-management',
@@ -12,8 +13,9 @@ export class SystemAdminsManagementComponent implements OnInit, OnChanges {
 
   regUsers: User[] = [];
   sysAdmins: User[] = [];
+  user!: User;
 
-  constructor(private userService: UserManagementService) { }
+  constructor(private userService: UserManagementService, private authService: AuthService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     throw new Error('Method not implemented.');
@@ -21,6 +23,7 @@ export class SystemAdminsManagementComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.getUsers();
+    this.user = this.authService.user$.getValue();
   }
 
   getUsers() {

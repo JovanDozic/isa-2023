@@ -31,7 +31,12 @@ export class LoginComponent {
           if ((user.userRole?.toString() == 'Company_Admin' || user.userRole?.toString() == 'System_Admin') && user.isFirstLogin == 'True') {
             this.router.navigate(['/change-password']);
           } else {
-            this.router.navigate(['/home']);
+            // TODO: fix this
+            // Ovo u sustini reloaduje sve da bi se navbar updateovao
+            // Treba ispraviti da se koristi BehaviorSubject i da se kroz click navbara to se updatuje. 
+            location.reload();
+            alert("Welcome " + user.name + " " + user.surname + "!");
+            //this.router.navigate(['/home']);
           }
         },
       });

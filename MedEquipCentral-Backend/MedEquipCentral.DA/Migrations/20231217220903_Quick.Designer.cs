@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedEquipCentral.DA.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231214191315_MoreEquipInAppoint")]
-    partial class MoreEquipInAppoint
+    [Migration("20231217220903_Quick")]
+    partial class Quick
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,21 @@ namespace MedEquipCentral.DA.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("AppointmentEquipment", b =>
+                {
+                    b.Property<int>("EquipmentId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("EquipmentId1")
+                        .HasColumnType("integer");
+
+                    b.HasKey("EquipmentId", "EquipmentId1");
+
+                    b.HasIndex("EquipmentId1");
+
+                    b.ToTable("AppointmentEquipment", (string)null);
+                });
 
             modelBuilder.Entity("MedEquipCentral.DA.Contracts.Model.Appointment", b =>
                 {
@@ -45,7 +60,7 @@ namespace MedEquipCentral.DA.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("BuyerId")
+                    b.Property<int>("BuyerId")
                         .HasColumnType("integer");
 
                     b.Property<int>("CompanyId")
@@ -55,13 +70,16 @@ namespace MedEquipCentral.DA.Migrations
                         .HasColumnType("integer");
 
                     b.Property<List<int>>("EquipmentIds")
-                        .IsRequired()
                         .HasColumnType("integer[]");
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BuyerId");
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Appointments");
                 });
@@ -129,8 +147,6 @@ namespace MedEquipCentral.DA.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
-
-                    b.HasIndex("EquipmentId");
 
                     b.HasIndex("TypeId");
 
@@ -217,6 +233,9 @@ namespace MedEquipCentral.DA.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
+                    b.Property<bool?>("IsFirstLogin")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Job")
                         .HasColumnType("text");
 
@@ -240,6 +259,40 @@ namespace MedEquipCentral.DA.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("AppointmentEquipment", b =>
+                {
+                    b.HasOne("MedEquipCentral.DA.Contracts.Model.Appointment", null)
+                        .WithMany()
+                        .HasForeignKey("EquipmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedEquipCentral.DA.Contracts.Model.Equipment", null)
+                        .WithMany()
+                        .HasForeignKey("EquipmentId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MedEquipCentral.DA.Contracts.Model.Appointment", b =>
+                {
+                    b.HasOne("MedEquipCentral.DA.Contracts.Model.User", "Buyer")
+                        .WithMany()
+                        .HasForeignKey("BuyerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedEquipCentral.DA.Contracts.Model.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Buyer");
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("MedEquipCentral.DA.Contracts.Model.Company", b =>
                 {
                     b.HasOne("MedEquipCentral.DA.Contracts.Model.Location", "Location")
@@ -259,10 +312,6 @@ namespace MedEquipCentral.DA.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MedEquipCentral.DA.Contracts.Model.Appointment", null)
-                        .WithMany("Equipment")
-                        .HasForeignKey("EquipmentId");
-
                     b.HasOne("MedEquipCentral.DA.Contracts.Model.EquipmentType", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId")
@@ -272,11 +321,6 @@ namespace MedEquipCentral.DA.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("Type");
-                });
-
-            modelBuilder.Entity("MedEquipCentral.DA.Contracts.Model.Appointment", b =>
-                {
-                    b.Navigation("Equipment");
                 });
 #pragma warning restore 612, 618
         }

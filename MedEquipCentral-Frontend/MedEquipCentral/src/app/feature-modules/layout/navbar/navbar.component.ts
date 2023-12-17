@@ -16,11 +16,14 @@ export class NavbarComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) { }
   ngOnInit(): void {
     this.user = this.authService.user$.getValue();
+    console.log("Navbar loaded this user: ");
+    console.log(this.user);
   }
 
   logout() {
     this.authService.logout();
     this.router.navigate(['/home']);
+    location.reload();
   }
 
 }

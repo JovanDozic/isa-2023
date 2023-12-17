@@ -76,6 +76,8 @@ namespace MedEquipCentral.DA.Migrations
 
                     b.HasIndex("BuyerId");
 
+                    b.HasIndex("CompanyId");
+
                     b.ToTable("Appointments");
                 });
 
@@ -277,7 +279,15 @@ namespace MedEquipCentral.DA.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MedEquipCentral.DA.Contracts.Model.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Buyer");
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("MedEquipCentral.DA.Contracts.Model.Company", b =>
