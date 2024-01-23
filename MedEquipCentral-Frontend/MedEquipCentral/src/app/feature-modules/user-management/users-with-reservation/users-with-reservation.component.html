@@ -1,0 +1,19 @@
+<h3 class="my-4">List of registered users who have made a reservation in your company:</h3>
+<table class="table table-striped mt-5">
+    <thead>
+        <tr>
+            <th class="col-sm-1">#</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th class="col-sm-5">Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{user.id}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.surname}}</td>
+            <td>{{user.email}}</td>
+        </tr>
+    </tbody>
+</table>

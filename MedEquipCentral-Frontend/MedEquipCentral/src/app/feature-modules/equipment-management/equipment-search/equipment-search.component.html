@@ -3,9 +3,9 @@
     <div class="row">
         <h1 class="my-5">Equipment</h1>
     </div>
-    <div *ngIf="showForCompany" class="mb-4">
+    <div *ngIf="user.userRole?.toString() == 'Company_Admin'" class="mb-4">
         <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal"
-            data-bs-target="#equipmentFormModal"  (click)="setIsEditFalse()"><i class="bi bi-plus"></i>Add
+            data-bs-target="#equipmentFormModal"  (click)="setIsEditFalse()">+ Add
             equipment</button>
     </div>
     <div class="row">
@@ -59,7 +59,7 @@
                         <div class="col-md-7">
                             <h5 class="card-title">{{equipment.name}}</h5>
                         </div>
-                        <div *ngIf="showForCompany && user.userRole == 2" class="col-md-5">
+                        <div *ngIf="user.userRole?.toString() == 'Company_Admin'" class="col-md-5">
                             <div class="d-flex align-items-end justify-content-end">
                                 <button class="btn btn-sm btn-outline-danger mt-1"
                                     (click)="deleteEquipment(equipment)">- Delete</button>
@@ -74,14 +74,14 @@
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex align-items-end justify-content-end">
-                                <button *ngIf="showForCompany && user.userRole == 2" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                                <button *ngIf="user.userRole?.toString() == 'Company_Admin'" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
                                     data-bs-target="#equipmentFormModal" (click)="setIsEditTrue(equipment)">+ Add
                                     more</button>
-                                <button class="btn btn-sm btn-outline-secondary" (click)="addToCart(equipment.id)">Add to cart</button>
+                                <button *ngIf="user.userRole?.toString() == 'Registered'" class="btn btn-sm btn-outline-secondary" (click)="addToCart(equipment.id)">Add to cart</button>
                             </div>
                         </div>
                     </div>
-                    <p *ngIf="user.userRole != 2" class="card-text mt-4">
+                    <p *ngIf="user.userRole?.toString() == 'Registered'" class="card-text mt-4">
                         <span><b class="text-primary">Available at: </b> {{equipment.company?.name}}</span>
                     </p>
 

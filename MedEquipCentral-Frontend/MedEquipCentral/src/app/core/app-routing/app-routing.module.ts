@@ -14,6 +14,7 @@ import { CompanyCalendarComponent } from '../../feature-modules/company-manageme
 import { AppointmentDetailsComponent } from '../../feature-modules/user-management/appointment-details/appointment-details.component';
 import { UserAppointmentsComponent } from '../../feature-modules/user-management/user-appointments/user-appointments.component';
 import { ChangePasswordFormComponent } from '../../feature-modules/user-management/change-password-form/change-password-form.component';
+import { UsersWithReservationComponent } from '../../feature-modules/user-management/users-with-reservation/users-with-reservation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'appointment-details/:id', component: AppointmentDetailsComponent},
   { path: 'user-appointments', component: UserAppointmentsComponent},
   { path: 'change-password', component: ChangePasswordFormComponent },
+  { path: 'users-with-reservation', component: UsersWithReservationComponent},
 ];
 
 @NgModule({

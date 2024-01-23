@@ -68,4 +68,8 @@ export class UserManagementService {
         const queryParams = new HttpParams().set('newPassword', newPassword);
         return this.http.patch<any>(this.apiUrl + 'user/changePassword/' + id, null, { params: queryParams });
     }
+
+    getAllWithReservation(companyId: number): Observable<User[]> {
+        return this.http.get<User[]>(this.apiUrl + 'user/getUsersWithReservation/' + companyId);
+    }
 }

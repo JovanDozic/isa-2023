@@ -17,7 +17,7 @@
             {{company.location.city}}, {{company.location.zip}}, {{company.location.country}},<br>
             Coordinates: {{company.location.latitude}}, {{company.location.longitude}}
         </address>
-        <button *ngIf="user.userRole == 2" class="btn btn-outline-primary" data-bs-toggle="modal"
+        <button *ngIf="user.userRole?.toString() == 'Company_Admin'" class="btn btn-outline-primary" data-bs-toggle="modal"
             data-bs-target="#editCompanyModal" (click)="onEditClicked()">
             Edit Profile
         </button>
@@ -43,7 +43,7 @@
         <button class="btn btn-outline-primary end-0" data-bs-toggle="modal"
             data-bs-target="#createAppointmentModal">Create
             appointment</button>
-        <div *ngIf="user.userRole == 2">
+        <div *ngIf="user.userRole?.toString() == 'Company_Admin'">
             <h5 class="card-title mt-5">Administrators</h5>
             <table class="table table-bordered mt-4">
                 <thead>

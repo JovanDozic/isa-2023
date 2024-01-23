@@ -122,7 +122,7 @@ namespace MedEquipCentral.BL.Service
             await _unitOfWork.Save();
         }
 
-        public async Task<List<UserDto>> GetAllWhoMadeReservation(int companyId)
+        public async Task<List<UserDto>> GetUsersWithReservation(int companyId)
         {
             var appointments = await _unitOfWork.GetAppointmentRepository().GetAllByCompany(companyId);
             var users = new List<User>();
@@ -131,7 +131,6 @@ namespace MedEquipCentral.BL.Service
                 if(appointment.Buyer != null && !users.Contains(appointment.Buyer))
                     users.Add(appointment.Buyer);
             
-
             return _mapper.Map<List<UserDto>>(users);
         }
     }
