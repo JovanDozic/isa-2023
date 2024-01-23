@@ -121,5 +121,18 @@ namespace MedEquipCentral.BL.Service
             _unitOfWork.GetUserRepository().Update(user);
             await _unitOfWork.Save();
         }
+
+        public async Task<List<UserDto>> GetAllWhoMadeReservation(int companyId)
+        {
+            var appointments = await _unitOfWork.GetAppointmentRepository().GetAllByCompany(companyId);
+            var users = new List<User>();
+
+            foreach (var appointment in appointments)
+                if(appointment.Buyer != null && !users.Contains(appointment.Buyer))
+                    users.Add(appointment.Buyer);
+            
+
+            return _mapper.Map<List<UserDto>>(users);
+        }
     }
 }

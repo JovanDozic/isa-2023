@@ -15,5 +15,6 @@ namespace MedEquipCentral.BL.Contracts.IService
         Task RemoveSystemAdmin(int userId);
         Task<List<UserDto>> GetAllSystemAdmins();
         Task ChangePassword(int id, string newPassword);
+        Task<List<UserDto>> GetAllWhoMadeReservation(int companyId);
     }
 }

@@ -10,14 +10,17 @@ namespace MedEquipCentral.DA.Contracts.Model
         public int CompanyId { get; set; }
         [ForeignKey("CompanyId")]
         public Company Company { get; set; }
-        public string AdminName { get; set; }
-        public string AdminSurname { get; set; }
+        public string AdminName { get; set; } //TODO: moze se izbrisati
+        public string AdminSurname { get; set; } //TODO: moze se izbrisati
         public int AdminId { get; set; }
+        [ForeignKey("AdminId")]
+        public User Admin { get; set; }
         public int? BuyerId { get; set; }
         public User? Buyer { get; set; }
         public List<int>? EquipmentIds { get; set; }
         [ForeignKey("EquipmentId")]
         public List<Equipment>? Equipment { get; set; }
+        //public bool isCollected { get; set; }
 
         public Appointment(DateTime startTime, int duration, int companyId, string adminName, string adminSurname, int adminId, int? buyerId, List<int>? equipmentIds)
         {

@@ -40,6 +40,7 @@ namespace MedEquipCentral.DA.Repository
                                    .Where(x => x.CompanyId == companyId)
                                    .Include(x => x.Buyer)
                                    .Include(x => x.Equipment)
+                                   .Include(x => x.Admin)
                                    .ToList();
 
             return result;
