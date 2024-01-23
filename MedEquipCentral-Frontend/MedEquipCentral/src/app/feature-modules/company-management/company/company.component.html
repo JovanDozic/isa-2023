@@ -35,8 +35,8 @@
                 <tr *ngFor="let appointment of appointments">
                     <td>{{ appointment.startTime | date:'medium' }}</td>
                     <td>{{appointment.duration}} minutes</td>
-                    <td>{{appointment.adminName}}</td>
-                    <td>{{appointment.adminSurname}}</td>
+                    <td>{{appointment.admin?.name}}</td>
+                    <td>{{appointment.admin?.surname}}</td>
                 </tr>
             </tbody>
         </table>

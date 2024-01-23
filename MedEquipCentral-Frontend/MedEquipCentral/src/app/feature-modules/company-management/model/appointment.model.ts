@@ -8,9 +8,8 @@ export interface Appointment {
     duration: number,
     companyId: number,
     company: Company,
-    adminName: string
-    adminSurname: string
     adminId: number,
+    admin?: User,
     buyerId?: number,
     buyer?: User,
     equipmentIds?: number[],

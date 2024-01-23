@@ -47,8 +47,6 @@ export class AppointmentFormComponent implements OnInit {
         equipmentIds: this.reservedEquipmentId,
         equipment: [],
         company: this.company,
-        adminName: '',
-        adminSurname: '',
       }
       console.log(this.reservedEquipmentId)
       console.log(appointment.equipmentIds);

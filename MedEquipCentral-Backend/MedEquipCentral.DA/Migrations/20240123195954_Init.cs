@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedEquipCentral.DA.Migrations
 {
     /// <inheritdoc />
-    public partial class Quick : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -103,10 +103,8 @@ namespace MedEquipCentral.DA.Migrations
                     StartTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Duration = table.Column<int>(type: "integer", nullable: false),
                     CompanyId = table.Column<int>(type: "integer", nullable: false),
-                    AdminName = table.Column<string>(type: "text", nullable: false),
-                    AdminSurname = table.Column<string>(type: "text", nullable: false),
                     AdminId = table.Column<int>(type: "integer", nullable: false),
-                    BuyerId = table.Column<int>(type: "integer", nullable: false),
+                    BuyerId = table.Column<int>(type: "integer", nullable: true),
                     EquipmentIds = table.Column<List<int>>(type: "integer[]", nullable: true)
                 },
                 constraints: table =>
@@ -119,11 +117,16 @@ namespace MedEquipCentral.DA.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Appointments_Users_BuyerId",
-                        column: x => x.BuyerId,
+                        name: "FK_Appointments_Users_AdminId",
+                        column: x => x.AdminId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Appointments_Users_BuyerId",
+                        column: x => x.BuyerId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -184,6 +187,11 @@ namespace MedEquipCentral.DA.Migrations
                 name: "IX_AppointmentEquipment_EquipmentId1",
                 table: "AppointmentEquipment",
                 column: "EquipmentId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointments_AdminId",
+                table: "Appointments",
+                column: "AdminId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_BuyerId",

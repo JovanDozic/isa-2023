@@ -49,14 +49,6 @@ namespace MedEquipCentral.DA.Migrations
                     b.Property<int>("AdminId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("AdminName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("AdminSurname")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<int?>("BuyerId")
                         .HasColumnType("integer");
 
@@ -73,6 +65,8 @@ namespace MedEquipCentral.DA.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AdminId");
 
                     b.HasIndex("BuyerId");
 
@@ -273,6 +267,12 @@ namespace MedEquipCentral.DA.Migrations
 
             modelBuilder.Entity("MedEquipCentral.DA.Contracts.Model.Appointment", b =>
                 {
+                    b.HasOne("MedEquipCentral.DA.Contracts.Model.User", "Admin")
+                        .WithMany()
+                        .HasForeignKey("AdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MedEquipCentral.DA.Contracts.Model.User", "Buyer")
                         .WithMany()
                         .HasForeignKey("BuyerId");
@@ -283,11 +283,7 @@ namespace MedEquipCentral.DA.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MedEquipCentral.DA.Contracts.Model.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Admin");
 
                     b.Navigation("Buyer");
 

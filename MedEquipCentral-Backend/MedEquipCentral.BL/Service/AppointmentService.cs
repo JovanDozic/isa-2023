@@ -98,7 +98,7 @@ namespace MedEquipCentral.BL.Service
 
         public async Task<AppointmentDto> GetById(int appointmentId)
         {
-            var appointment = await _unitOfWork.GetAppointmentRepository().GetByIdAsync(appointmentId);
+            var appointment = await _unitOfWork.GetAppointmentRepository().GetById(appointmentId);
 
             var appointmentDto = _mapper.Map<AppointmentDto>(appointment);
 
