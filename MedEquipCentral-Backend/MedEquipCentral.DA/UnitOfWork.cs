@@ -38,7 +38,16 @@ namespace MedEquipCentral.DA
 
         public async Task<int> Save()
         {
-            return await _context.SaveChangesAsync();
+            try
+            {
+                return await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Log or print the exception details
+                Console.WriteLine($"Error saving changes to the database: {ex.Message}");
+                throw; // Rethrow the exception or handle it appropriately
+            }
         }
 
         public IUserRepository GetUserRepository()

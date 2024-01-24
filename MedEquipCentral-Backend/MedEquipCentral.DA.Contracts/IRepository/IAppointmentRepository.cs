@@ -9,5 +9,6 @@ namespace MedEquipCentral.DA.Contracts.IRepository
         Task<List<Appointment>> GetAllForEquipment(int equipmentId);
         Task<List<Appointment>> GetAllByCompany(int companyId);
         Task<List<Appointment>> GetAllUsersAppointments(AppointmentPagedIn dataIn);
+        Task<Appointment> GetById(int id);
     }
 }

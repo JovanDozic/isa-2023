@@ -9,6 +9,7 @@ import { SystemAdminsManagementComponent } from "./system-admins-management/syst
 import { AppointmentDetailsComponent } from "./appointment-details/appointment-details.component";
 import { UserAppointmentsComponent } from "./user-appointments/user-appointments.component";
 import { ChangePasswordFormComponent } from "./change-password-form/change-password-form.component";
+import { UsersWithReservationComponent } from "./users-with-reservation/users-with-reservation.component";
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { ChangePasswordFormComponent } from "./change-password-form/change-passw
         AppointmentDetailsComponent,
         UserAppointmentsComponent,
         ChangePasswordFormComponent,
+        UsersWithReservationComponent,
     ],
     imports: [
       BrowserModule,

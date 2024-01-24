@@ -80,5 +80,11 @@ namespace MedEquipCentral.Controllers
         {
             await _userService.ChangePassword(id, newPassword);
         }
+
+        [HttpGet("getUsersWithReservation/{companyId:int}")]
+        public async Task<List<UserDto>> GetUsersWithReservation(int companyId)
+        {
+            return await _userService.GetUsersWithReservation(companyId);
+        }
     }
 }

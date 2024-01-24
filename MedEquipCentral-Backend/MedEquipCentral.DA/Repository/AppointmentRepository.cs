@@ -2,6 +2,7 @@
 using MedEquipCentral.DA.Contexts;
 using MedEquipCentral.DA.Contracts.IRepository;
 using MedEquipCentral.DA.Contracts.Model;
+using MedEquipCentral.DA.Contracts.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedEquipCentral.DA.Repository
@@ -14,11 +15,19 @@ namespace MedEquipCentral.DA.Repository
         }
         public AppointmentRepository(DbContext dbContext) : base(dbContext) { }
 
+        public async Task<Appointment> GetById(int id)
+        {
+            return await _dbContext.Set<Appointment>()
+                                   .Include(x => x.Admin)
+                                   .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<List<Appointment>> GetFreeAppointments(int companyId)
         {
             var result = _dbContext.Set<Appointment>()
-                                   .Where(x => x.CompanyId == companyId && x.BuyerId == 1)
+                                   .Where(x => x.CompanyId == companyId && x.BuyerId == null)
                                    .Include(x => x.Equipment)
+                                   .Include(x => x.Admin)
                                    //.Include(x => x.Buyer)
                                    .ToList();
 
@@ -29,6 +38,7 @@ namespace MedEquipCentral.DA.Repository
         {
             var result = _dbContext.Set<Appointment>()
                                    .Where(x => x.EquipmentIds.Contains(equipmentId))
+                                   .Include(x => x.Admin)
                                    .ToList();
 
             return result;
@@ -40,6 +50,7 @@ namespace MedEquipCentral.DA.Repository
                                    .Where(x => x.CompanyId == companyId)
                                    .Include(x => x.Buyer)
                                    .Include(x => x.Equipment)
+                                   .Include(x => x.Admin)
                                    .ToList();
 
             return result;
@@ -52,6 +63,7 @@ namespace MedEquipCentral.DA.Repository
                             .Include(x => x.Buyer)
                             .Include(x => x.Equipment)
                             .Include(x => x.Company)
+                            .Include(x => x.Admin)
                             .ToList();
 
             return result;

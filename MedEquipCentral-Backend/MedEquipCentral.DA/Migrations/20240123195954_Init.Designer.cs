@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedEquipCentral.DA.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231217220903_Quick")]
-    partial class Quick
+    [Migration("20240123195954_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,15 +52,7 @@ namespace MedEquipCentral.DA.Migrations
                     b.Property<int>("AdminId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("AdminName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("AdminSurname")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("BuyerId")
+                    b.Property<int?>("BuyerId")
                         .HasColumnType("integer");
 
                     b.Property<int>("CompanyId")
@@ -76,6 +68,8 @@ namespace MedEquipCentral.DA.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AdminId");
 
                     b.HasIndex("BuyerId");
 
@@ -276,17 +270,23 @@ namespace MedEquipCentral.DA.Migrations
 
             modelBuilder.Entity("MedEquipCentral.DA.Contracts.Model.Appointment", b =>
                 {
-                    b.HasOne("MedEquipCentral.DA.Contracts.Model.User", "Buyer")
+                    b.HasOne("MedEquipCentral.DA.Contracts.Model.User", "Admin")
                         .WithMany()
-                        .HasForeignKey("BuyerId")
+                        .HasForeignKey("AdminId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("MedEquipCentral.DA.Contracts.Model.User", "Buyer")
+                        .WithMany()
+                        .HasForeignKey("BuyerId");
 
                     b.HasOne("MedEquipCentral.DA.Contracts.Model.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Admin");
 
                     b.Navigation("Buyer");
 

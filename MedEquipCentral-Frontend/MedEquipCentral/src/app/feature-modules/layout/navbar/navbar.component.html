@@ -11,7 +11,8 @@
             <ul class="navbar-nav">
 
                 <li class="nav-item me-3">
-                    <a class="nav-link active" aria-current="page" [routerLink]="['home']"><i class="bi bi-house-door"></i> Home</a>
+                    <a class="nav-link active" aria-current="page" [routerLink]="['home']"><i
+                            class="bi bi-house-door"></i> Home</a>
                 </li>
                 <li class="nav-item dropdown me-3">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -35,6 +36,9 @@
                                 [routerLink]="['company/' + user.companyId]"><i class="bi bi-list-nested"></i>
                                 My company</a></li>
                         <li *ngIf="user.userRole?.toString() == 'Company_Admin'"><a class="dropdown-item"
+                                [routerLink]="['users-with-reservation']"><i class="bi bi-list-nested"></i> Users with
+                                reservation</a></li>
+                        <li *ngIf="user.userRole?.toString() == 'Company_Admin'"><a class="dropdown-item"
                                 [routerLink]="['company-calendar']"><i class="bi bi-calendar"></i> My company
                                 calendar</a></li>
                     </ul>
@@ -53,9 +57,9 @@
                     </a>
                     <ul class="dropdown-menu me-3">
                         <li><a class="dropdown-item" [routerLink]="['company-form']">
-                            <i class="bi bi-plus-lg"></i> Create company</a></li>
+                                <i class="bi bi-plus-lg"></i> Create company</a></li>
                         <li><a class="dropdown-item" [routerLink]="['system-admins-management']">
-                            <i class="bi bi-person"></i> Manage system admins</a></li>
+                                <i class="bi bi-person"></i> Manage system admins</a></li>
                     </ul>
                 </li>
 
@@ -70,7 +74,7 @@
 
             <!-- LOGIN / LOGOUT -->
             <ul class="navbar-nav ms-auto">
-                
+
 
                 <li class="nav-item" *ngIf="this.user.id == 0">
                     <a class="nav-link active" aria-current="page" [routerLink]="['login']">Login</a>
