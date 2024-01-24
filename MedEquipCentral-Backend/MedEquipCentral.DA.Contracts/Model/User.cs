@@ -18,6 +18,7 @@ namespace MedEquipCentral.DA.Contracts.Model
         public UserRole Role { get; set; }
         public int? CompanyId { get; set; }
         public bool? IsFirstLogin { get; set; }
+        public int? PenalPoints { get; set; }
 
         public User(string email, string password, string name, string surname, string city, string country, string phone, string job, string companyInfo, UserRole role)
         {

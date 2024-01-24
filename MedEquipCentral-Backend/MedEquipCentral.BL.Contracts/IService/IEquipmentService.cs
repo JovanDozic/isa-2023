@@ -12,5 +12,6 @@ namespace MedEquipCentral.BL.Contracts.IService
         Task<EquipmentDto> Update(EquipmentDto equipmentDto);
         Task<bool> Delete(int equipmentId);
         Task<EquipmentDto> GetById(int equipmentId);
+        Task<List<EquipmentDto>> ReduceQuantity(int appointmentId);
     }
 }

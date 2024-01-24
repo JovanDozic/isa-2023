@@ -14,5 +14,6 @@ namespace MedEquipCentral.DA.Contracts.IRepository
         Task<IEnumerable<TEntity>> GetAll();
         Task<TEntity> GetByIdAsync(int id);
         TEntity Update(TEntity entity);
+        public void Delete(int id);
     }
 }

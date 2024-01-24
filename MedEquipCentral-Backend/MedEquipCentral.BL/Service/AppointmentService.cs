@@ -116,5 +116,20 @@ namespace MedEquipCentral.BL.Service
                 Result = appointmentsDto
             };
         }
+
+        public async Task<AppointmentDto> Update(AppointmentDto appointmentDto)
+        {
+            var appointment = _mapper.Map<Appointment>(appointmentDto);
+            _unitOfWork.GetAppointmentRepository().Update(appointment);
+            await _unitOfWork.Save();
+            return appointmentDto;
+        }
+
+        public async Task<List<AppointmentDto>> GetAdminsAppointments(int adminId)
+        {
+            var appointments = await _unitOfWork.GetAppointmentRepository().GetAdminsAppointments(adminId);
+
+            return _mapper.Map<List<AppointmentDto>>(appointments);
+        }
     }
 }

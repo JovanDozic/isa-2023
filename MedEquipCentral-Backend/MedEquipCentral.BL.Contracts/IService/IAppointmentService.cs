@@ -10,5 +10,7 @@ namespace MedEquipCentral.BL.Contracts.IService
         Task<List<AppointmentDto>> GetCompanyAppointments(int companyId);
         Task<AppointmentDto> GetById(int id);
         Task<PagedResult<AppointmentDto>> GetAllUsersAppointments(AppointmentPagedIn dataIn);
+        Task<AppointmentDto> Update(AppointmentDto appointment);
+        Task<List<AppointmentDto>> GetAdminsAppointments(int adminId);
     }
 }

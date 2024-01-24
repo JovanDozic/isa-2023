@@ -15,6 +15,6 @@ namespace MedEquipCentral.BL.Contracts.DTO
         public UserDto? Buyer { get; set; }
         public List<int>? EquipmentIds { get; set; }
         public List<EquipmentDto>? Equipment { get; set; }
-
+        public bool? IsCollected { get; set; }
     }
 }

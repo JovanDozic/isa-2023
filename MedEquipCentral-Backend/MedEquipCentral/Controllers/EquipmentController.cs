@@ -57,5 +57,11 @@ namespace MedEquipCentral.Controllers
         {
             return await _equipmentService.GetById(id);
         }
+
+        [HttpPatch("reduceQuantityOfCollected/{appointmentId:int}")]
+        public async Task<List<EquipmentDto>> ReduceQuantity(int appointmentId)
+        {
+            return await _equipmentService.ReduceQuantity(appointmentId);
+        }
     }
 }

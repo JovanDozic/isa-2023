@@ -45,5 +45,11 @@ namespace MedEquipCentral.DA.Repository
             }
             return entity;
         }
+
+        public void Delete(int id)
+        {
+            var entity = GetByIdAsync(id);
+            _dbContext.Set<TEntity>().Remove(entity.Result);
+        }
     }
 }

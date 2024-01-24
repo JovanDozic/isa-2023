@@ -133,5 +133,29 @@ namespace MedEquipCentral.BL.Service
             
             return _mapper.Map<List<UserDto>>(users);
         }
+
+        public async Task<List<UserDto>> PenalizeUncollectedAppointments()
+        {
+            var uncollectedAppointments = await _unitOfWork.GetAppointmentRepository().GetUncollectedAppointments();
+            var result = new List<User>();
+
+            foreach(var appointment in uncollectedAppointments)
+            {
+                if(appointment.Buyer.PenalPoints != null)
+                    appointment.Buyer.PenalPoints += 2;
+                else
+                    appointment.Buyer.PenalPoints = 2;
+
+                if (!result.Contains(appointment.Buyer))
+                {
+                    result.Add(appointment.Buyer);
+                    _unitOfWork.GetUserRepository().Update(appointment.Buyer);
+                }
+                _unitOfWork.GetAppointmentRepository().Delete(appointment.Id);//Ako budu nekom trebali nepokupljeni termini onda ne moze ovako nego dodati novu kolonu za proveru da li je vec penalizovan za termin
+            }
+
+            await _unitOfWork.Save();
+            return _mapper.Map<List<UserDto>>(result);
+        }
     }
 }

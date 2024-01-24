@@ -86,5 +86,11 @@ namespace MedEquipCentral.Controllers
         {
             return await _userService.GetUsersWithReservation(companyId);
         }
+
+        [HttpGet("penalizeUncollectedAppointments")] //Mozda izmeniti da prima id admina koji salje http zahtev
+        public async Task<List<UserDto>> PenalizeUncollectedAppointments()
+        {
+            return await _userService.PenalizeUncollectedAppointments();
+        }
     }
 }

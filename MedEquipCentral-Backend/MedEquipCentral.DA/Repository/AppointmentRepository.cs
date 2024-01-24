@@ -68,5 +68,24 @@ namespace MedEquipCentral.DA.Repository
 
             return result;
         }
+
+        public async Task<List<Appointment>> GetAdminsAppointments(int adminId)
+        {
+            var result = _dbContext.Set<Appointment>()
+                            .Where(x => x.AdminId == adminId)
+                            .Include(x => x.Buyer)
+                            .ToList();
+
+            return result;
+        }
+
+        public async Task<List<Appointment>> GetUncollectedAppointments()
+        {
+            var result = _dbContext.Set<Appointment>()
+                            .Where(x => x.IsCollected == false && x.BuyerId != null && x.StartTime.AddMinutes(x.Duration) <= DateTime.UtcNow)
+                            .Include(x => x.Buyer)
+                            .ToList();
+            return result;
+        }
     }
 }

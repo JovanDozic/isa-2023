@@ -16,6 +16,8 @@ namespace MedEquipCentral.BL.Contracts.DTO
         public string Job { get; set; }
         public string CompanyInfo { get; set; }
         public int? CompanyId { get; set; }
+        public bool? IsFirstLogin { get; set; }
+        public int? PenalPoints { get; set; }
         //TODO Findout how to import UserRole
         //public UserRole Role { get; set; }
     }

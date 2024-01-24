@@ -18,9 +18,10 @@ namespace MedEquipCentral.DA.Contracts.Model
         public List<int>? EquipmentIds { get; set; }
         [ForeignKey("EquipmentId")]
         public List<Equipment>? Equipment { get; set; }
-        //public bool isCollected { get; set; }
+        public bool? IsCollected { get; set; }//NULL je kad nije rezervisan termin, FALSE kada je rezervisan, a nije preuzeta oprema i TRUE kada je rezervisan i kad je preuzeta oprema
+                                              //Termin je rezervisan kad su nullable polja popunjena
 
-        public Appointment(DateTime startTime, int duration, int companyId, int adminId, int? buyerId, List<int>? equipmentIds)
+        public Appointment(DateTime startTime, int duration, int companyId, int adminId, int? buyerId, List<int>? equipmentIds, bool? isCollected)
         {
             StartTime = startTime.ToUniversalTime();
             Duration = duration;
@@ -28,6 +29,7 @@ namespace MedEquipCentral.DA.Contracts.Model
             AdminId = adminId;
             BuyerId = buyerId;
             EquipmentIds = equipmentIds;
+            IsCollected = isCollected;
         }
     }
 }

@@ -85,5 +85,25 @@ namespace MedEquipCentral.BL.Service
 
             return equipmentDto;
         }
+
+        public async Task<List<EquipmentDto>> ReduceQuantity(int appointmentId)
+        {
+            var appointment = await _unitOfWork.GetAppointmentRepository().GetById(appointmentId);
+            var result = new List<Equipment>();
+            foreach (var equipmentId in appointment.EquipmentIds)
+            {
+                var equipment = await _unitOfWork.GetEquipmentRepository().GetByIdAsync(equipmentId);
+                equipment.Quantity -= 1;
+
+                if (!result.Contains(equipment))
+                {
+                    result.Add(equipment);
+                    _unitOfWork.GetEquipmentRepository().Update(equipment);
+                }         
+            }
+            _unitOfWork.Save();
+
+            return _mapper.Map<List<EquipmentDto>>(result);
+        }
     }
 }
