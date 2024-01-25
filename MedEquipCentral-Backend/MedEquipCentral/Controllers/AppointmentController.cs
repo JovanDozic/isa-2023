@@ -47,10 +47,10 @@ namespace MedEquipCentral.Controllers
             return await _appointmentService.GetAllUsersAppointments(dataIn);
         }
 
-        [HttpGet("getAdminsAppointments/{adminId:int}")]
-        public async Task<List<AppointmentDto>> GetAdminsAppointments(int adminId)
+        [HttpPost("sendCollectionConfirmationEmail")]
+        public async Task SendCollectionConfirmationEmail(AppointmentDto appointmentDto)
         {
-            return await _appointmentService.GetAdminsAppointments(adminId);
+            await _appointmentService.SendCollectionConfirmationEmail(appointmentDto);
         }
 
         [HttpPut("update")]

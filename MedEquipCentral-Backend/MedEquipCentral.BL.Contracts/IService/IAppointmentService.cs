@@ -11,6 +11,6 @@ namespace MedEquipCentral.BL.Contracts.IService
         Task<AppointmentDto> GetById(int id);
         Task<PagedResult<AppointmentDto>> GetAllUsersAppointments(AppointmentPagedIn dataIn);
         Task<AppointmentDto> Update(AppointmentDto appointment);
-        Task<List<AppointmentDto>> GetAdminsAppointments(int adminId);
+        Task SendCollectionConfirmationEmail(AppointmentDto appointmentDto);
     }
 }

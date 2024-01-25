@@ -5,6 +5,7 @@ using MedEquipCentral.DA.Contracts;
 using MedEquipCentral.DA.Contracts.Model;
 using IronBarCode;
 using MedEquipCentral.DA.Contracts.Shared;
+using System;
 
 namespace MedEquipCentral.BL.Service
 {
@@ -107,7 +108,9 @@ namespace MedEquipCentral.BL.Service
 
         public async Task<PagedResult<AppointmentDto>> GetAllUsersAppointments(AppointmentPagedIn dataIn)
         {
-            var appointments = await _unitOfWork.GetAppointmentRepository().GetAllUsersAppointments(dataIn);
+            var appointments = !dataIn.IsAdmin
+                ? await _unitOfWork.GetAppointmentRepository().GetAllUsersAppointments(dataIn)
+                : await _unitOfWork.GetAppointmentRepository().GetAllAdminsAppointments(dataIn.UserId);
 
             var appointmentsDto = _mapper.Map<List<AppointmentDto>>(appointments);
 
@@ -119,17 +122,26 @@ namespace MedEquipCentral.BL.Service
 
         public async Task<AppointmentDto> Update(AppointmentDto appointmentDto)
         {
-            var appointment = _mapper.Map<Appointment>(appointmentDto);
+            var appointment = await _unitOfWork.GetAppointmentRepository().GetByIdAsync(appointmentDto.Id);
+            appointment.IsCollected= appointmentDto.IsCollected;
+            appointment.EquipmentIds= appointmentDto.EquipmentIds;
+            appointment.BuyerId= appointmentDto.BuyerId;
+
             _unitOfWork.GetAppointmentRepository().Update(appointment);
             await _unitOfWork.Save();
             return appointmentDto;
         }
 
-        public async Task<List<AppointmentDto>> GetAdminsAppointments(int adminId)
+        public async Task SendCollectionConfirmationEmail(AppointmentDto appointmentDto)
         {
-            var appointments = await _unitOfWork.GetAppointmentRepository().GetAdminsAppointments(adminId);
-
-            return _mapper.Map<List<AppointmentDto>>(appointments);
+            await _emailService.SendCollectionConfirmationEmail(new UserEmailOptionsDto
+            {
+                ToEmail = appointmentDto.Buyer.Email,
+                Placeholders = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("{{CompanyName}}", appointmentDto.Company.Name),
+            }
+            });
         }
     }
 }

@@ -15,6 +15,7 @@ export class UserAppointmentsComponent implements OnInit{
 
   appointments: Appointment[] = [];
   user!: User
+  penalizedUsers: User[] = [];
 
   constructor(private service: UserManagementService,
               private authService: AuthService,
@@ -22,23 +23,14 @@ export class UserAppointmentsComponent implements OnInit{
 
   }
   ngOnInit(): void {
-    this.authService.user$.subscribe(user => {
-      if (user.id == 0) {
-        console.log("User not logged in");
-        return;
-      }
-      this.service.getUserById(user.id).subscribe({
-        next: resposne => {
-          this.user = resposne;
-
-          this.getData();
-        },
-        error: err => {
-          this.user.id = 0;
-          console.log(err);
-        }
-      })
-    });
+    this.user = this.authService.user$.getValue();
+    if (this.user.id == 0) {
+      console.log("User not logged in");
+      return;
+    }
+    else if(this.user.userRole?.toString() == 'Company_Admin') this.penalizeUncollectedAppointments();
+    else this.getData();
+    
   }
 
   getData() {
@@ -47,7 +39,8 @@ export class UserAppointmentsComponent implements OnInit{
         page: 1,
         size: 10
       },
-      userId: this.user.id
+      userId: this.user.id,
+      isAdmin: this.user.userRole?.toString() == 'Company_Admin' ? true : false,
     }
     this.service.getAllUserAppointments(obj).subscribe({
       next: response => {
@@ -58,5 +51,26 @@ export class UserAppointmentsComponent implements OnInit{
 
   viewMore(id: number){
     this.router.navigate(['/appointment-details/'+id]);
+  }
+
+  penalizeUncollectedAppointments(){
+    this.service.penalizeUncollectedAppointments().subscribe({
+      next: response =>{
+        this.penalizedUsers = response;
+        this.getData();
+      }
+    })
+  }
+
+  markAsCollected(appointment: Appointment) {
+    appointment.isCollected = true;
+
+    this.service.updateAppointment(appointment).subscribe({
+      next: response => {
+        this.getData();
+        this.service.reduceQuantityOfCollected(appointment.id).subscribe();
+        this.service.sendCollectionConfirmationEmail(appointment).subscribe();
+      }
+    })
   }
 }

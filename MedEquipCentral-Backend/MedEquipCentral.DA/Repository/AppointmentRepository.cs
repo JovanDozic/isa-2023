@@ -69,11 +69,14 @@ namespace MedEquipCentral.DA.Repository
             return result;
         }
 
-        public async Task<List<Appointment>> GetAdminsAppointments(int adminId)
+        public async Task<List<Appointment>> GetAllAdminsAppointments(int adminId)
         {
             var result = _dbContext.Set<Appointment>()
                             .Where(x => x.AdminId == adminId)
                             .Include(x => x.Buyer)
+                            .Include (x => x.Equipment)
+                            .Include(x => x.Company)
+                            .Include(x => x.Admin)
                             .ToList();
 
             return result;

@@ -1,19 +1,52 @@
-<h3>YOUR APPOINTMENTS</h3>
+<h3 class="mt-4">YOUR APPOINTMENTS</h3>
 <table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th *ngIf="user.userRole?.toString() == 'Registered'">Company</th>
+      <th *ngIf="user.userRole?.toString() == 'Company_Admin'">Buyer</th>
+      <th>Date</th>
+      <th>Duration</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let appointment of appointments">
+      <td *ngIf="user.userRole?.toString() == 'Registered'">{{appointment.company.name}}</td>
+      <td *ngIf="user.userRole?.toString() == 'Company_Admin'">{{appointment.buyer?.name}}
+        {{appointment.buyer?.surname}}</td>
+      <td>{{appointment.startTime | date:'medium'}}</td>
+      <td>{{appointment.duration}} minutes</td>
+      <td>
+        <button *ngIf="user.userRole?.toString() == 'Registered'" class="btn btn-primary"
+          (click)="viewMore(appointment.id)">View more</button>
+        <button *ngIf="user.userRole?.toString() == 'Company_Admin' && !appointment.isCollected" class="btn btn-primary"
+          (click)="markAsCollected(appointment)">Mark as
+          collected</button>
+        <span *ngIf="user.userRole?.toString() == 'Company_Admin' && appointment.isCollected"
+          class="my-1 mx-1">Appointment is collected</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="user.userRole?.toString() == 'Company_Admin'">
+  <h3 class="mt-5">PENALIZED USERS</h3>
+  <span *ngIf="penalizedUsers.length == 0">No users have been penalized</span>
+  <table *ngIf="penalizedUsers.length > 0" class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th>Company</th>
-        <th>Date</th>
-        <th>Duration (min)</th>
-        <th></th>
+        <th class="col-sm-1">#</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th class="col-sm-5">Email</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let appointment of appointments">
-        <td>{{appointment.company.name}}</td>
-        <td>{{appointment.startTime | date:'medium'}}</td>
-        <td>{{appointment.duration}}</td>
-        <td><button class="btn btn-primary" (click)="viewMore(appointment.id)">View more</button></td>
+      <tr *ngFor="let user of penalizedUsers">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.surname}}</td>
+        <td>{{user.email}}</td>
       </tr>
     </tbody>
   </table>
+</div>

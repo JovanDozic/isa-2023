@@ -23,6 +23,13 @@ public class EmailService : IEmailService
         await SendEmail(userEmailOptions);
     }
 
+    public async Task SendCollectionConfirmationEmail(UserEmailOptionsDto userEmailOptions)
+    {
+        userEmailOptions.Subject = "Equipment Collection Confirmation";
+        userEmailOptions.Body = UpdatePlaceHolders("We would like to inform you that you have successfully collected your equipment. Thank you for choosing {{CompanyName}} as your trusted provider!", userEmailOptions.Placeholders);
+
+        await SendEmail(userEmailOptions);
+    }
     public async Task SendAppointmentConfirmationEmail(UserEmailOptionsDto userEmailOptions, string path)
     {
         userEmailOptions.Subject = UpdatePlaceHolders("Hello {{UserName}}, You have scheduled appointment.", userEmailOptions.Placeholders);

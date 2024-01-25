@@ -101,7 +101,7 @@ namespace MedEquipCentral.BL.Service
                     _unitOfWork.GetEquipmentRepository().Update(equipment);
                 }         
             }
-            _unitOfWork.Save();
+            await _unitOfWork.Save();
 
             return _mapper.Map<List<EquipmentDto>>(result);
         }

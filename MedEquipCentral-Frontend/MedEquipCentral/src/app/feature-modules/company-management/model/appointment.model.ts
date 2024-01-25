@@ -13,5 +13,6 @@ export interface Appointment {
     buyerId?: number,
     buyer?: User,
     equipmentIds?: number[],
-    equipment: Equipment[] 
+    equipment: Equipment[],
+    isCollected?: boolean,
 }

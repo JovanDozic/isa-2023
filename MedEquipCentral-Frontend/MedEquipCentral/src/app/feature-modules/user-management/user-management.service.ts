@@ -72,4 +72,20 @@ export class UserManagementService {
     getAllWithReservation(companyId: number): Observable<User[]> {
         return this.http.get<User[]>(this.apiUrl + 'user/getUsersWithReservation/' + companyId);
     }
+
+    updateAppointment(appointment: Appointment): Observable<Appointment> {
+        return this.http.put<Appointment>(this.apiUrl + 'appointment/update', appointment)
+    }
+
+    penalizeUncollectedAppointments(): Observable<User[]> {
+        return this.http.get<User[]>(this.apiUrl + 'user/penalizeUncollectedAppointments');
+    }
+
+    reduceQuantityOfCollected(appointmentId: number): Observable<any> {
+        return this.http.patch(this.apiUrl + 'equipment/reduceQuantityOfCollected/' + appointmentId, null);
+    }
+
+    sendCollectionConfirmationEmail(appointment: Appointment): Observable<any> {
+        return this.http.post(this.apiUrl + 'appointment/sendCollectionConfirmationEmail', appointment);
+    }
 }

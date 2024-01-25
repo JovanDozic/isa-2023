@@ -6,4 +6,5 @@ public interface IEmailService
 {
     Task SendVerficationEmail(UserEmailOptionsDto userEmailOptions);
     Task SendAppointmentConfirmationEmail(UserEmailOptionsDto userEmailOptions, string path);
+    Task SendCollectionConfirmationEmail(UserEmailOptionsDto userEmailOptions);
 }

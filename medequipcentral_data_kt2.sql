@@ -84,7 +84,7 @@ INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "Admi
 INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "IsCollected") VALUES (5, 135, 2, 17, 8, '2023-12-20 01:54:33', '{9}', True);
 INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "IsCollected") VALUES (6, 97, 9, 20, 9, '2023-12-20 17:38:38', '{4}', True);
 INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "IsCollected") VALUES (7, 80, 9, 20, 10, '2023-12-22 15:26:09', '{9}', True);
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "IsCollected") VALUES (8, 150, 9, 20, 10, '2023-12-20 09:28:55', '{2, 1}', False);
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "IsCollected") VALUES (8, 150, 9, 20, 10, '2024-12-20 09:28:55', '{2, 1}', False);
 INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "IsCollected") VALUES (9, 135, 2, 7, 13, '2023-12-20 19:11:11', '{5}', False);
 INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "IsCollected") VALUES (10, 135, 2, 9, 10, '2023-12-22 15:49:12', '{8, 9, 7}', False);
 ALTER SEQUENCE medequipcentral."Appointments_Id_seq" RESTART WITH 11;
