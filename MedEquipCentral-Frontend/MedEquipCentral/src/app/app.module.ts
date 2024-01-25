@@ -15,6 +15,7 @@ import { EquipmentManagementModule } from './feature-modules/equipment-managemen
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
-    })
+    }),
+    ZXingScannerModule,
   ],
   bootstrap: [AppComponent]
 })
