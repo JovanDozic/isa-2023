@@ -120,6 +120,23 @@ namespace MedEquipCentral.BL.Service
             };
         }
 
+        public async Task<string> CancelAppointment(int appointmentId)
+        {
+            var appointmentDb = await _unitOfWork.GetAppointmentRepository().GetByIdAsync(appointmentId);
+
+            var timeDifference = DateTime.Now.Subtract(appointmentDb.StartTime).TotalHours;
+
+            if(timeDifference > 24)
+            {
+                await _unitOfWork.GetAppointmentRepository().Remove(appointmentDb);
+                return "Appointment is canceled successfully";
+            }
+            else
+            {
+                return "Appointment is in 24h range so you cant cancel it";
+            }
+        }
+
         public async Task<AppointmentDto> Update(AppointmentDto appointmentDto)
         {
             var appointment = await _unitOfWork.GetAppointmentRepository().GetByIdAsync(appointmentDto.Id);
@@ -142,6 +159,15 @@ namespace MedEquipCentral.BL.Service
                 new KeyValuePair<string, string>("{{CompanyName}}", appointmentDto.Company.Name),
             }
             });
+        }
+
+        public async Task<List<AppointmentDto>> GetHistory(AppointmentPagedIn dataIn)
+        {
+            var appointments = await _unitOfWork.GetAppointmentRepository().GetHistory(dataIn);
+
+            var appointmentDtos = _mapper.Map <List<AppointmentDto>>(appointments);
+
+            return appointmentDtos;
         }
     }
 }

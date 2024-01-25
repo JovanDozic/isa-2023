@@ -4,6 +4,7 @@ using MedEquipCentral.DA.Contracts.IRepository;
 using MedEquipCentral.DA.Contracts.Model;
 using MedEquipCentral.DA.Contracts.Shared;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 namespace MedEquipCentral.DA.Repository
 {
@@ -59,7 +60,7 @@ namespace MedEquipCentral.DA.Repository
         public async Task<List<Appointment>> GetAllUsersAppointments(AppointmentPagedIn dataIn)
         {
             var result = _dbContext.Set<Appointment>()
-                            .Where(x => x.BuyerId == dataIn.UserId)
+                            .Where(x => x.BuyerId == dataIn.UserId && x.Status == AppointmentStatus.NEW && x.StartTime <= DateTime.Now)
                             .Include(x => x.Buyer)
                             .Include(x => x.Equipment)
                             .Include(x => x.Company)
@@ -89,6 +90,41 @@ namespace MedEquipCentral.DA.Repository
                             .Include(x => x.Buyer)
                             .ToList();
             return result;
+        }
+
+        public async Task<Appointment> Remove(Appointment appointment)
+        {
+            return _dbContext.Set<Appointment>().Remove(appointment).Entity;
+        }
+
+        public async Task<List<Appointment>> GetHistory(AppointmentPagedIn dataIn)
+        {
+            var result = _dbContext.Set<Appointment>()
+                            .Where(x => x.BuyerId == dataIn.UserId && x.Status == AppointmentStatus.PROCESSED)
+                            .Include(x => x.Buyer)
+                            .Include(x => x.Equipment)
+                            .Include(x => x.Company)
+                            .Include(x => x.Admin)
+                            .AsQueryable();
+
+            if (dataIn.SortBy == "date" && dataIn.IsAsc)
+            {
+                result = result.OrderBy(x => x.StartTime);
+            }
+            else if (dataIn.SortBy == "date" && !dataIn.IsAsc)
+            {
+                result = result.OrderByDescending(x => x.StartTime);
+            }
+            else if (dataIn.SortBy == "price" && dataIn.IsAsc)
+            {
+                result = result.OrderBy(x => x.Price);
+            }
+            else if (dataIn.SortBy == "price" && !dataIn.IsAsc)
+            {
+                result = result.OrderByDescending(x => x.Price);
+            }
+
+            return result.ToList();
         }
     }
 }

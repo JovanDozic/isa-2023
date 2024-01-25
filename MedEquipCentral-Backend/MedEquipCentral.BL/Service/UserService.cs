@@ -157,5 +157,17 @@ namespace MedEquipCentral.BL.Service
             await _unitOfWork.Save();
             return _mapper.Map<List<UserDto>>(result);
         }
+
+        public async Task<int> GetPenalPoints(int userId)
+        {
+            var userDb = await _unitOfWork.GetUserRepository().GetByIdAsync(userId);
+            if(DateTime.Now.Day == 1)
+            {
+                userDb.PenalPoints = 0;
+                _unitOfWork.GetUserRepository().Update(userDb);
+            }
+
+            return userDb.PenalPoints.Value;
+        }
     }
 }

@@ -3,6 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedEquipCentral.DA.Contracts.Model
 {
+    public enum AppointmentStatus
+    {
+        NEW = 0,
+        PROCESSED = 1,
+        REJECTED = 2,
+    }
+
     public class Appointment : Entity
     {
         public DateTime StartTime { get; set; }
@@ -19,9 +26,11 @@ namespace MedEquipCentral.DA.Contracts.Model
         [ForeignKey("EquipmentId")]
         public List<Equipment>? Equipment { get; set; }
         public bool? IsCollected { get; set; }//NULL je kad nije rezervisan termin, FALSE kada je rezervisan, a nije preuzeta oprema i TRUE kada je rezervisan i kad je preuzeta oprema
-                                              //Termin je rezervisan kad su nullable polja popunjena
+                                              //Termin je rezervisan kad su nullable polja popunjena    
+        public double Price { get; set; }
+        public AppointmentStatus Status { get; set; }
 
-        public Appointment(DateTime startTime, int duration, int companyId, int adminId, int? buyerId, List<int>? equipmentIds, bool? isCollected)
+        public Appointment(DateTime startTime, int duration, int companyId, int adminId, int? buyerId, List<int>? equipmentIds, bool? isCollected, double price, AppointmentStatus status)
         {
             StartTime = startTime.ToUniversalTime();
             Duration = duration;
@@ -30,6 +39,8 @@ namespace MedEquipCentral.DA.Contracts.Model
             BuyerId = buyerId;
             EquipmentIds = equipmentIds;
             IsCollected = isCollected;
+            Price = price;
+            Status = status;
         }
     }
 }

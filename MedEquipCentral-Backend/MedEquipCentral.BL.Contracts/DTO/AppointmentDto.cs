@@ -4,6 +4,13 @@ namespace MedEquipCentral.BL.Contracts.DTO
 {
     public class AppointmentDto
     {
+        public enum AppointmentStatus
+        {
+            NEW = 0,
+            PROCESSED = 1,
+            REJECTED = 2,
+        }
+
         public int Id { get; set; }
         public DateTime StartTime { get; set; }
         public int Duration { get; set; }
@@ -16,5 +23,7 @@ namespace MedEquipCentral.BL.Contracts.DTO
         public List<int>? EquipmentIds { get; set; }
         public List<EquipmentDto>? Equipment { get; set; }
         public bool? IsCollected { get; set; }
+        public double Price { get; set; }
+        public AppointmentStatus Status { get; set; }
     }
 }

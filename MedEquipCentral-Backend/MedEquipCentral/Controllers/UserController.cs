@@ -92,5 +92,11 @@ namespace MedEquipCentral.Controllers
         {
             return await _userService.PenalizeUncollectedAppointments();
         }
+
+        [HttpGet("getPenalPoints/{userId:int}")]
+        public async Task<int> GetPenalPoints(int userId)
+        {
+            return await _userService.GetPenalPoints(userId);
+        }
     }
 }

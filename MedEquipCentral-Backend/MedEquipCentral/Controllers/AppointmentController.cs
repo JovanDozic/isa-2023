@@ -58,5 +58,11 @@ namespace MedEquipCentral.Controllers
         {
             return await _appointmentService.Update(appointment);
         }
+
+        [HttpGet("cancelAppointment/{appointmentId:int}")]
+        public async Task<string> CancelAppointment(int appointmentId)
+        {
+            return await _appointmentService.CancelAppointment(appointmentId);
+        }
     }
 }

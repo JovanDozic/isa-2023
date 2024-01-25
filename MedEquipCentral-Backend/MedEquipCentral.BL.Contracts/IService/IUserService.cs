@@ -17,5 +17,6 @@ namespace MedEquipCentral.BL.Contracts.IService
         Task ChangePassword(int id, string newPassword);
         Task<List<UserDto>> GetUsersWithReservation(int companyId);
         Task<List<UserDto>> PenalizeUncollectedAppointments();
+        Task<int> GetPenalPoints(int userId);
     }
 }

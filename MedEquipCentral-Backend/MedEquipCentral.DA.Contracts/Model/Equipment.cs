@@ -22,8 +22,9 @@ namespace MedEquipCentral.DA.Contracts.Model
         public Company Company { get; set; }
 
         public int Quantity { get; set; }
+        public double Price { get; set; }
 
-        public Equipment(string name, string description, int typeId, int companyId, int quantity)
+        public Equipment(string name, string description, int typeId, int companyId, int quantity, double price)
         {
             Name = name;
             Description = description;
@@ -32,6 +33,7 @@ namespace MedEquipCentral.DA.Contracts.Model
             CompanyId = companyId;
             Company = new Company();
             Quantity = quantity;
+            Price = price;
         }
     }
 }
