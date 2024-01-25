@@ -105,7 +105,8 @@ namespace MedEquipCentral.DA.Migrations
                     CompanyId = table.Column<int>(type: "integer", nullable: false),
                     AdminId = table.Column<int>(type: "integer", nullable: false),
                     BuyerId = table.Column<int>(type: "integer", nullable: true),
-                    EquipmentIds = table.Column<List<int>>(type: "integer[]", nullable: true)
+                    EquipmentIds = table.Column<List<int>>(type: "integer[]", nullable: true),
+                    Status = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
