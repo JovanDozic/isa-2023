@@ -4,8 +4,6 @@ import { EquipmentSearchComponent } from './equipment-search/equipment-search.co
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EquipmentFormComponent } from './equipment-form/equipment-form.component';
-import { PickupUsingQrComponent } from './pickup-using-qr/pickup-using-qr.component';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 
 
@@ -13,19 +11,16 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
   declarations: [
     EquipmentSearchComponent,
     EquipmentFormComponent,
-    PickupUsingQrComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    ZXingScannerModule,
   ],
   exports: [
     EquipmentSearchComponent,
     EquipmentFormComponent,
-    PickupUsingQrComponent,
   ]
 })
 export class EquipmentManagementModule { }

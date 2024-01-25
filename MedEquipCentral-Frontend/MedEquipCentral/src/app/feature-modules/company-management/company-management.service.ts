@@ -60,4 +60,8 @@ export class CompanyManagementService {
   getCompanyAppointments(companyId: number): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(this.apiUrl + 'appointment/getCompanyAppointments/' + companyId);
   }
+
+  getAppointment(appointmentId: number) : Observable<Appointment> {
+    return this.http.get<Appointment>(this.apiUrl + "appointment/getById/" + appointmentId);
+}
 }

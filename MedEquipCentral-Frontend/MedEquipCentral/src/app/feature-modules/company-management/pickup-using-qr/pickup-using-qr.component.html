@@ -1,0 +1,68 @@
+<div class="container col-md-9 mb-5">
+
+    <div class="row">
+        <h1 class="mt-5">Pickup using QR code</h1>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <label for="formFile" class="form-label">Upload an image with visible QR code:</label>
+            <input class="form-control" type="file" id="formFile" (change)="onFileChange($event)">
+        </div>
+    </div>
+
+    <div class="row mt-4" *ngIf="appointmentLoaded">
+
+        <div class="row mt-3">
+            <h2 class="mb-4">
+                Appointment <span class="fs-5 fw-lighter">ID: {{appointment?.id}}</span>
+                <span class="fw-semibold fs-4" style="color: red;" *ngIf="appointmentExpired"> expired</span>
+            </h2>
+
+            <div class="col-6 ps-4 fs-6">
+                <p><span class="fw-bold">Date and time: </span> {{appointment?.startTime}}</p>
+                <p><span class="fw-bold">Duration: </span> {{appointment?.duration}} minutes</p>
+                <p><span class="fw-bold">For company: </span> {{appointment?.company?.name}}</p>
+                <p><span class="fw-bold">Customer: </span> {{appointment?.buyer?.name}} {{appointment?.buyer?.surname}}
+                </p>
+            </div>
+
+            <div class="col-3 d-grid">
+                <img src="{{loadedQrSrc}}" style="width: 10rem;">
+            </div>
+
+            <div class="col-3 d-grid gap-2 fs-4">
+                <button class="mt-2 btn btn-outline-success" [disabled]="appointmentExpired"><i
+                        class="bi bi-bag-check"></i> Confirm pickup</button>
+                <button class="mt-2 btn btn-outline-danger" [disabled]="appointmentExpired"><i class="bi bi-bag-x"></i>Reject pickup</button>
+            </div>
+
+        </div>
+
+        <div class="row mt-3">
+            <h4>Ordered Equipment:</h4>
+        </div>
+
+        <div class="col-md-4 mt-3" *ngFor="let equipment of appointment?.equipment; index as i">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h5 class="card-title">{{equipment.name}}</h5>
+                        </div>
+                    </div>
+                    <p class="card-text fw-light">{{equipment.type.type}}</p>
+                    <p class="card-text text-secondary">{{equipment.description}}</p>
+                    <div class="row">
+                        <!-- <p class="card-text text-body-secondary">Quantity: {{equipment.quantity}}</p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+</div>

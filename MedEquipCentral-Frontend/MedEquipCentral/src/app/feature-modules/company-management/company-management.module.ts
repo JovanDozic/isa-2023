@@ -14,6 +14,8 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CompanyCalendarComponent } from './company-calendar/company-calendar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { PickupUsingQrComponent } from './pickup-using-qr/pickup-using-qr.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CompaniesComponent,
     AppointmentFormComponent,
     CompanyCalendarComponent,
+    PickupUsingQrComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,12 +39,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     }),
     BrowserAnimationsModule,
     NgbModalModule,
+    ZXingScannerModule,
   ],
   exports: [
     CompanyComponent,
     CompanyFormComponent,
     CompaniesComponent,
     CompanyCalendarComponent,
+    PickupUsingQrComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

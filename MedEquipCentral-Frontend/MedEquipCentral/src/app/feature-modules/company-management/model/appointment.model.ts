@@ -22,4 +22,5 @@ export enum AppointmentStatus {
     NEW = 0,
     PROCESSED = 1,
     CANCELED = 2,
+    EXPIRED = 3,
 }
