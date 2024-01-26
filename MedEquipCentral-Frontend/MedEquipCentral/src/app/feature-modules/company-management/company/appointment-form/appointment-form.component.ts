@@ -47,8 +47,8 @@ export class AppointmentFormComponent implements OnInit {
         equipmentIds: this.reservedEquipmentId,
         equipment: [],
         company: this.company,
-        adminName: this.user.name,
-        adminSurname: this.user.surname,
+        // adminName: this.user.name,
+        // adminSurname: this.user.surname,
       }
       console.log(this.reservedEquipmentId)
       console.log(appointment.equipmentIds);
@@ -103,8 +103,8 @@ export class AppointmentFormComponent implements OnInit {
       equipmentIds: this.reservedEquipmentId,
       equipment: [],
       company: this.company,
-      adminName: '',
-      adminSurname: '',
+      // adminName: '',
+      // adminSurname: '',
     }
     console.log(this.reservedEquipmentId)
     console.log(appointment.equipmentIds);
