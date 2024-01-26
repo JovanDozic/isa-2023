@@ -35,6 +35,7 @@ namespace MedEquipCentral.DA.Contexts
             modelBuilder.Entity<Appointment>()
                 .HasOne(e => e.Buyer)
                 .WithMany()
+                //TODO BuyerId == 0 kad se kreira appointment od starne admina kompanije
                 .HasForeignKey(e => e.BuyerId);
         }
     }

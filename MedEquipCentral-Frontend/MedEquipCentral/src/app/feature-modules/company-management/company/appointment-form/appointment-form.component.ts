@@ -36,13 +36,40 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   createAppointment() {
-    //if (this.appointmentForm.valid) {
+    if (this.reservedEquipmentId.length === 0) {
       const appointment: Appointment = {
-        id: this.appointmentId,
+        id: 0,
         startTime: this.appointmentForm.value.appointmentDate,
         duration: this.appointmentForm.value.duration,
         companyId: this.companyId,
-        adminId: 1,
+        adminId: this.user.id,
+        buyerId: 5,
+        equipmentIds: this.reservedEquipmentId,
+        equipment: [],
+        company: this.company,
+        adminName: this.user.name,
+        adminSurname: this.user.surname,
+      }
+      console.log(this.reservedEquipmentId)
+      console.log(appointment.equipmentIds);
+
+      this.service.createAppointment(appointment).subscribe({
+        next: response => {
+          console.log(response);
+          this.appointmentAdded.emit();
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
+    }
+    else{
+      const appointment: Appointment = {
+        id: 0,
+        startTime: this.appointmentForm.value.appointmentDate,
+        duration: this.appointmentForm.value.duration,
+        companyId: this.companyId,
+        adminId: 0,
         buyerId: this.user.id,
         equipmentIds: this.reservedEquipmentId,
         equipment: [],
@@ -61,6 +88,36 @@ export class AppointmentFormComponent implements OnInit {
           console.log(err);
         }
       })
+    }
+  }
+
+  createAppointmentBuyer() {
+    //if (this.appointmentForm.valid) {
+    const appointment: Appointment = {
+      id: 0,
+      startTime: this.appointmentForm.value.appointmentDate,
+      duration: this.appointmentForm.value.duration,
+      companyId: this.companyId,
+      adminId: 0,
+      buyerId: this.user.id,
+      equipmentIds: this.reservedEquipmentId,
+      equipment: [],
+      company: this.company,
+      adminName: '',
+      adminSurname: '',
+    }
+    console.log(this.reservedEquipmentId)
+    console.log(appointment.equipmentIds);
+
+    this.service.createAppointment(appointment).subscribe({
+      next: response => {
+        console.log(response);
+        this.appointmentAdded.emit();
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
     //}
   }
 
