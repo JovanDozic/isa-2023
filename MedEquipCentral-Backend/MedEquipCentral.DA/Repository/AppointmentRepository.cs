@@ -2,9 +2,7 @@
 using MedEquipCentral.DA.Contexts;
 using MedEquipCentral.DA.Contracts.IRepository;
 using MedEquipCentral.DA.Contracts.Model;
-using MedEquipCentral.DA.Contracts.Shared;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 
 namespace MedEquipCentral.DA.Repository
 {
@@ -60,7 +58,7 @@ namespace MedEquipCentral.DA.Repository
         public async Task<List<Appointment>> GetAllUsersAppointments(AppointmentPagedIn dataIn)
         {
             var result = _dbContext.Set<Appointment>()
-                            .Where(x => x.BuyerId == dataIn.UserId && x.Status == AppointmentStatus.NEW && x.StartTime <= DateTime.Now)
+                            .Where(x => x.BuyerId == dataIn.UserId && x.Status == Contracts.Model.AppointmentStatus.NEW && x.StartTime <= DateTime.Now)
                             .Include(x => x.Buyer)
                             .Include(x => x.Equipment)
                             .Include(x => x.Company)
@@ -75,7 +73,7 @@ namespace MedEquipCentral.DA.Repository
             var result = _dbContext.Set<Appointment>()
                             .Where(x => x.AdminId == adminId)
                             .Include(x => x.Buyer)
-                            .Include (x => x.Equipment)
+                            .Include(x => x.Equipment)
                             .Include(x => x.Company)
                             .Include(x => x.Admin)
                             .ToList();
@@ -100,7 +98,7 @@ namespace MedEquipCentral.DA.Repository
         public async Task<List<Appointment>> GetHistory(AppointmentPagedIn dataIn)
         {
             var result = _dbContext.Set<Appointment>()
-                            .Where(x => x.BuyerId == dataIn.UserId && x.Status == AppointmentStatus.PROCESSED)
+                            .Where(x => x.BuyerId == dataIn.UserId && x.Status == Contracts.Model.AppointmentStatus.PROCESSED)
                             .Include(x => x.Buyer)
                             .Include(x => x.Equipment)
                             .Include(x => x.Company)
