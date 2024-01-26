@@ -7,7 +7,8 @@ namespace MedEquipCentral.DA.Contracts.Model
     {
         NEW = 0,
         PROCESSED = 1,
-        REJECTED = 2,
+        CANCELLED = 2,
+        EXPIRED = 3,
     }
 
     public class Appointment : Entity
@@ -28,9 +29,9 @@ namespace MedEquipCentral.DA.Contracts.Model
         public bool? IsCollected { get; set; }//NULL je kad nije rezervisan termin, FALSE kada je rezervisan, a nije preuzeta oprema i TRUE kada je rezervisan i kad je preuzeta oprema
                                               //Termin je rezervisan kad su nullable polja popunjena    
         public double Price { get; set; }
-        public AppointmentStatus Status { get; set; }
+        public AppointmentStatus? Status { get; set; }
 
-        public Appointment(DateTime startTime, int duration, int companyId, int adminId, int? buyerId, List<int>? equipmentIds, bool? isCollected, double price, AppointmentStatus status)
+        public Appointment(DateTime startTime, int duration, int companyId, int adminId, int? buyerId, List<int>? equipmentIds, bool? isCollected, double price, AppointmentStatus? status)
         {
             StartTime = startTime.ToUniversalTime();
             Duration = duration;

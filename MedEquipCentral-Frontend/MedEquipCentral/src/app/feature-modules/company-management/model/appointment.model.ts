@@ -15,4 +15,12 @@ export interface Appointment {
     equipmentIds?: number[],
     equipment: Equipment[],
     isCollected?: boolean,
+    status?: AppointmentStatus,
+}
+
+export enum AppointmentStatus {
+    NEW = 0,
+    PROCESSED = 1,
+    CANCELED = 2,
+    EXPIRED = 3,
 }

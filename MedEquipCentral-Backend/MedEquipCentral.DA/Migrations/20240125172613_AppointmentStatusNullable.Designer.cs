@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedEquipCentral.DA.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240123195954_Init")]
-    partial class Init
+    [Migration("20240125172613_AppointmentStatusNullable")]
+    partial class AppointmentStatusNullable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,6 +66,9 @@ namespace MedEquipCentral.DA.Migrations
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

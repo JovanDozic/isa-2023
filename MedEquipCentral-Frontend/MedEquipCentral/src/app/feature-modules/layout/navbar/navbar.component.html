@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand ms-2 me-4" [routerLink]="['home']">
             <img src="../../../../assets/DALL·E 2023-12-14 10.14.57.png" alt="Medikal Ekvipment" width="35" height="35">
@@ -41,6 +41,8 @@
                         <li *ngIf="user.userRole?.toString() == 'Company_Admin'"><a class="dropdown-item"
                                 [routerLink]="['company-calendar']"><i class="bi bi-calendar"></i> My company
                                 calendar</a></li>
+                        <li *ngIf="user.userRole?.toString() == 'Company_Admin'"><a class="dropdown-item"
+                                [routerLink]="['pickup-using-qr']"><i class="bi bi-qr-code-scan"></i> Pickup using QR</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown me-3">
@@ -49,7 +51,7 @@
                     </a>
                 </li>
 
-                <!-- TODO: Ovaj meni treba da bude dostupan samo logovanom system adminu -->
+                <!-- done: Ovaj meni treba da bude dostupan samo logovanom system adminu -->
                 <li class="nav-item dropdown me-3" *ngIf="this.user.userRole?.toString() == 'System_Admin'">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">

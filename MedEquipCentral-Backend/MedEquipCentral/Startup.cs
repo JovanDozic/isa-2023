@@ -11,8 +11,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
-using System.Data.Common;
 
 namespace MedEquipCentral
 {
@@ -35,7 +33,7 @@ namespace MedEquipCentral
 
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), 
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
                     x => x.MigrationsHistoryTable("__EFMigrationsHistory", "medequipcentral"));
 
             });
@@ -152,6 +150,7 @@ namespace MedEquipCentral
             services.AddTransient<IEquipmentService, EquipmentService>();
             services.AddTransient<IEquipmentTypeService, EquipmentTypeService>();
             services.AddTransient<IAppointmentService, AppointmentService>();
+            services.AddTransient<IMailKitService, MailKitService>();
         }
 
     }
