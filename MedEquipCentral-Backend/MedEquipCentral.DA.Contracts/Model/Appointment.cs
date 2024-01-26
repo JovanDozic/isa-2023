@@ -7,7 +7,7 @@ namespace MedEquipCentral.DA.Contracts.Model
     {
         NEW = 0,
         PROCESSED = 1,
-        REJECTED = 2,
+        CANCELLED = 2,
         EXPIRED = 3,
     }
 

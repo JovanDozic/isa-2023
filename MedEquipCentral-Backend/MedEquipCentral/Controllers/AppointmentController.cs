@@ -64,5 +64,24 @@ namespace MedEquipCentral.Controllers
         {
             return await _appointmentService.CancelAppointment(appointmentId);
         }
+
+        [HttpPut("flagAsExpired/{appointmentId:int}")]
+        public async Task<bool> FlagAsExpired(int appointmentId)
+        {
+            return await _appointmentService.FlagAs(appointmentId, AppointmentStatus.EXPIRED);
+        }
+
+        [HttpPut("flagAsPickedUp/{appointmentId:int}")]
+        public async Task<bool> FlagAsPickedUp(int appointmentId)
+        {
+            return await _appointmentService.FlagAs(appointmentId, AppointmentStatus.PROCESSED);
+        }
+
+        [HttpPut("flagAsCancelled/{appointmentId:int}")]
+        public async Task<bool> FlagAsCancelled(int appointmentId)
+        {
+            return await _appointmentService.FlagAs(appointmentId, AppointmentStatus.CANCELLED);
+        }
+
     }
 }

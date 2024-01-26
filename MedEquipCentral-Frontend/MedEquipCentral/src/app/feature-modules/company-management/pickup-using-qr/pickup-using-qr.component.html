@@ -16,11 +16,13 @@
         <div class="row mt-3">
             <h2 class="mb-4">
                 Appointment <span class="fs-5 fw-lighter">ID: {{appointment?.id}}</span>
-                <span class="fw-semibold fs-4" style="color: red;" *ngIf="appointmentExpired"> expired</span>
+                <span class="fw-semibold fs-4" style="color: red;" *ngIf="appointmentExpired"> - expired</span>
+                <span class="fw-semibold fs-4" style="color: green;" *ngIf="appointmentProcessed"> - processed</span>
+                <span class="fw-semibold fs-4" style="color: orange;" *ngIf="appointmentCancelled"> - cancelled</span>
             </h2>
 
             <div class="col-6 ps-4 fs-6">
-                <p><span class="fw-bold">Date and time: </span> {{appointment?.startTime}}</p>
+                <p><span class="fw-bold">Date and time: </span> {{appointment?.startTime | date:'dd-MMM-yyyy @ HH:mm'}}</p>
                 <p><span class="fw-bold">Duration: </span> {{appointment?.duration}} minutes</p>
                 <p><span class="fw-bold">For company: </span> {{appointment?.company?.name}}</p>
                 <p><span class="fw-bold">Customer: </span> {{appointment?.buyer?.name}} {{appointment?.buyer?.surname}}
@@ -32,9 +34,9 @@
             </div>
 
             <div class="col-3 d-grid gap-2 fs-4">
-                <button class="mt-2 btn btn-outline-success" [disabled]="appointmentExpired"><i
+                <button class="mt-2 btn btn-outline-success" [disabled]="appointmentExpired || appointmentProcessed || appointmentCancelled" (click)="confirmPickup()"><i
                         class="bi bi-bag-check"></i> Confirm pickup</button>
-                <button class="mt-2 btn btn-outline-danger" [disabled]="appointmentExpired"><i class="bi bi-bag-x"></i>Reject pickup</button>
+                <button class="mt-2 btn btn-outline-danger" [disabled]="appointmentExpired || appointmentProcessed || appointmentCancelled" (click)="cancelPickup()"><i class="bi bi-bag-x"></i> Cancel pickup</button>
             </div>
 
         </div>

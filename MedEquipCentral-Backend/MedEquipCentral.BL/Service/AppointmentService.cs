@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using IronBarCode;
 using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts;
 using MedEquipCentral.DA.Contracts.Model;
-using IronBarCode;
 using MedEquipCentral.DA.Contracts.Shared;
 using System;
 
@@ -14,12 +14,14 @@ namespace MedEquipCentral.BL.Service
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
+        private readonly IMailKitService _mailKitService;
 
-        public AppointmentService(IUnitOfWork unitOfWork, IMapper mapper, IEmailService emailService)
+        public AppointmentService(IUnitOfWork unitOfWork, IMapper mapper, IEmailService emailService, IMailKitService mailKitService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _emailService = emailService;
+            _mailKitService = mailKitService;
         }
 
         private async Task<AppointmentDto> AddAppointment(AppointmentDto appointmentDto)
@@ -67,7 +69,7 @@ namespace MedEquipCentral.BL.Service
         {
             var count = _unitOfWork.GetAppointmentRepository().GetAll().Result.Count();
             var user = await _unitOfWork.GetUserRepository().GetByIdAsync((int)appointmentDto.BuyerId);
-            CreateQrCode(appointmentDto,  count);
+            CreateQrCode(appointmentDto, count);
             await _emailService.SendAppointmentConfirmationEmail(new UserEmailOptionsDto
             {
                 ToEmail = user.Email,
@@ -118,6 +120,29 @@ namespace MedEquipCentral.BL.Service
             {
                 Result = appointmentsDto
             };
+        }
+
+        public async Task<bool> FlagAs(int appointmentId, Contracts.DTO.AppointmentStatus status)
+        {
+            var appointment = await _unitOfWork.GetAppointmentRepository().GetById(appointmentId);
+            if (appointment is null)
+            {
+                return false;
+            }
+            appointment.Status = (DA.Contracts.Model.AppointmentStatus?)status;
+            await _unitOfWork.Save();
+
+            if (status == Contracts.DTO.AppointmentStatus.PROCESSED)
+            {
+                if (appointment.BuyerId is null)
+                {
+                    return false;
+                }
+                var user = await _unitOfWork.GetUserRepository().GetByIdAsync((int)appointment.BuyerId);
+                _mailKitService.SendPickupConfirmEmail(user.Email);
+            }
+
+            return true;
         }
 
         public async Task<string> CancelAppointment(int appointmentId)

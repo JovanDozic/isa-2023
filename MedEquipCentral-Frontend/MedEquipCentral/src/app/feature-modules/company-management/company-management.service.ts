@@ -63,5 +63,17 @@ export class CompanyManagementService {
 
   getAppointment(appointmentId: number) : Observable<Appointment> {
     return this.http.get<Appointment>(this.apiUrl + "appointment/getById/" + appointmentId);
-}
+  }
+
+  flagAppointmentAsPickedUp(appointmentId: number): Observable<Appointment> {
+    return this.http.put<Appointment>(this.apiUrl + 'appointment/flagAsPickedUp/' + appointmentId, null);
+  }
+
+  flagAppointmentAsCancelled(appointmentId: number): Observable<Appointment> {
+    return this.http.put<Appointment>(this.apiUrl + 'appointment/flagAsCancelled/' + appointmentId, null);
+  }
+
+  flagAppointmentAsExpired(appointmentId: number): Observable<Appointment> {
+    return this.http.put<Appointment>(this.apiUrl + 'appointment/flagAsExpired/' + appointmentId, null);
+  }
 }

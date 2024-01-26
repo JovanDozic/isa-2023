@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BrowserQRCodeReader } from '@zxing/browser';
-import { Appointment } from '../model/appointment.model';
+import { Appointment, AppointmentStatus } from '../model/appointment.model';
 import { CompanyManagementService } from '../company-management.service';
 import Integer from '@zxing/library/esm/core/util/Integer';
 import { UserManagementService } from '../../user-management/user-management.service';
@@ -18,12 +18,15 @@ export class PickupUsingQrComponent {
   qrCodeReader = new BrowserQRCodeReader();
   appointmentLoaded: boolean = false;
   appointmentExpired: boolean = false;
+  appointmentProcessed: boolean = false;
   loadedQrSrc = '';
-
+  appointmentCancelled: boolean = false;
 
   constructor(private companyService: CompanyManagementService, private userService: UserManagementService, private equipmentService: EquipmentService) { }
 
   onFileChange(event: Event) {
+    this.appointmentLoaded = false;
+    this.loadedQrSrc = '';
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
       const file = input.files[0];
@@ -111,11 +114,17 @@ export class PickupUsingQrComponent {
             alert("Loading appointment failed!");
           }
         );
-
         this.appointmentLoaded = true;
+        this.appointmentProcessed = this.appointment.status == AppointmentStatus.PROCESSED;
+        this.appointmentExpired = this.appointment.status == AppointmentStatus.EXPIRED;
+        this.appointmentCancelled = this.appointment.status == AppointmentStatus.CANCELED;
 
-
-
+        const fifteenMinutes = 15 * 60 * 1000;
+        const currentTime = new Date().getTime();
+        const appointmentTime = new Date(this.appointment.startTime).getTime();
+        if (currentTime - appointmentTime > fifteenMinutes) {
+          this.flagAppointmentAsExpired();
+        }
       },
       (error) => {
         console.log("Error: ", error);
@@ -125,7 +134,58 @@ export class PickupUsingQrComponent {
     );
   }
 
+  confirmPickup() {
+    if (this.appointment == undefined) {
+      return;
+    }
+    this.companyService.flagAppointmentAsPickedUp(this.appointment?.id).subscribe(
+      (response: any) => {
+        console.log("Pickup confirmed! " + response);
+        this.appointmentProcessed = true;
+      },
+      (error) => {
+        console.log("Error: ", error);
+        alert("Confirming pickup failed!");
+        this.appointmentProcessed = false;
+      }
+    );
+  }
+
+  cancelPickup() {
+    if (this.appointment == undefined) {
+      return;
+    }
+    this.companyService.flagAppointmentAsCancelled(this.appointment?.id).subscribe(
+      (response: any) => {
+        console.log("Pickup cancelled! " + response);
+        this.appointmentCancelled = true;
+      },
+      (error) => {
+        console.log("Error: ", error);
+        alert("Cancelling pickup failed!");
+        this.appointmentCancelled = false;
+      }
+    );
+  }
+
+  flagAppointmentAsExpired() {
+    if (this.appointment == undefined) {
+      return;
+    }
+    this.companyService.flagAppointmentAsExpired(this.appointment?.id).subscribe(
+      (response: any) => {
+        console.log("Appointment expired! " + response);
+        this.appointmentExpired = true;
+      },
+      (error) => {
+        console.log("Error: ", error);
+        alert("Expiring appointment failed!");
+        this.appointmentExpired = false;
+      }
+    );
+  }
 
 
-  
+
+
 }
