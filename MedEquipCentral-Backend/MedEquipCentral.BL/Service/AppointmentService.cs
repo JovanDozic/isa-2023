@@ -6,6 +6,7 @@ using MedEquipCentral.DA.Contracts;
 using MedEquipCentral.DA.Contracts.Model;
 using MedEquipCentral.DA.Contracts.Shared;
 using System;
+using System.Net.NetworkInformation;
 
 namespace MedEquipCentral.BL.Service
 {
@@ -165,7 +166,7 @@ namespace MedEquipCentral.BL.Service
         public async Task<AppointmentDto> Update(AppointmentDto appointmentDto)
         {
             var appointment = await _unitOfWork.GetAppointmentRepository().GetByIdAsync(appointmentDto.Id);
-            appointment.IsCollected= appointmentDto.IsCollected;
+            appointment.Status = (DA.Contracts.Model.AppointmentStatus?)appointmentDto.Status;
             appointment.EquipmentIds= appointmentDto.EquipmentIds;
             appointment.BuyerId= appointmentDto.BuyerId;
 

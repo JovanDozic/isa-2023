@@ -63,7 +63,8 @@ namespace MedEquipCentral.DA.Migrations
                     CompanyInfo = table.Column<string>(type: "text", nullable: true),
                     Role = table.Column<int>(type: "integer", nullable: false),
                     CompanyId = table.Column<int>(type: "integer", nullable: true),
-                    IsFirstLogin = table.Column<bool>(type: "boolean", nullable: true)
+                    IsFirstLogin = table.Column<bool>(type: "boolean", nullable: true),
+                    PenalPoints = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -106,7 +107,8 @@ namespace MedEquipCentral.DA.Migrations
                     AdminId = table.Column<int>(type: "integer", nullable: false),
                     BuyerId = table.Column<int>(type: "integer", nullable: true),
                     EquipmentIds = table.Column<List<int>>(type: "integer[]", nullable: true),
-                    Status = table.Column<int>(type: "integer", nullable: false)
+                    Price = table.Column<double>(type: "double precision", nullable: true),
+                    Status = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -141,6 +143,7 @@ namespace MedEquipCentral.DA.Migrations
                     TypeId = table.Column<int>(type: "integer", nullable: false),
                     CompanyId = table.Column<int>(type: "integer", nullable: false),
                     Quantity = table.Column<int>(type: "integer", nullable: false),
+                    Price = table.Column<double>(type: "double precision", nullable: false),
                     EquipmentId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>

@@ -61,10 +61,7 @@ namespace MedEquipCentral.DA.Migrations
                     b.Property<List<int>>("EquipmentIds")
                         .HasColumnType("integer[]");
 
-                    b.Property<bool?>("IsCollected")
-                        .HasColumnType("boolean");
-
-                    b.Property<double>("Price")
+                    b.Property<double?>("Price")
                         .HasColumnType("double precision");
 
                     b.Property<DateTime>("StartTime")

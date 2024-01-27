@@ -38,16 +38,16 @@ INSERT INTO medequipcentral."EquipmentType" ("Id", "Type", "Description") VALUES
 ALTER SEQUENCE medequipcentral."EquipmentType_Id_seq" RESTART WITH 11;
 
 -- Inserting Equipment Data
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId") VALUES (1, 'HealthEquip Defibrillator', 'Medical equipment for healthcare use', 6,          8, 3, 1);
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId") VALUES (2, 'ThriveEquip Ventilator', 'Medical equipment for healthcare use', 5,             6, 3, 2);
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId") VALUES (3, 'HealthEquip Anesthesia Machine', 'Medical equipment for healthcare use', 7,     10, 3, 3);
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId") VALUES (4, 'WellnessTools Defibrillator', 'Medical equipment for healthcare use', 6,        3, 3, 4);
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId") VALUES (5, 'WellnessTools Sterilizer', 'Medical equipment for healthcare use', 9,           3, 3, 5);
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId") VALUES (6, 'HealthEquip Sterilizer', 'Medical equipment for healthcare use', 9,             8, 3, 6);
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId") VALUES (7, 'HealWell Ultrasound', 'Medical equipment for healthcare use', 3,                7, 3, 7);
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId") VALUES (8, 'WellnessTools X-Ray Machine', 'Medical equipment for healthcare use', 1,        3, 3, 8);
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId") VALUES (9, 'ThriveEquip X-Ray Machine', 'Medical equipment for healthcare use', 1,          4, 3, 9);
-INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId") VALUES (10, 'WellnessTools Ventilator', 'Medical equipment for healthcare use', 5,          2, 3, 10);
+INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId", "Price") VALUES (1, 'HealthEquip Defibrillator', 'Medical equipment for healthcare use', 6,          8, 3, 1, 100);
+INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId", "Price") VALUES (2, 'ThriveEquip Ventilator', 'Medical equipment for healthcare use', 5,             6, 3, 2, 150);
+INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId", "Price") VALUES (3, 'HealthEquip Anesthesia Machine', 'Medical equipment for healthcare use', 7,     10, 3, 3, 170);
+INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId", "Price") VALUES (4, 'WellnessTools Defibrillator', 'Medical equipment for healthcare use', 6,        3, 3, 4, 160);
+INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId", "Price") VALUES (5, 'WellnessTools Sterilizer', 'Medical equipment for healthcare use', 9,           3, 3, 5, 120);
+INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId", "Price") VALUES (6, 'HealthEquip Sterilizer', 'Medical equipment for healthcare use', 9,             8, 3, 6, 130);
+INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId", "Price") VALUES (7, 'HealWell Ultrasound', 'Medical equipment for healthcare use', 3,                7, 3, 7, 145);
+INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId", "Price") VALUES (8, 'WellnessTools X-Ray Machine', 'Medical equipment for healthcare use', 1,        3, 3, 8, 157);
+INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId", "Price") VALUES (9, 'ThriveEquip X-Ray Machine', 'Medical equipment for healthcare use', 1,          4, 3, 9, 185);
+INSERT INTO medequipcentral."Equipment" ("Id", "Name", "Description", "TypeId", "CompanyId", "Quantity", "EquipmentId", "Price") VALUES (10, 'WellnessTools Ventilator', 'Medical equipment for healthcare use', 5,          2, 3, 10, 190);
 ALTER SEQUENCE medequipcentral."Equipment_Id_seq" RESTART WITH 11;
 
 -- Inserting Updated Users Data
@@ -77,14 +77,14 @@ INSERT INTO medequipcentral."Users" ("Id", "Email", "Password", "Name", "Surname
 ALTER SEQUENCE medequipcentral."Users_Id_seq" RESTART WITH 24;
 
 -- Inserting Appointments Data
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "AdminName", "AdminSurname", "BuyerId", "StartTime", "EquipmentIds") VALUES (1, 70, 2, 25, 'Admin', 'User', 5, '2023-12-20 01:10:52', '{}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "AdminName", "AdminSurname", "BuyerId", "StartTime", "EquipmentIds") VALUES (2, 155, 9, 20, 'Admin', 'User', 3, '2023-12-22 03:56:58', '{10}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "AdminName", "AdminSurname", "BuyerId", "StartTime", "EquipmentIds") VALUES (3, 110, 9, 20, 'Admin', 'User', 3, '2023-12-20 10:05:11', '{4}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "AdminName", "AdminSurname", "BuyerId", "StartTime", "EquipmentIds") VALUES (4, 149, 9, 20, 'Admin', 'User', 3, '2023-12-21 21:14:56', '{6, 1}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "AdminName", "AdminSurname", "BuyerId", "StartTime", "EquipmentIds") VALUES (5, 135, 2, 25, 'Admin', 'User', 5, '2023-12-20 01:54:33', '{}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "AdminName", "AdminSurname", "BuyerId", "StartTime", "EquipmentIds") VALUES (6, 97, 9, 20, 'Admin', 'User', 9, '2023-12-20 17:38:38', '{4}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "AdminName", "AdminSurname", "BuyerId", "StartTime", "EquipmentIds") VALUES (7, 80, 9, 20, 'Admin', 'User', 10, '2023-12-22 15:26:09', '{9}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "AdminName", "AdminSurname", "BuyerId", "StartTime", "EquipmentIds") VALUES (8, 150, 9, 20, 'Admin', 'User', 10, '2023-12-20 09:28:55', '{2, 1}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "AdminName", "AdminSurname", "BuyerId", "StartTime", "EquipmentIds") VALUES (9, 135, 2, 25, 'Admin', 'User', 13, '2023-12-20 19:11:11', '{5}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "AdminName", "AdminSurname", "BuyerId", "StartTime", "EquipmentIds") VALUES (10, 135, 2, 25, 'Admin', 'User', 10, '2023-12-22 15:49:12', '{8, 9, 7}');
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (1, 70, 2, 11, 5, '2023-12-20 01:10:52', '{}');
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (2, 155, 9, 20, 3, '2023-12-22 03:56:58', '{10}');
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (3, 110, 9, 20, 3, '2023-12-20 10:05:11', '{4}');
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (4, 149, 9, 20, 3, '2023-12-21 21:14:56', '{6, 1}');
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (5, 135, 2, 11, 5, '2023-12-20 01:54:33', '{}');
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (6, 97, 9, 20, 9, '2023-12-20 17:38:38', '{4}');
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (7, 80, 9, 20, 10, '2023-12-22 15:26:09', '{9}');
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (8, 150, 9, 20, 10, '2023-12-20 09:28:55', '{2, 1}');
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (9, 135, 2, 11, 13, '2023-12-20 19:11:11', '{5}');
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (10, 135, 2, 11, 10, '2023-12-22 15:49:12', '{8, 9, 7}');
 ALTER SEQUENCE medequipcentral."Appointments_Id_seq" RESTART WITH 11;

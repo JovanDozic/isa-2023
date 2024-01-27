@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedEquipCentral.DA.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240125172613_AppointmentStatusNullable")]
-    partial class AppointmentStatusNullable
+    [Migration("20240127134912_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,9 @@ namespace MedEquipCentral.DA.Migrations
 
                     b.Property<List<int>>("EquipmentIds")
                         .HasColumnType("integer[]");
+
+                    b.Property<double?>("Price")
+                        .HasColumnType("double precision");
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("timestamp with time zone");
@@ -134,6 +137,9 @@ namespace MedEquipCentral.DA.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
@@ -241,6 +247,9 @@ namespace MedEquipCentral.DA.Migrations
 
                     b.Property<string>("Password")
                         .HasColumnType("text");
+
+                    b.Property<int?>("PenalPoints")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Phone")
                         .HasColumnType("text");
