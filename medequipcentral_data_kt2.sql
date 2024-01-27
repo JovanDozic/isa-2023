@@ -74,17 +74,18 @@ INSERT INTO medequipcentral."Users" ("Id", "Email", "Password", "Name", "Surname
 INSERT INTO medequipcentral."Users" ("Id", "Email", "Password", "Name", "Surname", "City", "Country", "Phone", "Job", "CompanyInfo", "CompanyId", "Role", "IsFirstLogin") VALUES (21, 'barbara.bobak@example.com', 'barbara', 'Barbara', 'Bobak', 'Fairview', 'Australia', '+16432746563', 'Doctor', 'Research', null, 3, True);
 INSERT INTO medequipcentral."Users" ("Id", "Email", "Password", "Name", "Surname", "City", "Country", "Phone", "Job", "CompanyInfo", "CompanyId", "Role", "IsFirstLogin") VALUES (22, 'patricia.brown@example.com', 'patricia', 'Patricia', 'Brown', 'Sunnyvale', 'Spain', '+18885272401', 'Administrator', 'Pharmacy', null, 1, True);
 INSERT INTO medequipcentral."Users" ("Id", "Email", "Password", "Name", "Surname", "City", "Country", "Phone", "Job", "CompanyInfo", "CompanyId", "Role", "IsFirstLogin") VALUES (23, 'patricia.davis@example.com', 'patricia', 'Patricia', 'Davis', 'Fairview', 'Spain', '+18554216265', 'Engineer', 'Non-profit', 2, 2, True);
+INSERT INTO medequipcentral."Users" ("Id", "Email", "Password", "Name", "Surname", "City", "Country", "Phone", "Job", "CompanyInfo", "CompanyId", "Role", "IsFirstLogin") VALUES (24, 'projekat.isa@gmail.com', 'Test!!123', 'Projekat', 'Isa', 'Novi Sad', 'Srbija', '+381654216265', 'Engineer', 'Non-profit', 2, 2, False);
 ALTER SEQUENCE medequipcentral."Users_Id_seq" RESTART WITH 24;
 
 -- Inserting Appointments Data
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (1, 70, 2, 11, 5, '2023-12-20 01:10:52', '{}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (2, 155, 9, 20, 3, '2023-12-22 03:56:58', '{10}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (3, 110, 9, 20, 3, '2023-12-20 10:05:11', '{4}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (4, 149, 9, 20, 3, '2023-12-21 21:14:56', '{6, 1}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (5, 135, 2, 11, 5, '2023-12-20 01:54:33', '{}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (6, 97, 9, 20, 9, '2023-12-20 17:38:38', '{4}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (7, 80, 9, 20, 10, '2023-12-22 15:26:09', '{9}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (8, 150, 9, 20, 10, '2023-12-20 09:28:55', '{2, 1}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (9, 135, 2, 11, 13, '2023-12-20 19:11:11', '{5}');
-INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds") VALUES (10, 135, 2, 11, 10, '2023-12-22 15:49:12', '{8, 9, 7}');
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price") VALUES (1, 70, 2, 11, 5, '2023-12-20 01:10:52', '{}', 200);
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price") VALUES (2, 155, 9, 20, 3, '2023-12-22 03:56:58', '{10}', 150);
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price") VALUES (3, 110, 9, 20, 3, '2023-12-20 10:05:11', '{4}', 2000);
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price") VALUES (4, 149, 9, 20, 3, '2023-12-21 21:14:56', '{6, 1}', 700);
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price") VALUES (5, 135, 2, 11, 5, '2023-12-20 01:54:33', '{}', 900);
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price") VALUES (6, 97, 9, 20, 9, '2023-12-20 17:38:38', '{4}', 345);
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price") VALUES (7, 80, 9, 20, 10, '2023-12-22 15:26:09', '{9}', 230);
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price") VALUES (8, 150, 9, 20, 10, '2023-12-20 09:28:55', '{2, 1}', 500);
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price") VALUES (9, 135, 2, 11, 13, '2023-12-20 19:11:11', '{5}', 400);
+INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price") VALUES (10, 135, 2, 11, 10, '2023-12-22 15:49:12', '{8, 9, 7}', 300);
 ALTER SEQUENCE medequipcentral."Appointments_Id_seq" RESTART WITH 11;

@@ -57,6 +57,9 @@
         <div class="col-s-5">
             <input type="text" class="form-control" value="user.companyInfo" name="companyInfo"/>
         </div>
+        <div class="col-s-5">
+            <span class="form-label">Penal points:   <span *ngIf="user.penalPoints == undefined" style="padding-left: 2rem;">0</span>{{user.penalPoints}}</span>
+        </div>
         <div class="col-md-5">
             <button class="btn-primary" (click)="editInfo()">Edit</button>
             <button class="btn" [routerLink]="['/']">Cancel</button>

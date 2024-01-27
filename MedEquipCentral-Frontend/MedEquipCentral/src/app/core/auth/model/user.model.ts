@@ -20,4 +20,5 @@ export interface User {
   userRole?: UserRole;
   companyInfo?: string;
   isFirstLogin?: string;
+  penalPoints?: number;
 }

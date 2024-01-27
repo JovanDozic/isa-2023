@@ -35,27 +35,27 @@ namespace MedEquipCentral.DA.Repository
                 query = query.Where(x => x.Rating <= dataIn.CompanyFilter.Rating);
             }
 
-            if (dataIn.CompanyFilter.SortBy == "name" && dataIn.CompanyFilter.IsAsc)
+            if (dataIn.CompanyFilter.SortBy == "Name" && dataIn.CompanyFilter.IsAsc)
             {
                 query = query.OrderBy(x => x.Name);
             }
-            else if (dataIn.CompanyFilter.SortBy == "name" && !dataIn.CompanyFilter.IsAsc)
+            else if (dataIn.CompanyFilter.SortBy == "Name" && !dataIn.CompanyFilter.IsAsc)
             {
                 query = query.OrderByDescending(x => x.Name);
             }
-            else if (dataIn.CompanyFilter.SortBy == "city" && dataIn.CompanyFilter.IsAsc)
+            else if (dataIn.CompanyFilter.SortBy == "City" && dataIn.CompanyFilter.IsAsc)
             {
                 query = query.OrderBy(x => x.Location.City);
             }
-            else if (dataIn.CompanyFilter.SortBy == "city" && !dataIn.CompanyFilter.IsAsc)
+            else if (dataIn.CompanyFilter.SortBy == "City" && !dataIn.CompanyFilter.IsAsc)
             {
                 query = query.OrderByDescending(x => x.Location.City);
             }
-            else if (dataIn.CompanyFilter.SortBy == "rating" && dataIn.CompanyFilter.IsAsc)
+            else if (dataIn.CompanyFilter.SortBy == "Rating" && dataIn.CompanyFilter.IsAsc)
             {
                 query = query.OrderBy(x => x.Rating);
             }
-            else if (dataIn.CompanyFilter.SortBy == "rating" && !dataIn.CompanyFilter.IsAsc)
+            else if (dataIn.CompanyFilter.SortBy == "Rating" && !dataIn.CompanyFilter.IsAsc)
             {
                 query = query.OrderByDescending(x => x.Rating);
             }

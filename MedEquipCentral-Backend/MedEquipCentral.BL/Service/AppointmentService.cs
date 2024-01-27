@@ -5,8 +5,6 @@ using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts;
 using MedEquipCentral.DA.Contracts.Model;
 using MedEquipCentral.DA.Contracts.Shared;
-using System;
-using System.Net.NetworkInformation;
 
 namespace MedEquipCentral.BL.Service
 {
@@ -68,8 +66,9 @@ namespace MedEquipCentral.BL.Service
         }
         private async Task<string> CreateQRCodeForAppointment(AppointmentDto appointmentDto)
         {
-            var count = _unitOfWork.GetAppointmentRepository().GetAll().Result.Count();
-            var user = await _unitOfWork.GetUserRepository().GetByIdAsync((int)appointmentDto.BuyerId);
+            var list = await _unitOfWork.GetAppointmentRepository().GetAll();
+            var count = list.Count();
+            var user = await _unitOfWork.GetUserRepository().GetByIdAsync(appointmentDto.BuyerId.Value);
             CreateQrCode(appointmentDto, count);
             await _emailService.SendAppointmentConfirmationEmail(new UserEmailOptionsDto
             {
@@ -79,7 +78,7 @@ namespace MedEquipCentral.BL.Service
                     new KeyValuePair<string, string>("{{UserName}}", user.Name),
                     new KeyValuePair<string, string>("{{Id}}", appointmentDto.Id.ToString()),
                 }
-            }, $"C:\\Users\\mbovan\\Desktop\\ISA\\isa-2023\\reservation{count}.png");
+            }, $"../../../QRCodes/reservation{count}.png");
             return null;
         }
 
@@ -88,10 +87,10 @@ namespace MedEquipCentral.BL.Service
             //TODO ispis liste doraditi
             //TODO uraditi relativne putanje
             var appointment = $"http://localhost:4200/appointment-details/{count}";
-            QRCodeLogo qrCodeLogo = new QRCodeLogo("C:\\Users\\mbovan\\Desktop\\ISA\\isa-2023\\favicon.png");
+            QRCodeLogo qrCodeLogo = new QRCodeLogo("../../favicon.png");
             GeneratedBarcode myQRCodeWithLogo = QRCodeWriter.CreateQrCodeWithLogo(appointment, qrCodeLogo);
             myQRCodeWithLogo.ResizeTo(500, 500).SetMargins(10).ChangeBarCodeColor(Color.DarkBlue);
-            myQRCodeWithLogo.SaveAsPng($"C:\\Users\\mbovan\\Desktop\\ISA\\isa-2023\\reservation{count}.png");
+            myQRCodeWithLogo.SaveAsPng($"../../QRCodes/reservation{count}.png");
         }
 
         public async Task<List<AppointmentDto>> GetCompanyAppointments(int companyId)

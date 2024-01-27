@@ -4,7 +4,13 @@
         <input type="text" class="col-xs-3" [(ngModel)]="search" name="search"/>
         <select [(ngModel)]="selectedRating" class="form-control">
             <option *ngFor="let option of ratingOptions" [value]="option">{{ option }}</option>
-          </select>
+        </select>
+        <select [(ngModel)]="sortBy" class="form-control">
+          <option *ngFor="let sort of sortBys" [value]="sort">{{sort}}</option>
+        </select>
+        <select [(ngModel)]="sortType" class="form-control">
+          <option *ngFor="let type of sortTypes" [value]="type">{{type}}</option>
+        </select>
         <button (click)="searchCompanies()" class="btn-primary">Search</button>
     </div>
     <div class="table-responsive">

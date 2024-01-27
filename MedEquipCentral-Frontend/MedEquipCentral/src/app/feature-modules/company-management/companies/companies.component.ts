@@ -13,6 +13,10 @@ export class CompaniesComponent {
   public search: string = '';
   public selectedRating: number = 0;
   public ratingOptions: number[] = [0, 1, 2, 3, 4, 5];
+  public sortTypes: string[] = ['ASC', 'DESC'];
+  public sortType: string = 'ASC';
+  public sortBys: string[] = ['Name', 'City', 'Rating'];
+  public sortBy: string = '';
 
   constructor(public companyService: CompanyManagementService) {
 
@@ -31,6 +35,10 @@ export class CompaniesComponent {
   }
 
   searchCompanies() {
+    let isAsc = true;
+    if(this.sortType === 'DESC')
+      isAsc= false;
+
     let filter = {
       PageInfo: {
         page: 1,
@@ -38,7 +46,9 @@ export class CompaniesComponent {
       },
       CompanyFilter: {
         rating: this.selectedRating,
-        search: this.search
+        search: this.search,
+        sortBy: this.sortBy,
+        isAsc: isAsc
       }
     }
     this.companyService.getAllBySearch(filter).subscribe({
