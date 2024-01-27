@@ -77,8 +77,8 @@ export class UserManagementService {
         return this.http.put<Appointment>(this.apiUrl + 'appointment/update', appointment)
     }
 
-    penalizeUncollectedAppointments(): Observable<User[]> {
-        return this.http.get<User[]>(this.apiUrl + 'user/penalizeUncollectedAppointments');
+    penalizeUncollectedAppointments(adminId: number): Observable<User[]> {
+        return this.http.get<User[]>(this.apiUrl + 'user/penalizeUncollectedAppointments/' + adminId);
     }
 
     reduceQuantityOfCollected(appointmentId: number): Observable<any> {
@@ -87,5 +87,9 @@ export class UserManagementService {
 
     sendCollectionConfirmationEmail(appointment: Appointment): Observable<any> {
         return this.http.post(this.apiUrl + 'appointment/sendCollectionConfirmationEmail', appointment);
+    }
+
+    flagAsPickedUp(appointmentId: number): Observable<any> {
+        return this.http.put(this.apiUrl + 'appointment/flagAsPickedUp/' + appointmentId, null);
     }
 }

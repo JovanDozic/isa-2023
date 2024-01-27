@@ -41,6 +41,8 @@ export class UserAppointmentsComponent implements OnInit{
       },
       userId: this.user.id,
       isAdmin: this.user.userRole?.toString() == 'Company_Admin' ? true : false,
+      sortBy: '',
+      isAsc: true,
     }
     this.service.getAllUserAppointments(obj).subscribe({
       next: response => {
@@ -54,7 +56,7 @@ export class UserAppointmentsComponent implements OnInit{
   }
 
   penalizeUncollectedAppointments(){
-    this.service.penalizeUncollectedAppointments().subscribe({
+    this.service.penalizeUncollectedAppointments(this.user.id).subscribe({
       next: response =>{
         this.penalizedUsers = response;
         this.getData();
@@ -63,13 +65,12 @@ export class UserAppointmentsComponent implements OnInit{
   }
 
   markAsCollected(appointment: Appointment) {
-    appointment.isCollected = true;
 
-    this.service.updateAppointment(appointment).subscribe({
+    this.service.flagAsPickedUp(appointment.id).subscribe({
       next: response => {
         this.getData();
         this.service.reduceQuantityOfCollected(appointment.id).subscribe();
-        this.service.sendCollectionConfirmationEmail(appointment).subscribe();
+        //this.service.sendCollectionConfirmationEmail(appointment).subscribe();
       }
     })
   }

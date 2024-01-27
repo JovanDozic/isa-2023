@@ -81,10 +81,10 @@ namespace MedEquipCentral.DA.Repository
             return result;
         }
 
-        public async Task<List<Appointment>> GetUncollectedAppointments()
+        public async Task<List<Appointment>> GetUncollectedAppointments(int adminId)
         {
             var result = _dbContext.Set<Appointment>()
-                            .Where(x => x.Status == Contracts.Model.AppointmentStatus.NEW && x.BuyerId != null && x.StartTime.AddMinutes(x.Duration + 60) <= DateTime.UtcNow)
+                            .Where(x => x.AdminId == adminId && x.Status == Contracts.Model.AppointmentStatus.NEW && x.BuyerId != null && x.StartTime.AddMinutes(x.Duration + 60) <= DateTime.UtcNow)
                             .Include(x => x.Buyer)
                             .ToList();
             return result;
