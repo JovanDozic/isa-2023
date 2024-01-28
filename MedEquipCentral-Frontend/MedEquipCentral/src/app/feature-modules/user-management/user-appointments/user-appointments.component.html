@@ -7,7 +7,7 @@
       <th>Date</th>
       <th>Duration</th>
       <th *ngIf="user.userRole?.toString() == 'Registered'">Action</th>
-      <th>Status</th>
+      <th *ngIf="user.userRole?.toString() == 'Company_Admin'">Status</th>
     </tr>
   </thead>
   <tbody>
@@ -21,7 +21,7 @@
         <button *ngIf="user.userRole?.toString() == 'Registered'" class="btn btn-primary"
           (click)="viewMore(appointment.id)">View more</button>
       </td>
-      <td>
+      <td *ngIf="user.userRole?.toString() == 'Company_Admin'">
         <span *ngIf="user.userRole?.toString() == 'Company_Admin' && appointment.status == 1"
         class="my-1 mx-1">Collected</span>
       <span *ngIf="user.userRole?.toString() == 'Company_Admin' && appointment.status == 2"
