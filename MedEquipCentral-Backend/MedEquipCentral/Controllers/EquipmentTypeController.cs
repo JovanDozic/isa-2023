@@ -1,5 +1,6 @@
 ﻿using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedEquipCentral.Controllers
@@ -16,6 +17,7 @@ namespace MedEquipCentral.Controllers
         }
 
         [HttpGet("getAll")]
+        [Authorize(Policy = "authenticatedPolicy")]
         public List<EquipmentTypeDto> GetAll()
         {
             return _equipmentTypeService.GetAll();

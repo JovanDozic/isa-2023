@@ -101,11 +101,23 @@ namespace MedEquipCentral
             //Authorization
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("systemAdminPolicy", policy => policy.RequireRole("systemAdmin"));
-                options.AddPolicy("companyAdminPolicy", policy => policy.RequireRole("companyAdmin"));
-                options.AddPolicy("registredPolicy", policy => policy.RequireRole("registred"));
-                options.AddPolicy("unauthenticatedPolicy", policy => policy.RequireRole("unauthenticated"));
-                options.AddPolicy("allRolesPolicy", policy => policy.RequireRole("registred", "companyAdmin", "systemAdmin", "unauthenticated"));
+                options.AddPolicy("systemAdminPolicy", policy => policy.RequireRole("System_Admin"));
+                options.AddPolicy("companyAdminPolicy", policy => policy.RequireRole("Company_Admin"));
+                options.AddPolicy("registredPolicy", policy => policy.RequireRole("Registered"));
+                options.AddPolicy("unauthenticatedPolicy", policy => policy.RequireRole("Unauthenticated"));
+                options.AddPolicy("regSysPolicy", policy => policy.RequireRole("Registered", "System_Admin"));
+                options.AddPolicy("regComPolicy", policy => policy.RequireRole("Registered", "Company_Admin"));
+                options.AddPolicy("adminsPolicy", policy => policy.RequireRole( "Company_Admin", "System_Admin"));
+                options.AddPolicy("authenticatedPolicy", policy => policy.RequireRole("Registered", "Company_Admin", "System_Admin"));
+                options.AddPolicy("regComUnaPolicy", policy => policy.RequireRole("Registered", "Company_Admin", "Unauthenticated"));
+                options.AddPolicy("regSysUnaPolicy", policy => policy.RequireRole("Registered", "System_Admin", "Unauthenticated"));
+                options.AddPolicy("comSysUnaPolicy", policy => policy.RequireRole("Company_Admin", "System_Admin", "Unauthenticated"));
+                options.AddPolicy("allRolesPolicy", policy => policy.RequireRole("Registered", "Company_Admin", "System_Admin", "Unauthenticated"));
+
+
+
+
+
 
             });
 

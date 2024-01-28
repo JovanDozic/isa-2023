@@ -1,11 +1,13 @@
 ﻿using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedEquipCentral.Controllers
 {
     [Route("api/user")]
     [ApiController]
+    [Authorize(Policy = "authenticatedPolicy")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
