@@ -16,39 +16,41 @@ import { CompanyCalendarComponent } from './company-calendar/company-calendar.co
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { PickupUsingQrComponent } from './pickup-using-qr/pickup-using-qr.component';
+import { SharedModule } from "../../shared/shared.module";
 
 @NgModule({
-  declarations: [
-    CompanyFormComponent,
-    CompanyComponent,
-    CompaniesComponent,
-    AppointmentFormComponent,
-    CompanyCalendarComponent,
-    PickupUsingQrComponent,
-  ],
-  imports: [
-    BrowserModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    FormsModule,
-    NgbModule,
-    EquipmentManagementModule,
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
-    BrowserAnimationsModule,
-    NgbModalModule,
-    ZXingScannerModule,
-  ],
-  exports: [
-    CompanyComponent,
-    CompanyFormComponent,
-    CompaniesComponent,
-    CompanyCalendarComponent,
-    PickupUsingQrComponent,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        CompanyFormComponent,
+        CompanyComponent,
+        CompaniesComponent,
+        AppointmentFormComponent,
+        CompanyCalendarComponent,
+        PickupUsingQrComponent,
+    ],
+    imports: [
+        BrowserModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        FormsModule,
+        NgbModule,
+        EquipmentManagementModule,
+        CalendarModule.forRoot({
+            provide: DateAdapter,
+            useFactory: adapterFactory,
+        }),
+        BrowserAnimationsModule,
+        NgbModalModule,
+        ZXingScannerModule,
+        SharedModule,
+    ],
+    exports: [
+        CompanyComponent,
+        CompanyFormComponent,
+        CompaniesComponent,
+        CompanyCalendarComponent,
+        PickupUsingQrComponent,
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class CompanyManagementModule { }

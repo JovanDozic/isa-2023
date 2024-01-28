@@ -7,6 +7,7 @@ import { Appointment } from '../model/appointment.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/auth/auth.service';
 import { User } from '../../../core/auth/model/user.model';
+import { Point } from '../../../shared/model/point.model';
 
 @Component({
   selector: 'app-company',
@@ -23,6 +24,7 @@ export class CompanyComponent implements OnInit {
   selectedItems: Equipment[] = [];
   selectedItem?: Equipment;
   user!: User;
+  points: Point[] = [];
 
   constructor(private service: CompanyManagementService,
               private route: ActivatedRoute,
@@ -42,6 +44,11 @@ export class CompanyComponent implements OnInit {
     this.service.getCompany(this.companyId).subscribe({
       next: response => {
         this.company = response;
+        const point: Point = {
+          latitude: this.company.location.latitude,
+          longitude: this.company.location.longitude,
+        }
+        this.points.push(point);
       }
     })
     this.service.getCompanyAdmins(this.companyId, this.user.id).subscribe({

@@ -16,6 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
       useFactory: adapterFactory,
     }),
     ZXingScannerModule,
+    LeafletModule,
   ],
   bootstrap: [AppComponent]
 })
