@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MedEquipCentral.Controllers
 {
     [Route("api/company")]
-    [Authorize(Policy = "adminsPolicy")]
+    [Authorize(Policy = "allRolesPolicy")]
     public class CompanyController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -18,6 +18,7 @@ namespace MedEquipCentral.Controllers
         }
 
         [HttpGet("getAll")]
+        [AllowAnonymous]
         public async Task<List<CompanyDto>> GetAll()
         {
             return await _companyService.GetAll();
