@@ -8,7 +8,6 @@ namespace MedEquipCentral.Controllers
 {
     [Route("api/equipment")]
     [ApiController]
-    [Authorize(Policy = "authenticatedPolicy")]
     public class EquipmentController : Controller
     {
         private readonly IEquipmentService _equipmentService;

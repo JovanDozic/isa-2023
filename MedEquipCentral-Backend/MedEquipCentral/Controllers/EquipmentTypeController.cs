@@ -17,7 +17,6 @@ namespace MedEquipCentral.Controllers
         }
 
         [HttpGet("getAll")]
-        [Authorize(Policy = "authenticatedPolicy")]
         public List<EquipmentTypeDto> GetAll()
         {
             return _equipmentTypeService.GetAll();
