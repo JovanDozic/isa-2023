@@ -174,18 +174,28 @@ namespace MedEquipCentral.BL.Service
 
         public async Task<string> CancelAppointment(int appointmentId)
         {
-            var appointmentDb = await _unitOfWork.GetAppointmentRepository().GetByIdAsync(appointmentId);
+            var appointment = await _unitOfWork.GetAppointmentRepository().GetByIdAsync(appointmentId);
+            appointment.Status = DA.Contracts.Model.AppointmentStatus.CANCELLED;
 
-            var timeDifference = DateTime.Now.Subtract(appointmentDb.StartTime).TotalHours;
+            var user = await _unitOfWork.GetUserRepository()?.GetByIdAsync((int)appointment.BuyerId);
 
+            var timeDifference = DateTime.Now.Subtract(appointment.StartTime).TotalHours;
+            
             if(timeDifference > 24)
             {
-                await _unitOfWork.GetAppointmentRepository().Remove(appointmentDb);
-                return "Appointment is canceled successfully";
+                user.PenalPoints += 1;
+                _unitOfWork.GetAppointmentRepository().Update(appointment);
+                _unitOfWork.GetUserRepository().Update(user);
+                await _unitOfWork.Save();
+                return "Appointment canceled successfully";
             }
             else
             {
-                return "Appointment is in 24h range so you cant cancel it";
+                user.PenalPoints += 2;
+                _unitOfWork.GetAppointmentRepository().Update(appointment);
+                _unitOfWork.GetUserRepository().Update(user);
+                await _unitOfWork.Save();
+                return "Appointment canceled successfully";
             }
         }
 

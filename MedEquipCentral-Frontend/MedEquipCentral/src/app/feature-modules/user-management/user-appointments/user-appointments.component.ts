@@ -4,6 +4,7 @@ import { UserManagementService } from '../user-management.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { User } from '../../../core/auth/model/user.model';
 import { Router } from '@angular/router';
+import { CompanyManagementService } from '../../company-management/company-management.service';
 
 @Component({
   selector: 'app-user-appointments',
@@ -19,6 +20,7 @@ export class UserAppointmentsComponent implements OnInit{
 
   constructor(private service: UserManagementService,
               private authService: AuthService,
+              private appointmentService: CompanyManagementService,
               private router: Router){
 
   }
@@ -53,6 +55,11 @@ export class UserAppointmentsComponent implements OnInit{
 
   viewMore(id: number){
     this.router.navigate(['/appointment-details/'+id]);
+  }
+
+  cancel(appointment: Appointment){
+    console.log("Usao");
+    this.appointmentService.cancelAppointment(appointment);
   }
 
   penalizeUncollectedAppointments(){
