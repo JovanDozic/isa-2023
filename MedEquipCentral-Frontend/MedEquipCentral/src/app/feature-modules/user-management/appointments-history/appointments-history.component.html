@@ -1,4 +1,11 @@
 <h3 class="mt-4">YOUR APPOINTMENTS</h3>
+<select [(ngModel)]="sortBy" class="form-control">
+  <option *ngFor="let sort of sortBys" [value]="sort">{{sort}}</option>
+</select>
+<select [(ngModel)]="sortType" class="form-control">
+  <option *ngFor="let type of sortTypes" [value]="type">{{type}}</option>
+</select>
+<button (click)="getData()" class="btn-primary">Sort</button>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
@@ -6,8 +13,9 @@
       <th *ngIf="user.userRole?.toString() == 'Company_Admin'">Buyer</th>
       <th>Date</th>
       <th>Duration</th>
+      <th>Price</th>
+      <th>Status</th>
       <th *ngIf="user.userRole?.toString() == 'Registered'">Action</th>
-      <th *ngIf="user.userRole?.toString() == 'Company_Admin'">Status</th>
     </tr>
   </thead>
   <tbody>
@@ -17,15 +25,18 @@
         {{appointment.buyer?.surname}}</td>
       <td>{{appointment.startTime | date:'medium'}}</td>
       <td>{{appointment.duration}} minutes</td>
+      <td>{{appointment.price}}</td>
       <td>
-        <button *ngIf="user.userRole?.toString() == 'Registered'" class="btn btn-primary"
-          (click)="viewMore(appointment.id)">View more</button>
         <span *ngIf="(user.userRole?.toString() == 'Company_Admin' || user.userRole?.toString() == 'Registered') && appointment.status == 1"
           class="my-1 mx-1">Collected</span>
         <span *ngIf="(user.userRole?.toString() == 'Company_Admin' || user.userRole?.toString() == 'Registered') && appointment.status == 2"
           class="my-1 mx-1">Cancelled</span>
         <span *ngIf="(user.userRole?.toString() == 'Company_Admin' || user.userRole?.toString() == 'Registered') && appointment.status == 3"
           class="my-1 mx-1">Expired</span>
+      </td>
+      <td>
+        <button *ngIf="user.userRole?.toString() == 'Registered'" class="btn btn-primary"
+          (click)="viewMore(appointment.id)">View more</button>
       </td>
     </tr>
   </tbody>

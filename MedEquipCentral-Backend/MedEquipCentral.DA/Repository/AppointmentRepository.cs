@@ -105,21 +105,29 @@ namespace MedEquipCentral.DA.Repository
                             .Include(x => x.Admin)
                             .AsQueryable();
 
-            if (dataIn.SortBy == "date" && dataIn.IsAsc)
+            if (dataIn.SortBy == "Date" && dataIn.IsAsc)
             {
                 result = result.OrderBy(x => x.StartTime);
             }
-            else if (dataIn.SortBy == "date" && !dataIn.IsAsc)
+            else if (dataIn.SortBy == "Date" && !dataIn.IsAsc)
             {
                 result = result.OrderByDescending(x => x.StartTime);
             }
-            else if (dataIn.SortBy == "price" && dataIn.IsAsc)
+            else if (dataIn.SortBy == "Price" && dataIn.IsAsc)
             {
                 result = result.OrderBy(x => x.Price);
             }
-            else if (dataIn.SortBy == "price" && !dataIn.IsAsc)
+            else if (dataIn.SortBy == "Price" && !dataIn.IsAsc)
             {
                 result = result.OrderByDescending(x => x.Price);
+            }
+            else if (dataIn.SortBy == "Duration" && dataIn.IsAsc)
+            {
+                result = result.OrderBy(x => x.Duration);
+            }
+            else if (dataIn.SortBy == "Duration" && !dataIn.IsAsc)
+            {
+                result = result.OrderByDescending(x => x.Duration);
             }
 
             return result.ToList();

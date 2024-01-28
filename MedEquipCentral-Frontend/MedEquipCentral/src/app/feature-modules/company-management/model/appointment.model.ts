@@ -15,6 +15,7 @@ export interface Appointment {
     equipmentIds?: number[],
     equipment: Equipment[],
     status?: AppointmentStatus,
+    price?: number
 }
 
 export enum AppointmentStatus {

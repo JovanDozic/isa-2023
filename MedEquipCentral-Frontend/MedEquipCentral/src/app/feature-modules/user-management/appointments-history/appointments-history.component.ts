@@ -14,7 +14,12 @@ import { User } from '../../../core/auth/model/user.model';
 export class AppointmentsHistoryComponent {
 
   appointments: Appointment[] = [];
-  user!: User
+  user!: User;
+
+  public sortTypes: string[] = ['ASC', 'DESC'];
+  public sortType: string = 'ASC';
+  public sortBys: string[] = ['Date', 'Price', 'Duration'];
+  public sortBy: string = '';
 
   constructor(private service: UserManagementService,
               private authService: AuthService,
@@ -31,18 +36,22 @@ export class AppointmentsHistoryComponent {
   }
 
   getData() {
+    let isAsc = true;
+    if(this.sortType === 'DESC')
+      isAsc= false;
+
     let obj = {
       pageInfo: {
         page: 1,
         size: 1000
       },
       userId: this.user.id,
-      sortBy: '',
-      isAsc: true,
+      sortBy: this.sortBy,
+      isAsc: isAsc,
     }
     this.service.getHistory(obj).subscribe({
       next: response => {
-        this.appointments = response.result;
+        this.appointments = response;
       }
     })
   }
