@@ -60,10 +60,10 @@ namespace MedEquipCentral.Controllers
             return await _appointmentService.Update(appointment);
         }
 
-        [HttpPatch("cancelAppointment/{appointmentId:int}")]
-        public async Task<string> CancelAppointment(int appointmentId)
+        [HttpPut("cancelAppointment")]
+        public async Task<string> CancelAppointment(AppointmentDto appointment)
         {
-            return await _appointmentService.CancelAppointment(appointmentId);
+            return await _appointmentService.CancelAppointment(appointment.Id);
         }
 
         [HttpPut("flagAsExpired/{appointmentId:int}")]

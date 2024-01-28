@@ -8,6 +8,7 @@
       <th>Duration</th>
       <th *ngIf="user.userRole?.toString() == 'Registered'">Action</th>
       <th *ngIf="user.userRole?.toString() == 'Company_Admin'">Status</th>
+      <th *ngIf="user.userRole?.toString() == 'Registered'">Cancel</th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +20,10 @@
       <td>{{appointment.duration}} minutes</td>
       <td *ngIf="user.userRole?.toString() == 'Registered'">
         <button class="btn btn-primary" (click)="viewMore(appointment.id)">View more</button>
+      </td>
+      <td>
+        <button *ngIf="user.userRole?.toString() == 'Registered'" class="btn btn-danger"
+          (click)="cancel(appointment)">Cancel</button>
       </td>
       <td *ngIf="user.userRole?.toString() == 'Company_Admin'">
         <button *ngIf="appointment.status == 0" class="btn btn-primary btn-sm" (click)="flagAsPickedUp(appointment)">Flag as picked up</button>
