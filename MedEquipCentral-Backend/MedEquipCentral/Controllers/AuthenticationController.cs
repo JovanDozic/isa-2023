@@ -28,13 +28,15 @@ public class AuthenticationController : Controller
     }
 
     [HttpPost("login")]
-    public async Task<AuthenticationTokensDto?> Login([FromBody] CredentialsDto credentials)
+    public async Task<ActionResult<AuthenticationTokensDto>> Login([FromBody] CredentialsDto credentials)
     {
         var token = await _authenticationService.Login(credentials);
-        if(token != null) 
+
+        if (token != null)
         {
-            return token;
+            return Ok(token);
         }
-        return null;
+
+        return NotFound(new { message = "Invalid credentials" });
     }
 }
