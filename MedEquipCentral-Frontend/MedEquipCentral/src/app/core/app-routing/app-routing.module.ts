@@ -16,6 +16,7 @@ import { UserAppointmentsComponent } from '../../feature-modules/user-management
 import { ChangePasswordFormComponent } from '../../feature-modules/user-management/change-password-form/change-password-form.component';
 import { UsersWithReservationComponent } from '../../feature-modules/user-management/users-with-reservation/users-with-reservation.component';
 import { PickupUsingQrComponent } from '../../feature-modules/company-management/pickup-using-qr/pickup-using-qr.component';
+import { AppointmentsHistoryComponent } from '../../feature-modules/user-management/appointments-history/appointments-history.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'change-password', component: ChangePasswordFormComponent },
   { path: 'users-with-reservation', component: UsersWithReservationComponent},
   { path: 'pickup-using-qr', component: PickupUsingQrComponent },
+  { path: 'appointment-history', component: AppointmentsHistoryComponent},
 ];
 
 @NgModule({

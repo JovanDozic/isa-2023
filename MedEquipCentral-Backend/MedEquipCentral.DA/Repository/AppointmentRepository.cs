@@ -58,7 +58,7 @@ namespace MedEquipCentral.DA.Repository
         public async Task<List<Appointment>> GetAllUsersAppointments(AppointmentPagedIn dataIn)
         {
             var result = _dbContext.Set<Appointment>()
-                            .Where(x => x.BuyerId == dataIn.UserId && x.Status == Contracts.Model.AppointmentStatus.NEW && x.StartTime <= DateTime.Now)
+                            .Where(x => x.BuyerId == dataIn.UserId && x.Status == Contracts.Model.AppointmentStatus.NEW && x.StartTime <= DateTime.UtcNow)
                             .Include(x => x.Buyer)
                             .Include(x => x.Equipment)
                             .Include(x => x.Company)

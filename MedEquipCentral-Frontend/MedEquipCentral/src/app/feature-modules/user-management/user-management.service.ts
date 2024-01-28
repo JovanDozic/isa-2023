@@ -92,4 +92,8 @@ export class UserManagementService {
     flagAsPickedUp(appointmentId: number): Observable<any> {
         return this.http.put(this.apiUrl + 'appointment/flagAsPickedUp/' + appointmentId, null);
     }
+
+    getHistory(obj: any): Observable<any> {
+        return this.http.post(this.apiUrl + 'appointment/getHistory', obj);
+    }
 }

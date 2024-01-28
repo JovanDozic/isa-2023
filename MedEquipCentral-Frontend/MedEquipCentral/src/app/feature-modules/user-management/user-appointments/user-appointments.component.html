@@ -7,7 +7,7 @@
       <th>Date</th>
       <th>Duration</th>
       <th *ngIf="user.userRole?.toString() == 'Registered'">Action</th>
-      <th *ngIf="user.userRole?.toString() == 'Company_Admin'">Status</th>
+      <th>Status</th>
     </tr>
   </thead>
   <tbody>
@@ -20,14 +20,14 @@
       <td>
         <button *ngIf="user.userRole?.toString() == 'Registered'" class="btn btn-primary"
           (click)="viewMore(appointment.id)">View more</button>
-        <button *ngIf="user.userRole?.toString() == 'Company_Admin' && appointment.status == 0" class="btn btn-primary btn-sm"
-          (click)="markAsCollected(appointment)">Mark as collected</button>
+      </td>
+      <td>
         <span *ngIf="user.userRole?.toString() == 'Company_Admin' && appointment.status == 1"
-          class="my-1 mx-1">Collected</span>
-        <span *ngIf="user.userRole?.toString() == 'Company_Admin' && appointment.status == 2"
-          class="my-1 mx-1">Cancelled</span>
-        <span *ngIf="user.userRole?.toString() == 'Company_Admin' && appointment.status == 3"
-          class="my-1 mx-1">Expired</span>
+        class="my-1 mx-1">Collected</span>
+      <span *ngIf="user.userRole?.toString() == 'Company_Admin' && appointment.status == 2"
+        class="my-1 mx-1">Cancelled</span>
+      <span *ngIf="user.userRole?.toString() == 'Company_Admin' && appointment.status == 3"
+        class="my-1 mx-1">Expired</span>
       </td>
     </tr>
   </tbody>

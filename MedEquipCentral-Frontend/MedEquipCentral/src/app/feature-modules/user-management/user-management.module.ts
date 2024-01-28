@@ -10,6 +10,7 @@ import { AppointmentDetailsComponent } from "./appointment-details/appointment-d
 import { UserAppointmentsComponent } from "./user-appointments/user-appointments.component";
 import { ChangePasswordFormComponent } from "./change-password-form/change-password-form.component";
 import { UsersWithReservationComponent } from "./users-with-reservation/users-with-reservation.component";
+import { AppointmentsHistoryComponent } from "./appointments-history/appointments-history.component";
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { UsersWithReservationComponent } from "./users-with-reservation/users-wi
         UserAppointmentsComponent,
         ChangePasswordFormComponent,
         UsersWithReservationComponent,
+        AppointmentsHistoryComponent,
     ],
     imports: [
       BrowserModule,

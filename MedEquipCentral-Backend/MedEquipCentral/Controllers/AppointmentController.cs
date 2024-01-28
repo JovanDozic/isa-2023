@@ -85,5 +85,11 @@ namespace MedEquipCentral.Controllers
             return await _appointmentService.FlagAs(appointmentId, AppointmentStatus.CANCELLED);
         }
 
+        [HttpPost("getHistory")]
+        public async Task<List<AppointmentDto>> GetHistory([FromBody]AppointmentPagedIn dataIn)
+        {
+            return await _appointmentService.GetHistory(dataIn);
+        }
+
     }
 }

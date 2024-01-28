@@ -45,10 +45,16 @@
                                 [routerLink]="['pickup-using-qr']"><i class="bi bi-qr-code-scan"></i> Pickup using QR</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown me-3">
-                    <a class="nav-link" [routerLink]="['user-appointments']">
+                <li class="nav-item dropdown me-3" *ngIf="user.userRole?.toString() == 'Company_Admin' || user.userRole?.toString() == 'Registered'">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
                         <span> Appointments</span>
                     </a>
+                    <ul class="dropdown-menu me-3">
+                        <li><a class="dropdown-item" [routerLink]="['user-appointments']"><i class="bi bi-list-nested"></i> Future appointments</a></li>
+                        <li><a class="dropdown-item"
+                                [routerLink]="['user-appointments-history']"><i class="bi bi-list-nested"></i> History</a></li>
+                    </ul>
                 </li>
 
                 <!-- done: Ovaj meni treba da bude dostupan samo logovanom system adminu -->
