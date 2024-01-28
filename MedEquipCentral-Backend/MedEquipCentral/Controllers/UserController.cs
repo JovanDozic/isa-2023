@@ -7,7 +7,6 @@ namespace MedEquipCentral.Controllers
 {
     [Route("api/user")]
     [ApiController]
-    [Authorize(Policy = "authenticatedPolicy")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;

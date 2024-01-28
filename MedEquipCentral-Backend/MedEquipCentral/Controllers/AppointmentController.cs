@@ -9,8 +9,7 @@ namespace MedEquipCentral.Controllers
 {
     [EnableCors("_mySpecificOrigins")]
     [Route("api/appointment")]
-    [ApiController]
-    [Authorize(Policy = "authenticatedPolicy")]
+    [ApiController] 
     public class AppointmentController : Controller
     {
         private readonly IAppointmentService _appointmentService;
@@ -61,7 +60,7 @@ namespace MedEquipCentral.Controllers
             return await _appointmentService.Update(appointment);
         }
 
-        [HttpGet("cancelAppointment/{appointmentId:int}")]
+        [HttpPatch("cancelAppointment/{appointmentId:int}")]
         public async Task<string> CancelAppointment(int appointmentId)
         {
             return await _appointmentService.CancelAppointment(appointmentId);

@@ -24,7 +24,6 @@ public class AuthenticationController : Controller
     }
 
     [HttpPatch("verify/{userId:int}")]
-    [Authorize(Policy = "authenticatedPolicy")]
     public async Task<AuthenticationTokensDto> VerifyUser([FromRoute]int userId)
     {
         return await _authenticationService.ConfirmEmailAsync(userId);
