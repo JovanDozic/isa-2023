@@ -44,5 +44,11 @@ namespace MedEquipCentral.DA.Repository
             _dbContext.SaveChanges();
             return Task.CompletedTask;
         }
+
+        public IEnumerable<User> GetAllByCompanyId(int companyId)
+        {
+            return GetAll().Where(u => u.CompanyId == companyId);
+        }
+
     }
 }

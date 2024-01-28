@@ -53,6 +53,10 @@ export class CompanyManagementService {
     return this.http.post<Appointment>(this.apiUrl + 'appointment/createAppointment', appointment)
   }
 
+  updateAppointment(appointment: Appointment): Observable<Appointment> {
+    return this.http.put<Appointment>(this.apiUrl + 'appointment/update', appointment)
+  }
+
   getFreeAppointments(companyId: number): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(this.apiUrl + 'appointment/getFreeAppointmentsForCompany/' + companyId);
   }
