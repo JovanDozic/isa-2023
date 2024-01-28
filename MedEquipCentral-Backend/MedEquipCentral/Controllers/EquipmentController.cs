@@ -1,12 +1,14 @@
 ﻿using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedEquipCentral.Controllers
 {
     [Route("api/equipment")]
     [ApiController]
+    [Authorize(Policy = "authenticatedPolicy")]
     public class EquipmentController : Controller
     {
         private readonly IEquipmentService _equipmentService;

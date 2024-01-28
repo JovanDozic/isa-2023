@@ -20,16 +20,22 @@ export class AuthService {
     private tokenStorage: TokenStorage,
     private router: Router) { }
 
-  login(login: Login): Observable<AuthenticationResponse> {
-    return this.http
-      .post<AuthenticationResponse>(environment.apiHost + 'users/login', login)
-      .pipe(
-        tap((authenticationResponse) => {
-          this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
-          this.setUser();
-        })
-      );
-  }
+    login(login: Login): Observable<AuthenticationResponse> {
+      return this.http
+        .post<AuthenticationResponse>(environment.apiHost + 'users/login', login)
+        .pipe(
+          tap(
+            (authenticationResponse) => {
+              this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
+              this.setUser();
+            },
+            (error) => {
+              alert("Invalid credentials");
+              console.error('Login failed:', error);
+            }
+          )
+        );
+    }
 
   register(registration: Registration): Observable<AuthenticationResponse> {
     return this.http

@@ -1,11 +1,13 @@
 ﻿using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedEquipCentral.Controllers
 {
     [Route("api/company")]
+    [Authorize(Policy = "allRolesPolicy")]
     public class CompanyController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -16,6 +18,7 @@ namespace MedEquipCentral.Controllers
         }
 
         [HttpGet("getAll")]
+        [AllowAnonymous]
         public async Task<List<CompanyDto>> GetAll()
         {
             return await _companyService.GetAll();
@@ -28,12 +31,14 @@ namespace MedEquipCentral.Controllers
         }
 
         [HttpPut]
+        [Authorize(Policy = "companyAdminPolicy")]
         public async Task<CompanyDto> Update([FromBody] CompanyDto companyDto)
         {
             return await _companyService.Update(companyDto);
         }
 
         [HttpPost]
+        [Authorize(Policy = "systemAdminPolicy")]
         public Task<CompanyDto> Add([FromBody] CompanyDto companyDto)
         {
             return _companyService.Add(companyDto);

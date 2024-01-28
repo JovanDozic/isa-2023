@@ -30,8 +30,35 @@ namespace MedEquipCentral.BL.Service
 
         private async Task<AppointmentDto> ValidateAndSave(AppointmentDto appointmentDto)
         {
-            var company = await _unitOfWork.GetCompanyRepository().GetByIdAsync(appointmentDto.CompanyId);
             var appointmentTime = TimeOnly.FromDateTime(appointmentDto.StartTime);
+            if(appointmentDto.AdminId == 0)
+            {
+                var companyAdmins = _unitOfWork.GetUserRepository().GetAllByCompanyId(appointmentDto.CompanyId);
+                foreach(var companyAdmin in companyAdmins)
+                {
+                    var appointments = await _unitOfWork.GetAppointmentRepository().GetAllAdminsAppointments(companyAdmin.Id);
+                    if(appointments != null)
+                    {
+                        foreach(var appointment in appointments)
+                        {
+                            if(appointmentDto.StartTime.AddMinutes(appointmentDto.Duration) <= appointment.StartTime || appointment.StartTime.AddMinutes(appointment.Duration) < appointmentDto.StartTime)
+                            {
+                                appointmentDto.AdminId = companyAdmin.Id;
+                                var appo = _mapper.Map<Appointment>(appointmentDto);
+                                await _unitOfWork.GetAppointmentRepository().Add(appo);
+                                await _unitOfWork.Save();
+                                return appointmentDto;
+                            }
+                        }
+                    }
+                    appointmentDto.AdminId = companyAdmin.Id;
+                    var app = _mapper.Map<Appointment>(appointmentDto);
+                    await _unitOfWork.GetAppointmentRepository().Add(app);
+                    await _unitOfWork.Save();
+                    return appointmentDto;
+                }
+            }
+            var company = await _unitOfWork.GetCompanyRepository().GetByIdAsync(appointmentDto.CompanyId);
 
             //TODO
             if (true/*appointmentTime >= company.StartTime && appointmentTime <= company.EndTime && appointmentTime.AddMinutes(appointmentDto.Duration) <= company.EndTime*/)
