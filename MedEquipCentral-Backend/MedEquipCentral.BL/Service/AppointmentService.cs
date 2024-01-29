@@ -97,7 +97,8 @@ namespace MedEquipCentral.BL.Service
         {
             var list = await _unitOfWork.GetAppointmentRepository().GetAll();
             var count = list.Count();
-            var user = await _unitOfWork.GetUserRepository().GetByIdAsync(appointmentDto.BuyerId.Value);
+            var buyerId = appointmentDto.BuyerId.HasValue == false ? 5 : appointmentDto.BuyerId.Value;
+            var user = await _unitOfWork.GetUserRepository().GetByIdAsync(buyerId);
             CreateQrCode(appointmentDto, count);
             await _emailService.SendAppointmentConfirmationEmail(new UserEmailOptionsDto
             {
@@ -107,13 +108,13 @@ namespace MedEquipCentral.BL.Service
                     new KeyValuePair<string, string>("{{UserName}}", user.Name),
                     new KeyValuePair<string, string>("{{Id}}", appointmentDto.Id.ToString()),
                 }
-            }, $"../../../QRCodes/reservation{count}.png");
+            }, $"../../MedEquipCentral-Frontend/MedEquipCentral/src/assets/QRCodes/reservation{count}.png");
 
             var path = $"reservation{count}.png";
 
             var qrCode = new QrCode();
             qrCode.AdminId = appointmentDto.AdminId;
-            qrCode.BuyerId = appointmentDto.BuyerId.Value;
+            qrCode.BuyerId = buyerId;
             qrCode.AppointmentId = count;
             qrCode.AppointmentStatus = (DA.Contracts.Model.AppointmentStatus)AppointmentStatus.NEW;
             qrCode.Path = path;
@@ -130,7 +131,7 @@ namespace MedEquipCentral.BL.Service
             QRCodeLogo qrCodeLogo = new QRCodeLogo("../../favicon.png");
             GeneratedBarcode myQRCodeWithLogo = QRCodeWriter.CreateQrCodeWithLogo(appointment, qrCodeLogo);
             myQRCodeWithLogo.ResizeTo(500, 500).SetMargins(10).ChangeBarCodeColor(Color.DarkBlue);
-            myQRCodeWithLogo.SaveAsPng($"../../QRCodes/reservation{count}.png");
+            myQRCodeWithLogo.SaveAsPng($"../../MedEquipCentral-Frontend/MedEquipCentral/src/assets/QRCodes/reservation{count}.png");
         }
 
         public async Task<List<AppointmentDto>> GetCompanyAppointments(int companyId)

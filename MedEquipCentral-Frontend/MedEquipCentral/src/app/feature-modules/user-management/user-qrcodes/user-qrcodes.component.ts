@@ -15,7 +15,7 @@ export class UserQrcodesComponent {
   qrCodes: any[] = [];
   user!: User;
 
-  public filterBys: string[] = ['Collected', 'Cancelled', 'Duration'];
+  public filterBys: string[] = ['New', 'Processed', 'Cancelled', 'Expired'];
   public filterBy: string = '';
 
   constructor(private service: UserManagementService,

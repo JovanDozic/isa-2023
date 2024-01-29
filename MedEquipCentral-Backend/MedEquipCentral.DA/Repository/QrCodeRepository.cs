@@ -2,6 +2,7 @@
 using MedEquipCentral.DA.Contexts;
 using MedEquipCentral.DA.Contracts.Helper;
 using MedEquipCentral.DA.Contracts.IRepository;
+using MedEquipCentral.DA.Contracts.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -22,11 +23,25 @@ namespace MedEquipCentral.DA.Repository
 
         public async Task<List<QrCode>> GetByUserId(QrCodeDataIn dataIn)
         {
-            var result = _dbContext.Set<QrCode>().Where(x => x.BuyerId == dataIn.UserId).AsQueryable();
+            var result = _dbContext.Set<QrCode>().Where(x => x.BuyerId == dataIn.UserId || x.AdminId == dataIn.UserId).AsQueryable();
 
             if (!dataIn.FilterBy.IsNullOrEmpty())
             {
-                return result.Where(x => x.AppointmentStatus == x.AppointmentStatus).ToList();
+                switch (dataIn.FilterBy)
+                {
+                    case "New":
+                        result = result.Where(x => x.AppointmentStatus == Contracts.Model.AppointmentStatus.NEW);
+                        break;
+                    case "Processed":
+                        result = result.Where(x => x.AppointmentStatus == Contracts.Model.AppointmentStatus.PROCESSED);
+                        break;
+                    case "Cancelled":
+                        result = result.Where(x => x.AppointmentStatus == Contracts.Model.AppointmentStatus.CANCELLED);
+                        break;
+                    default:
+                        result = result.Where(x => x.AppointmentStatus == Contracts.Model.AppointmentStatus.EXPIRED);
+                        break;
+                }
             }
 
             return await result.ToListAsync();
