@@ -10,4 +10,5 @@ export interface Equipment{
     companyId: number,
     company?: Company,
     quantity: number,
+    price: number,
 }

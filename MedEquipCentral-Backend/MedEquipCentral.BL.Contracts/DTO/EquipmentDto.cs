@@ -10,5 +10,6 @@
         public int CompanyId { get; set; }
         public CompanyDto? Company { get; set; }
         public int Quantity { get; set; }
+        public double Price { get; set; }
     }
 }

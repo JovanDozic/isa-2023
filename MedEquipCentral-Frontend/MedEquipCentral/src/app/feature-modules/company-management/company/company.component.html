@@ -28,7 +28,7 @@
             </div>
         </div>
         <h5 class="card-title mt-5">Available appointments</h5>
-        <table class="table mt-3">
+        <table *ngIf="appointments.length > 0" class="table mt-3">
             <thead>
                 <tr>
                     <th class="col-sm-4">Start time</th>
@@ -46,12 +46,14 @@
                 </tr>
             </tbody>
         </table>
+        <span *ngIf="appointments.length == 0" class="mt-4">There are no available appointments for this company <br><br></span>
+
         <button class="btn btn-outline-primary end-0" data-bs-toggle="modal"
             data-bs-target="#createAppointmentModal">Create
             appointment</button>
         <div *ngIf="user.userRole?.toString() == 'Company_Admin'">
             <h5 class="card-title mt-5">Administrators</h5>
-            <table class="table table-bordered mt-4">
+            <table *ngIf="admins.length > 0" class="table table-bordered mt-4">
                 <thead>
                     <tr>
                         <th class="col-sm-1">#</th>
@@ -69,6 +71,7 @@
                     </tr>
                 </tbody>
             </table>
+            <span *ngIf="admins.length == 0" class="mt-4">There are no other admins for this company</span>
 
             <div class="mt-5">
 

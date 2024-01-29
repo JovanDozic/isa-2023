@@ -45,13 +45,8 @@ export class AppointmentFormComponent implements OnInit {
         duration: this.appointmentForm.value.duration,
         companyId: this.companyId,
         adminId: this.user.id,
-        buyerId: 5,
-        equipmentIds: this.reservedEquipmentId,
         equipment: [],
         company: this.company,
-        status: AppointmentStatus.NEW,
-        // adminName: this.user.name,
-        // adminSurname: this.user.surname,
       };
       console.log(this.reservedEquipmentId);
       console.log(appointment.equipmentIds);
@@ -63,6 +58,7 @@ export class AppointmentFormComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);
+          this.appointmentAdded.emit();
         },
       });
     } else if (!this.createYourOwn) {

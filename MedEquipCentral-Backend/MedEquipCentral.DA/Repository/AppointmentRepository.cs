@@ -24,7 +24,7 @@ namespace MedEquipCentral.DA.Repository
         public async Task<List<Appointment>> GetFreeAppointments(int companyId)
         {
             var result = _dbContext.Set<Appointment>()
-                                   .Where(x => x.CompanyId == companyId && x.BuyerId == 5)
+                                   .Where(x => x.CompanyId == companyId && x.BuyerId == null)
                                    .Include(x => x.Equipment)
                                    .Include(x => x.Admin)
                                    //.Include(x => x.Buyer)
@@ -71,7 +71,7 @@ namespace MedEquipCentral.DA.Repository
         public async Task<List<Appointment>> GetAllAdminsAppointments(int adminId)
         {
             var result = _dbContext.Set<Appointment>()
-                            .Where(x => x.AdminId == adminId)
+                            .Where(x => x.AdminId == adminId && x.BuyerId != null)
                             .Include(x => x.Buyer)
                             .Include(x => x.Equipment)
                             .Include(x => x.Company)

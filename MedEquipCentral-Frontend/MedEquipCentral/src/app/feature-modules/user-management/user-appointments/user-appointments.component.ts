@@ -64,7 +64,7 @@ export class UserAppointmentsComponent implements OnInit{
     })
   }
 
-  markAsCollected(appointment: Appointment) {
+  flagAsPickedUp(appointment: Appointment) {
 
     this.service.flagAsPickedUp(appointment.id).subscribe({
       next: response => {

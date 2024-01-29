@@ -38,11 +38,10 @@ export class EquipmentFormComponent implements OnInit, OnChanges {
     })
 
     this.equipmentForm = this.fb.group({
-      id: [0, Validators.required],
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      typeId: [0, Validators.required],
-      companyId: [this.companyId, Validators.required],
+      name: [undefined, Validators.required],
+      description: [undefined, Validators.required],
+      typeId: [undefined, Validators.required],
+      price: [undefined, Validators.required],
       quantity: [undefined, Validators.required],
     });
 
@@ -74,12 +73,13 @@ export class EquipmentFormComponent implements OnInit, OnChanges {
   addEquipment() {
     if (this.equipmentForm.valid) {
       const equipment: Equipment = {
-        id: this.equipmentForm.value.id,
+        id: 0,
         name: this.equipmentForm.value.name,
         description: this.equipmentForm.value.description,
         typeId: this.equipmentForm.value.typeId,
-        companyId: this.equipmentForm.value.companyId,
+        companyId: this.companyId,
         quantity: this.equipmentForm.value.quantity,
+        price: this.equipmentForm.value.price,
         type: {
           type: ''
         }
@@ -104,6 +104,7 @@ export class EquipmentFormComponent implements OnInit, OnChanges {
         description: this.equipment.description,
         typeId: this.equipment.typeId,
         companyId: this.equipment.companyId,
+        price: this.equipmentForm.value.price,
         quantity: this.equipmentForm.value.quantity,
         type: {
           type: ''

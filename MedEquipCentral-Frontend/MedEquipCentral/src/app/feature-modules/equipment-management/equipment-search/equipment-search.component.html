@@ -3,7 +3,7 @@
     <div class="row">
         <h1 class="my-5">Equipment</h1>
     </div>
-    <div *ngIf="user.userRole?.toString() == 'Company_Admin'" class="mb-4">
+    <div *ngIf="showForCompany && user.userRole?.toString() == 'Company_Admin'" class="mb-4">
         <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal"
             data-bs-target="#equipmentFormModal"  (click)="setIsEditFalse()">+ Add
             equipment</button>
@@ -75,8 +75,7 @@
                         <div class="col-md-6">
                             <div class="d-flex align-items-end justify-content-end">
                                 <button *ngIf="showForCompany && user.userRole?.toString() == 'Company_Admin'" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#equipmentFormModal" (click)="setIsEditTrue(equipment)">+ Add
-                                    more</button>
+                                    data-bs-target="#equipmentFormModal" (click)="setIsEditTrue(equipment)">Edit</button>
                                 <button class="btn btn-sm btn-outline-secondary" (click)="addToCart(equipment.id)" *ngIf="user.userRole?.toString() !== 'Company_Admin'">Add to cart</button>
                             </div>
                         </div>

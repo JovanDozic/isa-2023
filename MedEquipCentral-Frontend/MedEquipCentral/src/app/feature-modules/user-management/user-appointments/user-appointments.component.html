@@ -17,17 +17,14 @@
         {{appointment.buyer?.surname}}</td>
       <td>{{appointment.startTime | date:'medium'}}</td>
       <td>{{appointment.duration}} minutes</td>
-      <td>
-        <button *ngIf="user.userRole?.toString() == 'Registered'" class="btn btn-primary"
-          (click)="viewMore(appointment.id)">View more</button>
+      <td *ngIf="user.userRole?.toString() == 'Registered'">
+        <button class="btn btn-primary" (click)="viewMore(appointment.id)">View more</button>
       </td>
       <td *ngIf="user.userRole?.toString() == 'Company_Admin'">
-        <span *ngIf="user.userRole?.toString() == 'Company_Admin' && appointment.status == 1"
-        class="my-1 mx-1">Collected</span>
-      <span *ngIf="user.userRole?.toString() == 'Company_Admin' && appointment.status == 2"
-        class="my-1 mx-1">Cancelled</span>
-      <span *ngIf="user.userRole?.toString() == 'Company_Admin' && appointment.status == 3"
-        class="my-1 mx-1">Expired</span>
+        <button *ngIf="appointment.status == 0" class="btn btn-primary btn-sm" (click)="flagAsPickedUp(appointment)">Flag as picked up</button>
+        <span *ngIf="appointment.status == 1" class="my-1 mx-1">Collected</span>
+        <span *ngIf="appointment.status == 2" class="my-1 mx-1">Cancelled</span>
+        <span *ngIf="appointment.status == 3" class="my-1 mx-1">Expired</span>
       </td>
     </tr>
   </tbody>
