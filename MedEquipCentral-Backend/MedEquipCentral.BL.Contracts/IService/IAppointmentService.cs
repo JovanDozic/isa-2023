@@ -15,5 +15,6 @@ namespace MedEquipCentral.BL.Contracts.IService
         Task SendCollectionConfirmationEmail(AppointmentDto appointmentDto);
         Task<string> CancelAppointment(int appointmentId);
         Task<List<AppointmentDto>> GetHistory(AppointmentPagedIn dataIn);
+        Task<List<QrCodeDto>> GetQrCodes(QrCodeDataIn dataIn);
     }
 }

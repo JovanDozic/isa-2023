@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MedEquipCentral.BL.Contracts.DTO;
+using MedEquipCentral.DA.Contracts.Helper;
 using MedEquipCentral.DA.Contracts.Model;
 
 namespace MedEquipCentral.BL.Mapper
@@ -9,6 +10,7 @@ namespace MedEquipCentral.BL.Mapper
         public AppointmentProfile()
         {
             CreateMap<AppointmentDto, Appointment>().ReverseMap();
+            CreateMap<QrCodeDto, QrCode>().ReverseMap();
         }
     }
 }

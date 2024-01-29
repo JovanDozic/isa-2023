@@ -1,4 +1,5 @@
-﻿using MedEquipCentral.DA.Contracts.Model;
+﻿using MedEquipCentral.DA.Contracts.Helper;
+using MedEquipCentral.DA.Contracts.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedEquipCentral.DA.Contexts
@@ -12,6 +13,7 @@ namespace MedEquipCentral.DA.Contexts
         public DbSet<Equipment> Equipment { get; set; }
         public DbSet<EquipmentType> EquipmentType { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<QrCode> QrCodes { get; set; }
         //public DbSet<AppointmentEquipment> AppointmentEquipment { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

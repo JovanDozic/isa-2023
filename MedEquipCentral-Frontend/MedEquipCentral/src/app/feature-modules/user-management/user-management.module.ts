@@ -11,6 +11,7 @@ import { UserAppointmentsComponent } from "./user-appointments/user-appointments
 import { ChangePasswordFormComponent } from "./change-password-form/change-password-form.component";
 import { UsersWithReservationComponent } from "./users-with-reservation/users-with-reservation.component";
 import { AppointmentsHistoryComponent } from "./appointments-history/appointments-history.component";
+import { UserQrcodesComponent } from "./user-qrcodes/user-qrcodes.component";
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { AppointmentsHistoryComponent } from "./appointments-history/appointment
         ChangePasswordFormComponent,
         UsersWithReservationComponent,
         AppointmentsHistoryComponent,
+        UserQrcodesComponent,
     ],
     imports: [
       BrowserModule,

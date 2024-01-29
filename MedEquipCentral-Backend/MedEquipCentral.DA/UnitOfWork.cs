@@ -21,6 +21,7 @@ namespace MedEquipCentral.DA
         private IEquipmentRepository EquipmentRepository { get; set; }
         private IEquipmentTypeRepository EquipmentTypeRepository { get; set; }
         private IAppointmentRepository AppointmentRepository { get; set; }
+        private IQrCodeRepository QrCodeRepository { get; set; }
 
         public async void Dispose()
         {
@@ -81,6 +82,11 @@ namespace MedEquipCentral.DA
         public IAppointmentRepository GetAppointmentRepository()
         {
             return AppointmentRepository ?? (AppointmentRepository = new AppointmentRepository(_context));
+        }
+
+        public IQrCodeRepository GetQrCodeRepository()
+        {
+            return QrCodeRepository ?? (QrCodeRepository = new QrCodeRepository(_context));
         }
     }
 }

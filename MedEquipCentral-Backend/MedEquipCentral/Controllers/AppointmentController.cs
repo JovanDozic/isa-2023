@@ -90,5 +90,10 @@ namespace MedEquipCentral.Controllers
             return await _appointmentService.GetHistory(dataIn);
         }
 
+        [HttpPost("getQrCodes")]
+        public async Task<List<QrCodeDto>> GetQrCodes(QrCodeDataIn dataIn)
+        {
+            return await _appointmentService.GetQrCodes(dataIn);
+        }
     }
 }

@@ -3,8 +3,10 @@ using IronBarCode;
 using MedEquipCentral.BL.Contracts.DTO;
 using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts;
+using MedEquipCentral.DA.Contracts.Helper;
 using MedEquipCentral.DA.Contracts.Model;
 using MedEquipCentral.DA.Contracts.Shared;
+using AppointmentStatus = MedEquipCentral.BL.Contracts.DTO.AppointmentStatus;
 
 namespace MedEquipCentral.BL.Service
 {
@@ -106,6 +108,17 @@ namespace MedEquipCentral.BL.Service
                     new KeyValuePair<string, string>("{{Id}}", appointmentDto.Id.ToString()),
                 }
             }, $"../../../QRCodes/reservation{count}.png");
+
+            var path = $"reservation{count}.png";
+
+            var qrCode = new QrCode();
+            qrCode.AdminId = appointmentDto.AdminId;
+            qrCode.BuyerId = appointmentDto.BuyerId.Value;
+            qrCode.AppointmentId = count;
+            qrCode.AppointmentStatus = (DA.Contracts.Model.AppointmentStatus)AppointmentStatus.NEW;
+            qrCode.Path = path;
+            await _unitOfWork.GetQrCodeRepository().Add(qrCode);
+            await _unitOfWork.Save();
             return null;
         }
 
@@ -149,7 +162,7 @@ namespace MedEquipCentral.BL.Service
             };
         }
 
-        public async Task<bool> FlagAs(int appointmentId, Contracts.DTO.AppointmentStatus status)
+        public async Task<bool> FlagAs(int appointmentId, AppointmentStatus status)
         {
             var appointment = await _unitOfWork.GetAppointmentRepository().GetById(appointmentId);
             if (appointment is null)
@@ -157,9 +170,14 @@ namespace MedEquipCentral.BL.Service
                 return false;
             }
             appointment.Status = (DA.Contracts.Model.AppointmentStatus?)status;
+
+            var qrCode = await _unitOfWork.GetQrCodeRepository().GetByAppointmentId(appointmentId);
+            qrCode.AppointmentStatus = (DA.Contracts.Model.AppointmentStatus)status;
+            _unitOfWork.GetQrCodeRepository().Update(qrCode);
+
             await _unitOfWork.Save();
 
-            if (status == Contracts.DTO.AppointmentStatus.PROCESSED)
+            if (status == AppointmentStatus.PROCESSED)
             {
                 if (appointment.BuyerId is null)
                 {
@@ -178,7 +196,10 @@ namespace MedEquipCentral.BL.Service
 
             var timeDifference = DateTime.Now.Subtract(appointmentDb.StartTime).TotalHours;
 
-            if(timeDifference > 24)
+            var qrCode = await _unitOfWork.GetQrCodeRepository().GetByAppointmentId(appointmentId);
+            qrCode.AppointmentStatus = (DA.Contracts.Model.AppointmentStatus)AppointmentStatus.CANCELLED;
+
+            if (timeDifference > 24)
             {
                 await _unitOfWork.GetAppointmentRepository().Remove(appointmentDb);
                 return "Appointment is canceled successfully";
@@ -195,6 +216,10 @@ namespace MedEquipCentral.BL.Service
             appointment.Status = (DA.Contracts.Model.AppointmentStatus?)appointmentDto.Status;
             appointment.EquipmentIds= appointmentDto.EquipmentIds;
             appointment.BuyerId= appointmentDto.BuyerId;
+
+            var qrCode = await _unitOfWork.GetQrCodeRepository().GetByAppointmentId(appointmentDto.Id);
+            qrCode.BuyerId = appointmentDto.BuyerId;
+            _unitOfWork.GetQrCodeRepository().Update(qrCode);
 
             _unitOfWork.GetAppointmentRepository().Update(appointment);
             await _unitOfWork.Save();
@@ -220,6 +245,15 @@ namespace MedEquipCentral.BL.Service
             var appointmentDtos = _mapper.Map <List<AppointmentDto>>(appointments);
 
             return appointmentDtos;
+        }
+
+        public async Task<List<QrCodeDto>> GetQrCodes(QrCodeDataIn dataIn)
+        {
+            var qrCodes = await _unitOfWork.GetQrCodeRepository().GetByUserId(dataIn);
+
+            var qrCodeDtos = _mapper.Map<List<QrCodeDto>>(qrCodes);
+
+            return qrCodeDtos;
         }
     }
 }

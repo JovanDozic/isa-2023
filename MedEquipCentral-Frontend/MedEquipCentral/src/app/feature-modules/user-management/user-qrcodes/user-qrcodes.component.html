@@ -1,0 +1,26 @@
+<h3 class="mt-4">YOUR APPOINTMENTS</h3>
+<select [(ngModel)]="filterBy" class="form-control">
+  <option *ngFor="let filter of filterBys" [value]="filter">{{filter}}</option>
+</select>
+<button (click)="getData()" class="btn-primary">Filter</button>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Qr code</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let qrCode of qrCodes">
+      <td><img src="../../../../assets/{{qrCode.path}}" style="width: 4rem;"></td>
+      <td>
+        <span *ngIf="(user.userRole?.toString() == 'Company_Admin' || user.userRole?.toString() == 'Registered') && qrCode.appointmentStatus == 1"
+          class="my-1 mx-1">Collected</span>
+        <span *ngIf="(user.userRole?.toString() == 'Company_Admin' || user.userRole?.toString() == 'Registered') && qrCode.appointmentStatus == 2"
+          class="my-1 mx-1">Cancelled</span>
+        <span *ngIf="(user.userRole?.toString() == 'Company_Admin' || user.userRole?.toString() == 'Registered') && qrCode.appointmentStatus == 3"
+          class="my-1 mx-1">Expired</span>
+      </td>
+    </tr>
+  </tbody>
+</table>

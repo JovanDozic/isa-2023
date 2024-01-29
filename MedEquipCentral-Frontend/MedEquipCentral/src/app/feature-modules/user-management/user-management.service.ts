@@ -96,4 +96,8 @@ export class UserManagementService {
     getHistory(obj: any): Observable<any> {
         return this.http.post(this.apiUrl + 'appointment/getHistory', obj);
     }
+
+    getQrCodes(obj: any): Observable<any> {
+        return this.http.post(this.apiUrl + 'appointment/getQrCodes', obj);
+    }
 }

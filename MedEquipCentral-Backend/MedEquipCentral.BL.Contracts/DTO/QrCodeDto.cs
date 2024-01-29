@@ -1,10 +1,8 @@
-﻿using MedEquipCentral.DA.Contracts.Model;
-using MedEquipCentral.DA.Contracts.Shared;
-
-namespace MedEquipCentral.DA.Contracts.Helper
+﻿namespace MedEquipCentral.BL.Contracts.DTO
 {
-    public class QrCode : Entity
+    public class QrCodeDto
     {
+        public int Id { get; set; }
         public int AdminId { get; set; }
         public int? BuyerId { get; set; }
         public int AppointmentId { get; set; }
