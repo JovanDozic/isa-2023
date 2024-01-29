@@ -57,8 +57,10 @@ export class CompanyManagementService {
     return this.http.put<Appointment>(this.apiUrl + 'appointment/update', appointment)
   }
 
-  cancelAppointment(appointment: Appointment): Observable<Appointment> {
-    return this.http.put<Appointment>(this.apiUrl + 'appointment/cancelAppointment', appointment)
+  cancelAppointment(appointmentId: number): Observable<Appointment> {
+    console.log("OVO JE:");
+    console.log(this.apiUrl + 'appointment/cancelAppointment/' + appointmentId);
+    return this.http.put<Appointment>(this.apiUrl + 'appointment/cancelAppointment/' + appointmentId, null);
   }
 
   getFreeAppointments(companyId: number): Observable<Appointment[]> {

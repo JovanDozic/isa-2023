@@ -9,7 +9,7 @@ namespace MedEquipCentral.Controllers
 {
     [EnableCors("_mySpecificOrigins")]
     [Route("api/appointment")]
-    [ApiController] 
+    [ApiController]
     public class AppointmentController : Controller
     {
         private readonly IAppointmentService _appointmentService;
@@ -60,10 +60,17 @@ namespace MedEquipCentral.Controllers
             return await _appointmentService.Update(appointment);
         }
 
-        [HttpPut("cancelAppointment")]
-        public async Task<string> CancelAppointment(AppointmentDto appointment)
+        //[HttpPut("cancelAppointment")]
+        //public async Task<string> CancelAppointment(AppointmentDto appointment)
+        //{
+        //    return await _appointmentService.CancelAppointment(appointment.Id);
+        //}
+
+        [AllowAnonymous]
+        [HttpPut("cancelAppointment/{appointmentId:int}")]
+        public async Task<string> CancelAppointment(int appointmentId)
         {
-            return await _appointmentService.CancelAppointment(appointment.Id);
+            return await _appointmentService.CancelAppointment(appointmentId);
         }
 
         [HttpPut("flagAsExpired/{appointmentId:int}")]
@@ -85,7 +92,7 @@ namespace MedEquipCentral.Controllers
         }
 
         [HttpPost("getHistory")]
-        public async Task<List<AppointmentDto>> GetHistory([FromBody]AppointmentPagedIn dataIn)
+        public async Task<List<AppointmentDto>> GetHistory([FromBody] AppointmentPagedIn dataIn)
         {
             return await _appointmentService.GetHistory(dataIn);
         }
