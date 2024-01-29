@@ -66,7 +66,6 @@ namespace MedEquipCentral.Controllers
         //    return await _appointmentService.CancelAppointment(appointment.Id);
         //}
 
-        [AllowAnonymous]
         [HttpPut("cancelAppointment/{appointmentId:int}")]
         public async Task<string> CancelAppointment(int appointmentId)
         {

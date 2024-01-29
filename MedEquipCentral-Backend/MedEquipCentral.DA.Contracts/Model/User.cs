@@ -32,6 +32,7 @@ namespace MedEquipCentral.DA.Contracts.Model
             Job = job;
             CompanyInfo = companyInfo;
             Role = role;
+            PenalPoints = 0;
             Validate();
         }
         private void Validate()

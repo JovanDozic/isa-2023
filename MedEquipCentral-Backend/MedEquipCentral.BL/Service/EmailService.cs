@@ -94,7 +94,7 @@ public class EmailService : IEmailService
 
     private string GetEmailBody(string templateName)
     {
-        var body = File.ReadAllText($"C:\\Users\\mbovan\\Desktop\\ISA\\isa-2023\\MedEquipCentral-Backend\\MedEquipCentral.BL\\EmailTemplate\\{templateName}.html");
+        var body = File.ReadAllText($"../../MedEquipCentral.BL/EmailTemplate/{templateName}.html");
         return body;
     }
 
