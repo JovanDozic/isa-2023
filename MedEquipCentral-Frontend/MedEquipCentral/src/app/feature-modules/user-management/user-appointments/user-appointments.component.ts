@@ -58,8 +58,13 @@ export class UserAppointmentsComponent implements OnInit{
   }
 
   cancel(appointment: Appointment){
-    console.log("Usao");
-    this.appointmentService.cancelAppointment(appointment);
+    console.log("Usao: ", appointment.id);
+    this.appointmentService.cancelAppointment(appointment.id).subscribe({
+      next: response => {
+        console.log("Odgovor: ", response);
+        this.getData();
+      }
+    });
   }
 
   penalizeUncollectedAppointments(){
