@@ -204,8 +204,6 @@ namespace MedEquipCentral.BL.Service
 
             if (timeDifference > 24)
             {
-                await _unitOfWork.GetAppointmentRepository().Remove(appointmentDb);
-                return "Appointment is canceled successfully";
                 user.PenalPoints += 1;
                 _unitOfWork.GetAppointmentRepository().Update(appointment);
                 _unitOfWork.GetUserRepository().Update(user);
@@ -214,7 +212,6 @@ namespace MedEquipCentral.BL.Service
             }
             else
             {
-                return "Appointment is in 24h range so you cant cancel it";
                 user.PenalPoints += 2;
                 _unitOfWork.GetAppointmentRepository().Update(appointment);
                 _unitOfWork.GetUserRepository().Update(user);
