@@ -204,6 +204,10 @@ namespace MedEquipCentral.BL.Service
             var timeDifference = DateTime.Now.Subtract(appointment.StartTime).TotalHours;
             
             if(timeDifference > 24)
+            var qrCode = await _unitOfWork.GetQrCodeRepository().GetByAppointmentId(appointmentId);
+            qrCode.AppointmentStatus = (DA.Contracts.Model.AppointmentStatus)AppointmentStatus.CANCELLED;
+
+            if (timeDifference > 24)
             {
                 user.PenalPoints += 1;
                 _unitOfWork.GetAppointmentRepository().Update(appointment);
