@@ -93,3 +93,18 @@ INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "Admi
 INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price", "Status") VALUES (12, 30, 2, 24, 25, '2023-12-24 15:49:12', '{8, 9, 7}', 300, 0);
 INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price", "Status") VALUES (13, 30, 2, 24, 25, '2023-12-25 15:49:12', '{8, 9, 7}', 300, 0);
 ALTER SEQUENCE medequipcentral."Appointments_Id_seq" RESTART WITH 11;
+
+-- Inserting QrCodes Data
+INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (1, 11, 5, 1, 0, 'reservation11.png');
+INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (2, 20, 3, 2, 0, 'reservation12.png');
+INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (3, 20, 3, 3, 0, 'reservation13.png');
+INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (4, 20, 3, 4, 0, 'reservation17.png');
+INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (5, 11, 5, 5, 0, 'reservation18.png');
+INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (6, 20, 9, 6, 0, 'reservation19.png');
+INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (7, 20, 10, 7, 0, 'reservation24.png');
+INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (8, 20, 10, 8, 0, 'reservation25.png');
+INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (9, 11, 13, 9, 0, 'reservation26.png');
+INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (10, 24, 25, 10, 0, 'reservation27.png');
+INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (11, 24, 25, 11, 0, 'reservation28.png');
+INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (12, 24, 25, 12, 0, 'reservation29.png');
+INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (13, 24, 25, 13, 0, 'reservation11.png');
