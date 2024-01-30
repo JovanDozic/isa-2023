@@ -76,7 +76,7 @@ INSERT INTO medequipcentral."Users" ("Id", "Email", "Password", "Name", "Surname
 INSERT INTO medequipcentral."Users" ("Id", "Email", "Password", "Name", "Surname", "City", "Country", "Phone", "Job", "CompanyInfo", "CompanyId", "Role", "IsFirstLogin", "PenalPoints") VALUES (23, 'patricia.davis@example.com', 'patricia', 'Patricia', 'Davis', 'Fairview', 'Spain', '+18554216265', 'Engineer', 'Non-profit', 2, 2, True, 0);
 INSERT INTO medequipcentral."Users" ("Id", "Email", "Password", "Name", "Surname", "City", "Country", "Phone", "Job", "CompanyInfo", "CompanyId", "Role", "IsFirstLogin", "PenalPoints") VALUES (24, 'projekat.isa@gmail.com', 'Test!!123', 'Projekat', 'Isa', 'Novi Sad', 'Srbija', '+381654216265', 'Engineer', 'Non-profit', 2, 2, False, 0);
 INSERT INTO medequipcentral."Users" ("Id", "Email", "Password", "Name", "Surname", "City", "Country", "Phone", "Job", "CompanyInfo", "CompanyId", "Role", "IsFirstLogin", "PenalPoints") VALUES (25, 'projekat.user@gmail.com', 'Test!!123', 'Projekat', 'User', 'Novi Sad', 'Srbija', '+381654346265', 'Nurse', 'Non-profit', null, 1, False, 0);
-ALTER SEQUENCE medequipcentral."Users_Id_seq" RESTART WITH 24;
+ALTER SEQUENCE medequipcentral."Users_Id_seq" RESTART WITH 26;
 
 -- Inserting Appointments Data
 INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price", "Status") VALUES (1, 70, 2, 11, 5, '2023-12-20 01:10:52', '{}', 200, 0);
@@ -92,7 +92,7 @@ INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "Admi
 INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price", "Status") VALUES (11, 30, 2, 24, 25, '2023-12-23 15:49:12', '{8, 9, 7}', 300, 0);
 INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price", "Status") VALUES (12, 30, 2, 24, 25, '2023-12-24 15:49:12', '{8, 9, 7}', 300, 0);
 INSERT INTO medequipcentral."Appointments" ("Id", "Duration", "CompanyId", "AdminId", "BuyerId", "StartTime", "EquipmentIds", "Price", "Status") VALUES (13, 30, 2, 24, 25, '2023-12-25 15:49:12', '{8, 9, 7}', 300, 0);
-ALTER SEQUENCE medequipcentral."Appointments_Id_seq" RESTART WITH 11;
+ALTER SEQUENCE medequipcentral."Appointments_Id_seq" RESTART WITH 14;
 
 -- Inserting QrCodes Data
 INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (1, 11, 5, 1, 0, 'reservation11.png');
@@ -108,3 +108,4 @@ INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentI
 INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (11, 24, 25, 11, 0, 'reservation28.png');
 INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (12, 24, 25, 12, 0, 'reservation29.png');
 INSERT INTO medequipcentral."QrCodes" ("Id", "AdminId", "BuyerId", "AppointmentId", "AppointmentStatus", "Path") VALUES (13, 24, 25, 13, 0, 'reservation11.png');
+ALTER SEQUENCE medequipcentral."QrCodes_Id_seq" RESTART WITH 14;
