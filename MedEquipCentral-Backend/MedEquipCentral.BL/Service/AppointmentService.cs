@@ -32,8 +32,15 @@ namespace MedEquipCentral.BL.Service
 
         private async Task<AppointmentDto> ValidateAndSave(AppointmentDto appointmentDto)
         {
-            var appointmentTime = TimeOnly.FromDateTime(appointmentDto.StartTime);
-            if(appointmentDto.AdminId == 0)
+            //Validacija
+            var companyAppointments = await _unitOfWork.GetAppointmentRepository().GetAllByCompany(appointmentDto.CompanyId);
+            var isInvalidTime = companyAppointments.Any(appointment =>
+                !(appointmentDto.StartTime.AddMinutes(appointmentDto.Duration) <= appointment.StartTime
+                || appointment.StartTime.AddMinutes(appointment.Duration) <= appointmentDto.StartTime));
+            if (isInvalidTime) return null;
+
+
+            if (appointmentDto.AdminId == 0)
             {
                 var companyAdmins = _unitOfWork.GetUserRepository().GetAllByCompanyId(appointmentDto.CompanyId);
                 foreach(var companyAdmin in companyAdmins)
@@ -61,9 +68,9 @@ namespace MedEquipCentral.BL.Service
                 }
             }
             var company = await _unitOfWork.GetCompanyRepository().GetByIdAsync(appointmentDto.CompanyId);
+            var appointmentTime = TimeOnly.FromDateTime(appointmentDto.StartTime);
 
-            //TODO
-            if (true/*appointmentTime >= company.StartTime && appointmentTime <= company.EndTime && appointmentTime.AddMinutes(appointmentDto.Duration) <= company.EndTime*/)
+            if (appointmentTime >= company.StartTime && appointmentTime <= company.EndTime && appointmentTime.AddMinutes(appointmentDto.Duration) <= company.EndTime)
             {
                 var appointment = _mapper.Map<Appointment>(appointmentDto);
                 await _unitOfWork.GetAppointmentRepository().Add(appointment);
@@ -224,6 +231,8 @@ namespace MedEquipCentral.BL.Service
         public async Task<AppointmentDto> Update(AppointmentDto appointmentDto)
         {
             var appointment = await _unitOfWork.GetAppointmentRepository().GetByIdAsync(appointmentDto.Id);
+            if (appointment.BuyerId != null) return null; //validacija da li je vec rezervisan
+
             appointment.Status = (DA.Contracts.Model.AppointmentStatus?)appointmentDto.Status;
             appointment.EquipmentIds= appointmentDto.EquipmentIds;
             appointment.BuyerId= appointmentDto.BuyerId;
