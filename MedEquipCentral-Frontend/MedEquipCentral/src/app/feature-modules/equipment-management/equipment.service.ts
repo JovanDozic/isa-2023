@@ -42,4 +42,7 @@ export class EquipmentService {
   startDelivery(): Observable<any> {
     return this.http.get(this.apiUrl + "/startDelivery");
   }
+  getMessage(): Observable<any> {
+    return this.http.get(this.apiUrl + "/getMessage")
+  }
 }

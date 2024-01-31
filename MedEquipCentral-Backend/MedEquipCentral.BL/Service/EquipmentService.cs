@@ -133,7 +133,7 @@ namespace MedEquipCentral.BL.Service
             return true;
         }
 
-        public List<(double Latitude, double Longitude)> GetMessage()
+        public List<string> GetMessage()
         {
             ConnectionFactory factory = new ConnectionFactory
             {
@@ -144,7 +144,7 @@ namespace MedEquipCentral.BL.Service
                 Password = "guest"
             };
 
-            List<(double Latitude, double Longitude)> coordinates = new List<(double, double)>();
+            List<string> coordinates = new List<string>();
             using (var conn = factory.CreateConnection())
             using (var channel = conn.CreateModel())
             {
@@ -153,18 +153,9 @@ namespace MedEquipCentral.BL.Service
                 consumer.Received += (sender, e) =>
                 {
                     string message = Encoding.UTF8.GetString(e.Body.ToArray());
-                    var parts = message.Split("/");
 
-                    if (parts.Length == 2 && double.TryParse(parts[0], out double latitude) && double.TryParse(parts[1], out double longitude))
-                    {
-                        coordinates.Add((latitude, longitude));
-                        Console.WriteLine($"Received message: {message}");
-                        Console.WriteLine($"Received: {latitude}{longitude}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Invalid message format: {message}");
-                    }
+                    coordinates.Add(message);
+                    Console.WriteLine($"Received: {message}");
 
                     channel.BasicAck(e.DeliveryTag, false);
                 };
@@ -172,7 +163,7 @@ namespace MedEquipCentral.BL.Service
                 var consumerTag = channel.BasicConsume("my.queue1", false, consumer);
 
                 // Wait for a certain period (adjust timeout as needed)
-                Task.Delay(15000).Wait();
+                Task.Delay(10).Wait();
             }
 
             return coordinates;

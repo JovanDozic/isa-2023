@@ -14,6 +14,6 @@ namespace MedEquipCentral.BL.Contracts.IService
         Task<EquipmentDto> GetById(int equipmentId);
         Task<List<EquipmentDto>> ReduceQuantity(int appointmentId);
         Task<bool> StartDelivery();
-        List<(double Latitude, double Longitude)> GetMessage();
+        List<string> GetMessage();
     }
 }

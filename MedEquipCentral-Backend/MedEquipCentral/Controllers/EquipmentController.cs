@@ -71,7 +71,7 @@ namespace MedEquipCentral.Controllers
         }
 
         [HttpGet("getMessage")]
-        public List<(double Latitude, double Longitude)> GetMessage()
+        public List<string> GetMessage()
         {
             return _equipmentService.GetMessage();
         }

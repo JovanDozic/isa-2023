@@ -5,6 +5,7 @@ import { CompanyManagementService } from '../../company-management.service';
 import { Appointment, AppointmentStatus } from '../../model/appointment.model';
 import { Company } from '../../model/company.model';
 import { User } from '../../../../core/auth/model/user.model';
+import { UserManagementService } from '../../../user-management/user-management.service';
 
 @Component({
   selector: 'app-appointment-form',
@@ -27,11 +28,22 @@ export class AppointmentFormComponent implements OnInit {
 
   constructor(
     private service: CompanyManagementService,
+    private userService: UserManagementService,
     private route: ActivatedRoute,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.userService.getUserById(this.user.id).subscribe({
+      next: response => {
+        console.log(response);
+        this.user = response;
+      },
+      error: err => {
+        this.user.id = 0;
+        console.log(err);
+      }
+    })
     this.appointmentForm = this.fb.group({
       appointmentDate: ['', Validators.required],
       duration: ['', Validators.required],
@@ -41,8 +53,8 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   createAppointment() {
-    if(this.penalPoints){
-      if(this.penalPoints >= 3) {
+    if(this.user.penalPoints){
+      if(this.user.penalPoints >= 3) {
         alert("You have 3 or more penal point so you can not make appointment")
         return;
       }
