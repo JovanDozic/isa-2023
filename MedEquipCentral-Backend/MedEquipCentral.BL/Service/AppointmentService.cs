@@ -43,14 +43,14 @@ namespace MedEquipCentral.BL.Service
             if (appointmentDto.AdminId == 0)
             {
                 var companyAdmins = _unitOfWork.GetUserRepository().GetAllByCompanyId(appointmentDto.CompanyId);
-                foreach(var companyAdmin in companyAdmins)
+                foreach (var companyAdmin in companyAdmins)
                 {
                     var appointments = await _unitOfWork.GetAppointmentRepository().GetAllAdminsAppointments(companyAdmin.Id);
-                    if(appointments != null)
+                    if (appointments != null)
                     {
-                        foreach(var appointment in appointments)
+                        foreach (var appointment in appointments)
                         {
-                            if(appointmentDto.StartTime.AddMinutes(appointmentDto.Duration) <= appointment.StartTime || appointment.StartTime.AddMinutes(appointment.Duration) < appointmentDto.StartTime)
+                            if (appointmentDto.StartTime.AddMinutes(appointmentDto.Duration) <= appointment.StartTime || appointment.StartTime.AddMinutes(appointment.Duration) < appointmentDto.StartTime)
                             {
                                 appointmentDto.AdminId = companyAdmin.Id;
                                 var appo = _mapper.Map<Appointment>(appointmentDto);
@@ -195,6 +195,18 @@ namespace MedEquipCentral.BL.Service
                 _mailKitService.SendPickupConfirmEmail(user.Email);
             }
 
+            if (status == AppointmentStatus.EXPIRED)
+            {
+                if (appointment.BuyerId is null)
+                {
+                    return false;
+                }
+                var user = await _unitOfWork.GetUserRepository().GetByIdAsync((int)appointment.BuyerId);
+                user.PenalPoints += 2;
+                _unitOfWork.GetUserRepository().Update(user);
+                await _unitOfWork.Save();
+            }
+
             return true;
         }
 
@@ -234,8 +246,8 @@ namespace MedEquipCentral.BL.Service
             if (appointment.BuyerId != null) return null; //validacija da li je vec rezervisan
 
             appointment.Status = (DA.Contracts.Model.AppointmentStatus?)appointmentDto.Status;
-            appointment.EquipmentIds= appointmentDto.EquipmentIds;
-            appointment.BuyerId= appointmentDto.BuyerId;
+            appointment.EquipmentIds = appointmentDto.EquipmentIds;
+            appointment.BuyerId = appointmentDto.BuyerId;
 
             var qrCode = await _unitOfWork.GetQrCodeRepository().GetByAppointmentId(appointmentDto.Id);
             qrCode.BuyerId = appointmentDto.BuyerId;
@@ -262,7 +274,7 @@ namespace MedEquipCentral.BL.Service
         {
             var appointments = await _unitOfWork.GetAppointmentRepository().GetHistory(dataIn);
 
-            var appointmentDtos = _mapper.Map <List<AppointmentDto>>(appointments);
+            var appointmentDtos = _mapper.Map<List<AppointmentDto>>(appointments);
 
             return appointmentDtos;
         }
