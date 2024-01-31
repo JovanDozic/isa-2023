@@ -94,6 +94,7 @@ namespace MedEquipCentral.BL.Service
             {
                 var equipment = await _unitOfWork.GetEquipmentRepository().GetByIdAsync(equipmentId);
                 equipment.Quantity -= 1;
+                equipment.Reserved -= 1;
 
                 if (!result.Contains(equipment))
                 {

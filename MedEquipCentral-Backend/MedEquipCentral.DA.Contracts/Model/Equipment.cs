@@ -22,6 +22,7 @@ namespace MedEquipCentral.DA.Contracts.Model
         public Company Company { get; set; }
 
         public int Quantity { get; set; }
+        public int Reserved { get; set; } = 0;
         public double Price { get; set; }
 
         public Equipment(string name, string description, int typeId, int companyId, int quantity, double price)

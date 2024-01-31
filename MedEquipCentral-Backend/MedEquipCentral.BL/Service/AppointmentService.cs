@@ -246,15 +246,33 @@ namespace MedEquipCentral.BL.Service
             if (appointment.BuyerId != null) return null; //validacija da li je vec rezervisan
 
             appointment.Status = (DA.Contracts.Model.AppointmentStatus?)appointmentDto.Status;
-            appointment.EquipmentIds = appointmentDto.EquipmentIds;
-            appointment.BuyerId = appointmentDto.BuyerId;
+            appointment.EquipmentIds= appointmentDto.EquipmentIds;
+
+            bool isAllow = true;
+            if(appointment.EquipmentIds.Count > 0 || appointment.EquipmentIds != null)
+            {
+                foreach(var eqId in appointmentDto.EquipmentIds)
+                {
+                    var equip = await _unitOfWork.GetEquipmentRepository().GetByIdAsync(eqId);
+                    equip.Reserved += 1;
+                    if(equip.Quantity >= equip.Reserved)
+                    {
+                        isAllow = false;
+                    }
+                }
+            }
+            appointment.BuyerId= appointmentDto.BuyerId;
 
             var qrCode = await _unitOfWork.GetQrCodeRepository().GetByAppointmentId(appointmentDto.Id);
             qrCode.BuyerId = appointmentDto.BuyerId;
             _unitOfWork.GetQrCodeRepository().Update(qrCode);
 
             _unitOfWork.GetAppointmentRepository().Update(appointment);
-            await _unitOfWork.Save();
+
+            if (isAllow)
+            {
+                await _unitOfWork.Save();
+            }
             return appointmentDto;
         }
 
