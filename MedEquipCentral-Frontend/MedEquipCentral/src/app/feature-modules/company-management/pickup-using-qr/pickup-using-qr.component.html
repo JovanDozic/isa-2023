@@ -11,6 +11,14 @@
         </div>
     </div>
 
+    <div class="row mt-5" *ngIf="appointmentNull">
+        <div class="col-12">
+            <h4 class="mb-4">
+                You are <span class="fw-semibold" style="color:red;">not</span> assigned for the scanned appointment.
+            </h4>
+        </div>
+    </div>
+
     <div class="row mt-4" *ngIf="appointmentLoaded">
 
         <div class="row mt-3">

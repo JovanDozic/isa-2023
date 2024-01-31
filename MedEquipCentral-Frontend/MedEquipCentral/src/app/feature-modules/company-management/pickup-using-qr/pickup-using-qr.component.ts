@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { BrowserQRCodeReader } from '@zxing/browser';
 import { Appointment, AppointmentStatus } from '../model/appointment.model';
 import { CompanyManagementService } from '../company-management.service';
-import Integer from '@zxing/library/esm/core/util/Integer';
 import { UserManagementService } from '../../user-management/user-management.service';
 import { EquipmentService } from '../../equipment-management/equipment.service';
 
@@ -21,6 +20,7 @@ export class PickupUsingQrComponent {
   appointmentProcessed: boolean = false;
   loadedQrSrc = '';
   appointmentCancelled: boolean = false;
+  appointmentNull: boolean = false;
 
   constructor(private companyService: CompanyManagementService, private userService: UserManagementService, private equipmentService: EquipmentService) { }
 
@@ -42,8 +42,8 @@ export class PickupUsingQrComponent {
         imageElement.src = reader.result as string;
         this.loadedQrSrc = imageElement.src;
         this.qrCodeReader.decodeFromImageElement(imageElement).then(result => {
-          // console.log('QR Code result: ', result);
-          // console.log(result.getText());
+           console.log('QR Code result: ', result);
+           console.log(result.getText());
           this.getAppointment(result.getText());
         }).catch(err => {
           console.error('Error decoding QR Code:', err);
@@ -64,7 +64,8 @@ export class PickupUsingQrComponent {
         this.appointment = response;
         console.log("Appointment loaded: ", this.appointment);
 
-        if (this.appointment == undefined) {
+        if (this.appointment == undefined || this.appointment == null) {
+          this.appointmentNull = true;
           return;
         }
 
@@ -114,6 +115,7 @@ export class PickupUsingQrComponent {
             alert("Loading appointment failed!");
           }
         );
+
         this.appointmentLoaded = true;
         this.appointmentProcessed = this.appointment.status == AppointmentStatus.PROCESSED;
         this.appointmentExpired = this.appointment.status == AppointmentStatus.EXPIRED;
@@ -184,8 +186,4 @@ export class PickupUsingQrComponent {
       }
     );
   }
-
-
-
-
 }
