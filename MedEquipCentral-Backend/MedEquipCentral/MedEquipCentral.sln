@@ -5,13 +5,17 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedEquipCentral", "MedEquipCentral.csproj", "{A3C1DE23-E358-4ECA-AC8C-72EE237C3A84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedEquipCentral.BL", "..\MedEquipCentral.BL\MedEquipCentral.BL.csproj", "{D04DA790-7E8C-4D31-A24A-54FD8CC56550}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedEquipCentral.BL", "..\MedEquipCentral.BL\MedEquipCentral.BL.csproj", "{D04DA790-7E8C-4D31-A24A-54FD8CC56550}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedEquipCentral.DA", "..\MedEquipCentral.DA\MedEquipCentral.DA.csproj", "{167998D7-692D-414D-8730-B2E73C801556}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedEquipCentral.DA", "..\MedEquipCentral.DA\MedEquipCentral.DA.csproj", "{167998D7-692D-414D-8730-B2E73C801556}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedEquipCentral.DA.Contracts", "..\MedEquipCentral.DA.Contracts\MedEquipCentral.DA.Contracts.csproj", "{B5DFEFEE-B08F-40A8-BA42-13A73A57E7E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedEquipCentral.DA.Contracts", "..\MedEquipCentral.DA.Contracts\MedEquipCentral.DA.Contracts.csproj", "{B5DFEFEE-B08F-40A8-BA42-13A73A57E7E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedEquipCentral.BL.Contracts", "..\MedEquipCentral.BL.Contracts\MedEquipCentral.BL.Contracts.csproj", "{4C21002C-205F-4DAE-A31E-C478177A0ACF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedEquipCentral.BL.Contracts", "..\MedEquipCentral.BL.Contracts\MedEquipCentral.BL.Contracts.csproj", "{4C21002C-205F-4DAE-A31E-C478177A0ACF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQPublisher", "..\RabbitMQPublisher\RabbitMQPublisher.csproj", "{2EC21321-C3CA-4988-A84C-14E25E907978}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQConsumer", "..\RabbitMQConsumer\RabbitMQConsumer.csproj", "{F8624F30-3373-4090-B8FA-DB45C6BB68EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{4C21002C-205F-4DAE-A31E-C478177A0ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C21002C-205F-4DAE-A31E-C478177A0ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C21002C-205F-4DAE-A31E-C478177A0ACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EC21321-C3CA-4988-A84C-14E25E907978}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EC21321-C3CA-4988-A84C-14E25E907978}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EC21321-C3CA-4988-A84C-14E25E907978}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EC21321-C3CA-4988-A84C-14E25E907978}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8624F30-3373-4090-B8FA-DB45C6BB68EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8624F30-3373-4090-B8FA-DB45C6BB68EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8624F30-3373-4090-B8FA-DB45C6BB68EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8624F30-3373-4090-B8FA-DB45C6BB68EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

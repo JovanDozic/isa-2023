@@ -18,5 +18,6 @@
 	  <PackageReference Include="MailKit" Version="4.3.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.25" />
 	  <PackageReference Include="QRCoder" Version="1.4.3" />
+	  <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
 	</ItemGroup>
 </Project>
