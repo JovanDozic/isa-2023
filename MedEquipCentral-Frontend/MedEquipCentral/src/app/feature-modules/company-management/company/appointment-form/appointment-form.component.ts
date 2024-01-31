@@ -38,7 +38,6 @@ export class AppointmentFormComponent implements OnInit {
     });
 
     this.penalPoints =  this.user.penalPoints
-    this.penalPoints = 3
   }
 
   createAppointment() {
