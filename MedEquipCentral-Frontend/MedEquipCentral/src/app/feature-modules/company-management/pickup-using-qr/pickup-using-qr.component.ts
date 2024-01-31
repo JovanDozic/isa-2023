@@ -4,6 +4,8 @@ import { Appointment, AppointmentStatus } from '../model/appointment.model';
 import { CompanyManagementService } from '../company-management.service';
 import { UserManagementService } from '../../user-management/user-management.service';
 import { EquipmentService } from '../../equipment-management/equipment.service';
+import { isThisQuarter } from 'date-fns';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-pickup-using-qr',
@@ -11,7 +13,6 @@ import { EquipmentService } from '../../equipment-management/equipment.service';
   styleUrl: './pickup-using-qr.component.css'
 })
 export class PickupUsingQrComponent {
-
 
   appointment: Appointment | undefined;
   qrCodeReader = new BrowserQRCodeReader();
@@ -22,7 +23,7 @@ export class PickupUsingQrComponent {
   appointmentCancelled: boolean = false;
   appointmentNull: boolean = false;
 
-  constructor(private companyService: CompanyManagementService, private userService: UserManagementService, private equipmentService: EquipmentService) { }
+  constructor(private companyService: CompanyManagementService, private userService: UserManagementService, private equipmentService: EquipmentService, private authService: AuthService) { }
 
   onFileChange(event: Event) {
     this.appointmentLoaded = false;
@@ -64,7 +65,7 @@ export class PickupUsingQrComponent {
         this.appointment = response;
         console.log("Appointment loaded: ", this.appointment);
 
-        if (this.appointment == undefined || this.appointment == null) {
+        if (this.appointment == undefined || this.appointment == null || this.appointment.adminId != this.authService.user$.getValue().id) {
           this.appointmentNull = true;
           return;
         }
