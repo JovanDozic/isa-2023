@@ -25,28 +25,39 @@ namespace MedEquipCentral.BL.Service
             _mailKitService = mailKitService;
         }
 
-        private async Task<AppointmentDto> AddAppointment(AppointmentDto appointmentDto)
+        public async Task<string> CreateAppointment(AppointmentDto dataIn)
         {
-            return await ValidateAndSave(appointmentDto);
+            var result = await AddAppointment(dataIn);
+
+            if (result != null && result.BuyerId != null)
+            {
+                await CreateQRCodeForAppointment(result);
+                return "Appointment created successfully, QR code is sent to your email";
+            }
+            else if (result != null)
+            {
+                return "Appointment created successfully";
+            }
+
+            return "Appointment creation failed";
+
         }
 
-        private async Task<AppointmentDto> ValidateAndSave(AppointmentDto appointmentDto)
+        private async Task<AppointmentDto> AddAppointment(AppointmentDto appointmentDto)
         {
-            //Validacija
-            var companyAppointments = await _unitOfWork.GetAppointmentRepository().GetAllByCompany(appointmentDto.CompanyId);
-            var isInvalidTime = companyAppointments.Any(appointment =>
-                !(appointmentDto.StartTime.AddMinutes(appointmentDto.Duration) <= appointment.StartTime
-                || appointment.StartTime.AddMinutes(appointment.Duration) <= appointmentDto.StartTime));
-            if (isInvalidTime) return null;
+            //Working hours validation
+            var company = await _unitOfWork.GetCompanyRepository().GetByIdAsync(appointmentDto.CompanyId);
+            var appointmentTime = TimeOnly.FromDateTime(appointmentDto.StartTime);
+            if (!(appointmentTime >= company.StartTime && appointmentTime <= company.EndTime && appointmentTime.AddMinutes(appointmentDto.Duration) <= company.EndTime)) return null;
 
-
+            //User creation
             if (appointmentDto.AdminId == 0)
             {
                 var companyAdmins = _unitOfWork.GetUserRepository().GetAllByCompanyId(appointmentDto.CompanyId);
                 foreach (var companyAdmin in companyAdmins)
                 {
                     var appointments = await _unitOfWork.GetAppointmentRepository().GetAllAdminsAppointments(companyAdmin.Id);
-                    if (appointments != null)
+                    if (appointments.Count != 0)
                     {
                         foreach (var appointment in appointments)
                         {
@@ -55,31 +66,50 @@ namespace MedEquipCentral.BL.Service
                                 appointmentDto.AdminId = companyAdmin.Id;
                                 var appo = _mapper.Map<Appointment>(appointmentDto);
                                 await _unitOfWork.GetAppointmentRepository().Add(appo);
-                                await _unitOfWork.Save();
-                                return appointmentDto;
+
+                                if (await Validate(appointmentDto))
+                                {
+                                    await _unitOfWork.Save();
+                                    return appointmentDto;
+                                }
                             }
                         }
                     }
-                    appointmentDto.AdminId = companyAdmin.Id;
-                    var app = _mapper.Map<Appointment>(appointmentDto);
-                    await _unitOfWork.GetAppointmentRepository().Add(app);
+                    else
+                    {
+                        appointmentDto.AdminId = companyAdmin.Id;
+                        var app = _mapper.Map<Appointment>(appointmentDto);
+                        await _unitOfWork.GetAppointmentRepository().Add(app);
+
+                        if (await Validate(appointmentDto))
+                        {
+                            await _unitOfWork.Save();
+                            return appointmentDto;
+                        }
+                    }
+
+                }
+            }
+            else
+            {   //Admin creation                  
+                var appointment = _mapper.Map<Appointment>(appointmentDto);
+                await _unitOfWork.GetAppointmentRepository().Add(appointment);
+                if (await Validate(appointmentDto))
+                {
                     await _unitOfWork.Save();
                     return appointmentDto;
                 }
             }
-            var company = await _unitOfWork.GetCompanyRepository().GetByIdAsync(appointmentDto.CompanyId);
-            var appointmentTime = TimeOnly.FromDateTime(appointmentDto.StartTime);
+            return null;
+        }
 
-            if (appointmentTime >= company.StartTime && appointmentTime <= company.EndTime && appointmentTime.AddMinutes(appointmentDto.Duration) <= company.EndTime)
-            {
-                var appointment = _mapper.Map<Appointment>(appointmentDto);
-                await _unitOfWork.GetAppointmentRepository().Add(appointment);
-                await _unitOfWork.Save();
-                return appointmentDto;
-            }
-
-            return null; //If validation fails 
-            //TODO: Dodati bolji nacin rada sa ovom metodom
+        private async Task<bool> Validate(AppointmentDto appointmentDto)
+        {
+            var companyAppointments = await _unitOfWork.GetAppointmentRepository().GetAllByCompany(appointmentDto.CompanyId);
+            var isValidTime = !companyAppointments.Any(appointment =>
+                !(appointmentDto.StartTime.AddMinutes(appointmentDto.Duration) <= appointment.StartTime
+                || appointment.StartTime.AddMinutes(appointment.Duration) <= appointmentDto.StartTime));
+            return isValidTime;
         }
 
         public async Task<List<AppointmentDto>> GetFreeAppointmentsForCompany(int companyId)
@@ -88,18 +118,6 @@ namespace MedEquipCentral.BL.Service
             return _mapper.Map<List<AppointmentDto>>(appointments);
         }
 
-        public async Task<string> CreateAppointment(AppointmentDto dataIn)
-        {
-            var result = await AddAppointment(dataIn);
-
-            if (result != null)
-            {
-
-                await CreateQRCodeForAppointment(result);
-            }
-
-            return "Appointment created successfully, QR code is sent to your email";
-        }
         private async Task<string> CreateQRCodeForAppointment(AppointmentDto appointmentDto)
         {
             var list = await _unitOfWork.GetAppointmentRepository().GetAll();
@@ -242,8 +260,9 @@ namespace MedEquipCentral.BL.Service
 
         public async Task<AppointmentDto> Update(AppointmentDto appointmentDto)
         {
+            //Validacija da li je vec rezervisan
             var appointment = await _unitOfWork.GetAppointmentRepository().GetByIdAsync(appointmentDto.Id);
-            if (appointment.BuyerId != null) return null; //validacija da li je vec rezervisan
+            if (appointment.BuyerId != null) return null;
 
             appointment.Status = (DA.Contracts.Model.AppointmentStatus?)appointmentDto.Status;
             appointment.EquipmentIds= appointmentDto.EquipmentIds;
@@ -262,12 +281,11 @@ namespace MedEquipCentral.BL.Service
                 }
             }
             appointment.BuyerId= appointmentDto.BuyerId;
+            _unitOfWork.GetAppointmentRepository().Update(appointment);
 
             var qrCode = await _unitOfWork.GetQrCodeRepository().GetByAppointmentId(appointmentDto.Id);
             qrCode.BuyerId = appointmentDto.BuyerId;
             _unitOfWork.GetQrCodeRepository().Update(qrCode);
-
-            _unitOfWork.GetAppointmentRepository().Update(appointment);
 
             if (isAllow)
             {
