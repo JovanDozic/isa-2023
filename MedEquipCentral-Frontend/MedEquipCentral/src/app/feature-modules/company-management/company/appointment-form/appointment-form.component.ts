@@ -17,6 +17,7 @@ export class AppointmentFormComponent implements OnInit {
   company!: Company;
   createYourOwn: boolean = false;
   appointmentId: number = 0;
+  penalPoints?: number;
 
   @Input() companyId: number = 0;
   @Input() user!: User;
@@ -35,9 +36,18 @@ export class AppointmentFormComponent implements OnInit {
       appointmentDate: ['', Validators.required],
       duration: ['', Validators.required],
     });
+
+    this.penalPoints =  this.user.penalPoints
+    this.penalPoints = 3
   }
 
   createAppointment() {
+    if(this.penalPoints){
+      if(this.penalPoints >= 3) {
+        alert("You have 3 or more penal point so you can not make appointment")
+        return;
+      }
+    }
     if (this.reservedEquipmentId.length === 0) {
       const appointment: Appointment = {
         id: 0,
