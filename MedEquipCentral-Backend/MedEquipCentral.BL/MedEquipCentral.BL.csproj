@@ -9,6 +9,8 @@
 	<ItemGroup>
 		<ProjectReference Include="..\MedEquipCentral.BL.Contracts\MedEquipCentral.BL.Contracts.csproj" />
 		<ProjectReference Include="..\MedEquipCentral.DA.Contracts\MedEquipCentral.DA.Contracts.csproj" />
+		<ProjectReference Include="..\RabbitMQConsumer\RabbitMQConsumer.csproj" />
+		<ProjectReference Include="..\RabbitMQPublisher\RabbitMQPublisher.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

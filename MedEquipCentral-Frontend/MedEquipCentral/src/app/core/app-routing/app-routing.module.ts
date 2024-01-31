@@ -18,6 +18,7 @@ import { UsersWithReservationComponent } from '../../feature-modules/user-manage
 import { PickupUsingQrComponent } from '../../feature-modules/company-management/pickup-using-qr/pickup-using-qr.component';
 import { AppointmentsHistoryComponent } from '../../feature-modules/user-management/appointments-history/appointments-history.component';
 import { UserQrcodesComponent } from '../../feature-modules/user-management/user-qrcodes/user-qrcodes.component';
+import { DeliveryComponent } from '../../feature-modules/equipment-management/delivery/delivery.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'pickup-using-qr', component: PickupUsingQrComponent },
   { path: 'appointment-history', component: AppointmentsHistoryComponent},
   { path: 'qr-codes', component: UserQrcodesComponent},
+  { path: 'delivery', component: DeliveryComponent},
 ];
 
 @NgModule({

@@ -4,6 +4,8 @@ import { EquipmentSearchComponent } from './equipment-search/equipment-search.co
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EquipmentFormComponent } from './equipment-form/equipment-form.component';
+import { DeliveryComponent } from './delivery/delivery.component';
+import { SharedModule } from '../../shared/shared.module';
 
 
 
@@ -11,16 +13,19 @@ import { EquipmentFormComponent } from './equipment-form/equipment-form.componen
   declarations: [
     EquipmentSearchComponent,
     EquipmentFormComponent,
+    DeliveryComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule
   ],
   exports: [
     EquipmentSearchComponent,
     EquipmentFormComponent,
+    DeliveryComponent
   ]
 })
 export class EquipmentManagementModule { }

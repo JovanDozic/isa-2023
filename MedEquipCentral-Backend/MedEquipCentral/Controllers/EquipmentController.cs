@@ -64,5 +64,16 @@ namespace MedEquipCentral.Controllers
         {
             return await _equipmentService.ReduceQuantity(appointmentId);
         }
+        [HttpGet("startDelivery")] // /*/{startLat:float}/{startLon:float}/{endLat:float}/{endLon:float}*/
+        public Task<bool> StartDelivery(/*float startLat, float startLon, float endLat, float endLon*/)
+        {
+            return _equipmentService.StartDelivery();
+        }
+
+        [HttpGet("getMessage")]
+        public List<(double Latitude, double Longitude)> GetMessage()
+        {
+            return _equipmentService.GetMessage();
+        }
     }
 }

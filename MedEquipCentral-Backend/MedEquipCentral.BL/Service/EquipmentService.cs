@@ -4,6 +4,13 @@ using MedEquipCentral.BL.Contracts.IService;
 using MedEquipCentral.DA.Contracts;
 using MedEquipCentral.DA.Contracts.Model;
 using MedEquipCentral.DA.Contracts.Shared;
+using RabbitMQPublisher;
+using RabbitMQConsumer;
+using System.Diagnostics;
+using RabbitMQ.Client.Events;
+using RabbitMQ.Client;
+using System.Text;
+using System.Threading.Channels;
 
 namespace MedEquipCentral.BL.Service
 {
@@ -11,6 +18,9 @@ namespace MedEquipCentral.BL.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+
+        static IConnection conn;
+        static IModel channel;
 
         public EquipmentService(IUnitOfWork unitOfWork, IMapper mapper)
         {
@@ -106,5 +116,67 @@ namespace MedEquipCentral.BL.Service
 
             return _mapper.Map<List<EquipmentDto>>(result);
         }
+
+        public async Task<bool> StartDelivery()
+        {
+            try
+            {
+                var appPath = AppContext.BaseDirectory;
+                Process.Start("RabbitMQPublisher.exe");
+
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public List<(double Latitude, double Longitude)> GetMessage()
+        {
+            ConnectionFactory factory = new ConnectionFactory
+            {
+                HostName = "localhost",
+                VirtualHost = "/",
+                Port = 5672,
+                UserName = "guest",
+                Password = "guest"
+            };
+
+            List<(double Latitude, double Longitude)> coordinates = new List<(double, double)>();
+            using (var conn = factory.CreateConnection())
+            using (var channel = conn.CreateModel())
+            {
+                var consumer = new EventingBasicConsumer(channel);
+
+                consumer.Received += (sender, e) =>
+                {
+                    string message = Encoding.UTF8.GetString(e.Body.ToArray());
+                    var parts = message.Split("/");
+
+                    if (parts.Length == 2 && double.TryParse(parts[0], out double latitude) && double.TryParse(parts[1], out double longitude))
+                    {
+                        coordinates.Add((latitude, longitude));
+                        Console.WriteLine($"Received message: {message}");
+                        Console.WriteLine($"Received: {latitude}{longitude}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Invalid message format: {message}");
+                    }
+
+                    channel.BasicAck(e.DeliveryTag, false);
+                };
+
+                var consumerTag = channel.BasicConsume("my.queue1", false, consumer);
+
+                // Wait for a certain period (adjust timeout as needed)
+                Task.Delay(15000).Wait();
+            }
+
+            return coordinates;
+        }
+
     }
 }

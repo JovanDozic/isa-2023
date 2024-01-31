@@ -1,18 +1,21 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
 namespace RabbitMQConsumer
 {
-    class Program
+    public class Program
     {
-        static IConnection conn;
-        static IModel channel;
 
-        static void Main(string[] args)
+            static IConnection conn;
+            static IModel channel;
+        public static void Main()
         {
             ConnectionFactory factory = new ConnectionFactory();
-            // "guest"/"guest" by default, limited to localhost connections
             factory.HostName = "localhost";
             factory.VirtualHost = "/";
             factory.Port = 5672;
@@ -37,7 +40,7 @@ namespace RabbitMQConsumer
             string message = Encoding.UTF8.GetString(e.Body.ToArray());
             Console.WriteLine("Message:" + message);
 
-            channel.BasicNack(e.DeliveryTag, false, false);
+            channel.BasicAck(e.DeliveryTag, false);
         }
     }
 }
